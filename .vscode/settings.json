@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Unity-Aqua-Quest.sln"
+    "dotnet.defaultSolution": "Aqua Quest.sln"
 }
