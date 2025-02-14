@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      water-removebg-preview_0: -6860487137229460656
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
