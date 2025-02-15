@@ -2373,13 +2373,29 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -7.988
       objectReference: {fileID: 0}
+    - target: {fileID: 1140409116659674592, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140409116659674592, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140409116659674592, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: dcf53822912af434db3861ec6bc6f279, type: 3}
+    - target: {fileID: 1140409116659674592, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1188336549281051312, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
       propertyPath: m_Name
       value: UploadPanel
       objectReference: {fileID: 0}
     - target: {fileID: 1188336549281051312, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2747145437574890811, guid: ee7d5e92abe321e4694e8a47372197fa, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3028,7 +3044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001608575153760533, guid: cf545235457a98f49871f6ba1951a987, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8508569699609656189, guid: cf545235457a98f49871f6ba1951a987, type: 3}
       propertyPath: m_SizeDelta.y
