@@ -1790,10 +1790,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 535132702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.66443354}
-  m_AnchorMax: {x: 0, y: 0.66443354}
-  m_AnchoredPosition: {x: 167.84998, y: -3}
-  m_SizeDelta: {x: 298.7, y: 255.26898}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -633.15, y: 145}
+  m_SizeDelta: {x: 298.69995, y: 255.26898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &587301233
 MonoBehaviour:
@@ -3156,10 +3156,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 535132702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.24900001}
-  m_AnchorMax: {x: 0, y: 0.24900001}
-  m_AnchoredPosition: {x: 167.9231, y: 3}
-  m_SizeDelta: {x: 298.846, y: 349.834}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -633.0769, y: -223}
+  m_SizeDelta: {x: 298.84595, y: 349.83398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079600567
 MonoBehaviour:
@@ -4390,10 +4390,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 535132702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.6277753}
-  m_AnchorMax: {x: 1, y: 0.6277753}
-  m_AnchoredPosition: {x: -144.69507, y: -8.110138}
-  m_SizeDelta: {x: 264.999, y: 310.212}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 656.30493, y: 106.88986}
+  m_SizeDelta: {x: 264.99902, y: 310.212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628989439
 MonoBehaviour:
@@ -4914,10 +4914,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 535132702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.30122155}
-  m_AnchorMax: {x: 1, y: 0.30122155}
-  m_AnchoredPosition: {x: -144.70001, y: -9}
-  m_SizeDelta: {x: 249.48999, y: 213.214}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 656.3, y: -188}
+  m_SizeDelta: {x: 249.48999, y: 213.21399}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1738384893
 MonoBehaviour:
@@ -6035,6 +6035,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 535132702}
     m_Modifications:
+    - target: {fileID: 2499064184669241133, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 115.887
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499064184669241133, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 409.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499064184669241133, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -67.789
+      objectReference: {fileID: 0}
+    - target: {fileID: 2499064184669241133, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.814
+      objectReference: {fileID: 0}
     - target: {fileID: 2854006310620515508, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6118,6 +6134,22 @@ PrefabInstance:
     - target: {fileID: 3107193933518079513, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
       propertyPath: m_Name
       value: currency
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111286087138825466, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 52.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111286087138825466, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 52.703
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111286087138825466, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -181.741
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111286087138825466, guid: a68e34083b3a2734aa843bf80cba75d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 23.636
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
