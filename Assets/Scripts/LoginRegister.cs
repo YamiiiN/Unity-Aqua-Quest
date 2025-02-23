@@ -1,203 +1,586 @@
-// using System.Collections;
-// using UnityEngine;
-// using UnityEngine.Networking;
-// using UnityEngine.UI;
+    // using System.Collections;
+    // using UnityEngine;
+    // using UnityEngine.Networking;
+    // using UnityEngine.UI;
+    // using TMPro;
 
-// public class APIManager : MonoBehaviour
-// {
-//     // Base URL of your backend API
-//     private string baseUrl = "http://localhost:5000/api";
+    // public class LoginRegister : MonoBehaviour
+    // {
+    //     private string baseUrl = "http://localhost:5000/api";
 
-//     // Reference to your input fields in the Unity Inspector
-//     public InputField FirstNameInput;
-//     public InputField LastNameInput;
-//     public InputField AddressInput;
-//     public InputField EmailInput;
-//     public InputField PasswordInput;
+    //     public TMP_InputField FirstNameInput;
+    //     public TMP_InputField LastNameInput;
+    //     public TMP_InputField AddressInput;
+    //     public TMP_InputField EmailInput;
+    //     public TMP_InputField PasswordInput;
+    //     public TMP_Text NotificationText;
 
-//     // Public method to call on button click for registration
-//     public void OnRegisterButtonClick()
-//     {
-//         StartCoroutine(RegisterUser());
-//     }
+    //     public GameObject HomePanel;
+    //     public GameObject LoginPanel;
 
-//     // Public method to call on button click for login
-//     public void OnLoginButtonClick()
-//     {
-//         StartCoroutine(LoginUser());
-//     }
+    //     public void OnRegisterButtonClick()
+    //     {
+    //         StartCoroutine(RegisterUser());
+    //     }
 
-//     IEnumerator RegisterUser()
-//     {
-//         // Get the values from the input fields
-//         string firstName = FirstNameInput.text;
-//         string lastName = LastNameInput.text;
-//         string address = AddressInput.text;
-//         string email = EmailInput.text;
-//         string password = PasswordInput.text;
+    //     public void OnLoginButtonClick()
+    //     {       
+    //         StartCoroutine(LoginUser());
+    //     }
 
-//         // Create a form to send data
-//         WWWForm form = new WWWForm();
-//         form.AddField("first_name", firstName);
-//         form.AddField("last_name", lastName);
-//         form.AddField("address", address);
-//         form.AddField("email", email);
-//         form.AddField("password", password);
+    //     public void OnLogoutButtonClick()
+    //     {
+    //         LogoutUser();
+    //     }
 
-//         // Create a POST request to the register endpoint
-//         using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/register", form))
-//         {
-//             // Send the request and wait for a response
-//             yield return request.SendWebRequest();
+    //     public class RegisterData
+    //     {
+    //         public string first_name;
+    //         public string last_name;
+    //         public string address;
+    //         public string email;
+    //         public string password;
+    //     }
 
-//             // Check for errors
-//             if (request.result == UnityWebRequest.Result.Success)
-//             {
-//                 Debug.Log("User registered successfully!");
-//                 Debug.Log("Response: " + request.downloadHandler.text);
-//             }
-//             else
-//             {
-//                 Debug.LogError("Error: " + request.error);
-//                 Debug.LogError("Response: " + request.downloadHandler.text);
-//             }
-//         }
-//     }
+    //     public class LoginData
+    //     {
+    //         public string email;
+    //         public string password;
+    //     }
+
+    //     IEnumerator RegisterUser()
+    //     {
+    //         if (FirstNameInput == null || LastNameInput == null || AddressInput == null || EmailInput == null || PasswordInput == null)
+    //         {
+    //             Debug.LogError("One or more InputFields are null! Assign them in the Inspector.");
+    //             yield break;
+    //         }
+
+    //         string firstName = FirstNameInput.text;
+    //         string lastName = LastNameInput.text;
+    //         string address = AddressInput.text;
+    //         string email = EmailInput.text;
+    //         string password = PasswordInput.text;
+
+    //         RegisterData registerData = new RegisterData()
+    //         {
+    //             first_name = firstName,
+    //             last_name = lastName,
+    //             address = address,
+    //             email = email,
+    //             password = password
+    //         };
+
+    //         string jsonData = JsonUtility.ToJson(registerData);
+    //         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+    //         using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/register", "POST"))
+    //         {
+    //             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //             request.downloadHandler = new DownloadHandlerBuffer();
+    //             request.SetRequestHeader("Content-Type", "application/json");
+
+    //             yield return request.SendWebRequest();
+
+    //             if (request.result == UnityWebRequest.Result.Success)
+    //             {
+    //                 Debug.Log("Registration Successful!");
+    //                 ShowNotification("Account successfully created!");
+
+    //                 ClearInputFields();
+    //             }
+    //             else
+    //             {
+    //                 Debug.LogError("Registration Error: " + request.error);
+    //             }
+    //         }
+    //     }
+
+    //     // WORKING
+    //     // IEnumerator LoginUser()
+    //     // {
+    //     //     if (EmailInput == null || PasswordInput == null)
+    //     //     {
+    //     //         Debug.LogError("EmailInput or PasswordInput is not assigned in the Inspector!");
+    //     //         yield break;
+    //     //     }
+
+    //     //     string email = EmailInput.text;
+    //     //     string password = PasswordInput.text;
+
+    //     //     if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+    //     //     {
+    //     //         Debug.LogError("Email or password is empty.");
+    //     //         ShowNotification("Email and password are required.");
+    //     //         yield break;
+    //     //     }
+
+    //     //     LoginData loginData = new LoginData()
+    //     //     {
+    //     //         email = email,
+    //     //         password = password
+    //     //     };
+
+    //     //     string jsonData = JsonUtility.ToJson(loginData);
+    //     //     byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+    //     //     using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/login", "POST"))
+    //     //     {
+    //     //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //     //         request.downloadHandler = new DownloadHandlerBuffer();
+    //     //         request.SetRequestHeader("Content-Type", "application/json");
+
+    //     //         Debug.Log("Sending login request...");
+
+    //     //         yield return request.SendWebRequest();
+
+    //     //         Debug.Log("Request completed!");
+
+    //     //         if (request.result == UnityWebRequest.Result.Success)
+    //     //         {
+    //     //             Debug.Log("Login Successful: " + request.downloadHandler.text);
+    //     //             ShowNotification("Login successful!");
+
+    //     //             LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+    //     //             PlayerPrefs.SetString("AuthToken", response.token);
+    //     //             PlayerPrefs.Save(); // Save token permanently
+
+    //     //             Debug.Log("Token saved: " + response.token);
+
+    //     //             HomePanel.SetActive(true);
+    //     //             LoginPanel.SetActive(false);
+
+    //     //             EmailInput.text = "";
+    //     //             PasswordInput.text = "";
+    //     //         }
+    //     //         else
+    //     //         {
+    //     //             Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
+    //     //             ShowNotification($"Error: {request.error}");
+    //     //         }
+    //     //     }
+    //     // }
 
 
 
-//     // Public method to call on button click
-//     public void OnLoginButtonClick()
-//     {
-//         StartCoroutine(GetDataFromAPI());
-//     }
 
-//     IEnumerator GetDataFromAPI()
-//     {
-//         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
-//         {
-//             yield return request.SendWebRequest();
+    //     IEnumerator LoginUser()
+    //     {
+    //         if (EmailInput == null || PasswordInput == null)
+    //         {
+    //             Debug.LogError("EmailInput or PasswordInput is not assigned in the Inspector!");
+    //             yield break;
+    //         }
 
-//             if (request.result == UnityWebRequest.Result.Success)
-//             {
-//                 Debug.Log("Response: " + request.downloadHandler.text);
-//             }
-//             else
-//             {
-//                 Debug.LogError("Error: " + request.error);
-//             }
-//         }
-//     }
+    //         string email = EmailInput.text;
+    //         string password = PasswordInput.text;
 
-   
-// }
+    //         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+    //         {
+    //             Debug.LogError("Email or password is empty.");
+    //             ShowNotification("Email and password are required.");
+    //             yield break;
+    //         }
+
+    //         LoginData loginData = new LoginData()
+    //         {
+    //             email = email,
+    //             password = password
+    //         };
+
+    //         string jsonData = JsonUtility.ToJson(loginData);
+    //         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+    //         using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/login", "POST"))
+    //         {
+    //             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //             request.downloadHandler = new DownloadHandlerBuffer();
+    //             request.SetRequestHeader("Content-Type", "application/json");
+
+    //             Debug.Log("Sending login request...");
+
+    //             yield return request.SendWebRequest();
+
+    //             Debug.Log("Request completed!");
+
+    //             if (request.result == UnityWebRequest.Result.Success)
+    //             {
+    //                 Debug.Log("Login Successful: " + request.downloadHandler.text);
+    //                 ShowNotification("Login successful!");
+
+    //                 LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                    
+    //                 // Save token to PlayerPrefs for ImageUploader to access
+    //                 PlayerPrefs.SetString("jwtToken", response.token);
+    //                 PlayerPrefs.Save(); 
+
+    //                 Debug.Log("Token saved: " + response.token);
+
+    //                 HomePanel.SetActive(true);
+    //                 LoginPanel.SetActive(false);
+
+    //                 EmailInput.text = "";
+    //                 PasswordInput.text = "";
+    //             }
+    //             else
+    //             {
+    //                 Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
+    //                 ShowNotification($"Error: {request.error}");
+    //             }
+    //         }
+    //     }
+
+    //     public class LoginResponse
+    //     {
+    //         public string token;
+    //     }
+
+    //     void ShowNotification(string message)
+    //     {
+    //         NotificationText.text = message;
+    //         NotificationText.gameObject.SetActive(true);
+    //         StartCoroutine(HideNotification());
+    //     }
+
+    //     IEnumerator HideNotification()
+    //     {
+    //         yield return new WaitForSeconds(3f);
+    //         NotificationText.gameObject.SetActive(false);
+    //     }
+
+    //     public void LogoutUser()
+    //     {
+    //         PlayerPrefs.DeleteKey("AuthToken");
+    //         PlayerPrefs.Save();
+    //         Debug.Log("User logged out. Token removed.");
 
 
+    //         string checkToken = PlayerPrefs.GetString("AuthToken", "");
+    //         if (string.IsNullOrEmpty(checkToken))
+    //         {
+    //             Debug.Log("Token successfully cleared.");
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("Token still exists after logout!");
+    //         }
+
+    //         // Switch back to LoginPanel
+    //         HomePanel.SetActive(false);
+    //         LoginPanel.SetActive(true);
+
+    //         ShowNotification("You have been logged out.");
+    //     }
+
+    //     void ClearInputFields()
+    //     {
+    //         FirstNameInput.text = "";
+    //         LastNameInput.text = "";
+    //         AddressInput.text = "";
+    //         EmailInput.text = "";
+    //         PasswordInput.text = "";
+
+    //     }
+    // }
+
+
+
+
+// OG CODE WAG BURAHIN 
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoginRegister : MonoBehaviour
 {
-    // Base URL of your backend API
     private string baseUrl = "http://localhost:5000/api";
 
-    // Reference to your input fields in the Unity Inspector
-    public InputField FirstNameInput;
-    public InputField LastNameInput;
-    public InputField AddressInput;
-    public InputField EmailInput;
-    public InputField PasswordInput;
+    public TMP_InputField FirstNameInput;
+    public TMP_InputField LastNameInput;
+    public TMP_InputField AddressInput;
+    public TMP_InputField EmailInput;
+    public TMP_InputField PasswordInput;
+    public TMP_Text NotificationText;
 
-    //  private InputField FirstNameInput;
-    // private InputField LastNameInput;
-    // private InputField AddressInput;
-    // private InputField EmailInput;
-    // private InputField PasswordInput;
+    public GameObject HomePanel;
+    public GameObject LoginPanel;
 
-    // void Start()
-    // {
-    //     // Find InputFields by name
-    //     FirstNameInput = GameObject.Find("FirstNameInput").GetComponent<InputField>();
-    //     LastNameInput = GameObject.Find("LastNameInput").GetComponent<InputField>();
-    //     AddressInput = GameObject.Find("AddressInput").GetComponent<InputField>();
-    //     EmailInput = GameObject.Find("EmailInput").GetComponent<InputField>();
-    //     PasswordInput = GameObject.Find("PasswordInput").GetComponent<InputField>();
-
-    //     // Debug to check if InputFields are found
-    //     Debug.Log("FirstNameInput: " + FirstNameInput);
-    //     Debug.Log("LastNameInput: " + LastNameInput);
-    //     Debug.Log("AddressInput: " + AddressInput);
-    //     Debug.Log("EmailInput: " + EmailInput);
-    //     Debug.Log("PasswordInput: " + PasswordInput);
-    // }
-   
-
-    // Public method to call on button click for registration
     public void OnRegisterButtonClick()
     {
         StartCoroutine(RegisterUser());
     }
 
-    // Public method to call on button click for login
     public void OnLoginButtonClick()
+    {       
+        StartCoroutine(LoginUser());
+    }
+
+    public void OnLogoutButtonClick()
     {
-        StartCoroutine(GetDataFromAPI());
+        LogoutUser();
     }
 
     IEnumerator RegisterUser()
     {
-        // Get the values from the input fields
-        string firstName = FirstNameInput.text;
-        string lastName = LastNameInput.text;
-        string address = AddressInput.text;
-        string email = EmailInput.text;
-        string password = PasswordInput.text;
-
-        // Create a form to send data
-        WWWForm form = new WWWForm();
-        form.AddField("first_name", firstName);
-        form.AddField("last_name", lastName);
-        form.AddField("address", address);
-        form.AddField("email", email);
-        form.AddField("password", password);
-
-        // Create a POST request to the register endpoint
-        using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/register", form))
+        if (FirstNameInput == null || LastNameInput == null || AddressInput == null || EmailInput == null || PasswordInput == null)
         {
-            // Send the request and wait for a response
+            Debug.LogError("One or more InputFields are null! Assign them in the Inspector.");
+            yield break;
+        }
+
+        string jsonData = JsonUtility.ToJson(new RegisterData()
+        {
+            first_name = FirstNameInput.text,
+            last_name = LastNameInput.text,
+            address = AddressInput.text,
+            email = EmailInput.text,
+            password = PasswordInput.text
+        });
+
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+        using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/register", "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
             yield return request.SendWebRequest();
 
-            // Check for errors
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("User registered successfully!");
-                Debug.Log("Response: " + request.downloadHandler.text);
+                Debug.Log("Registration Successful!");
+                ShowNotification("Account successfully created!");
+                ClearInputFields();
             }
             else
             {
-                Debug.LogError("Error: " + request.error);
-                Debug.LogError("Response: " + request.downloadHandler.text);
+                Debug.LogError("Registration Error: " + request.error);
             }
         }
     }
 
-    IEnumerator GetDataFromAPI()
+    // OG CODE
+    // IEnumerator LoginUser()
+    // {
+    //     if (EmailInput == null || PasswordInput == null)
+    //     {
+    //         Debug.LogError("EmailInput or PasswordInput is not assigned in the Inspector!");
+    //         yield break;
+    //     }
+
+    //     if (string.IsNullOrEmpty(EmailInput.text) || string.IsNullOrEmpty(PasswordInput.text))
+    //     {
+    //         Debug.LogError("Email or password is empty.");
+    //         ShowNotification("Email and password are required.");
+    //         yield break;
+    //     }
+
+    //     string jsonData = JsonUtility.ToJson(new LoginData()
+    //     {
+    //         email = EmailInput.text,
+    //         password = PasswordInput.text
+    //     });
+
+    //     byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+    //     using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/login", "POST"))
+    //     {
+    //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //         request.downloadHandler = new DownloadHandlerBuffer();
+    //         request.SetRequestHeader("Content-Type", "application/json");
+
+    //         Debug.Log("Sending login request...");
+
+    //         yield return request.SendWebRequest();
+
+    //         Debug.Log("Request completed!");
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             Debug.Log("Login Successful: " + request.downloadHandler.text);
+    //             ShowNotification("Login successful!");
+
+    //             LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                
+    //             PlayerPrefs.SetString("jwtToken", response.token); // Store token for ImageUploader
+    //             PlayerPrefs.Save(); 
+
+    //             Debug.Log("Token saved: " + response.token);
+
+    //             HomePanel.SetActive(true);
+    //             LoginPanel.SetActive(false);
+    //             EmailInput.text = "";
+    //             PasswordInput.text = "";
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
+    //             ShowNotification($"Error: {request.error}");
+    //         }
+    //     }
+    // }
+
+    IEnumerator LoginUser()
     {
-        // Use the baseUrl for the login endpoint
-        using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/login"))
+        if (EmailInput == null || PasswordInput == null)
         {
+            Debug.LogError("EmailInput or PasswordInput is not assigned in the Inspector!");
+            yield break;
+        }
+
+        if (string.IsNullOrEmpty(EmailInput.text) || string.IsNullOrEmpty(PasswordInput.text))
+        {
+            Debug.LogError("Email or password is empty.");
+            ShowNotification("Email and password are required.");
+            yield break;
+        }
+
+        string jsonData = JsonUtility.ToJson(new LoginData()
+        {
+            email = EmailInput.text,
+            password = PasswordInput.text
+        });
+
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+
+        using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/login", "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            Debug.Log("Sending login request...");
+
             yield return request.SendWebRequest();
+
+            Debug.Log("Request completed!");
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Response: " + request.downloadHandler.text);
+                Debug.Log("Login Successful: " + request.downloadHandler.text);
+                ShowNotification("Login successful!");
+
+                LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                
+                PlayerPrefs.SetString("jwtToken", response.token); // Store token for ImageUploader
+                PlayerPrefs.Save(); 
+
+                Debug.Log("Token saved: " + response.token);
+
+                HomePanel.SetActive(true);
+                LoginPanel.SetActive(false);
+                EmailInput.text = "";
+                PasswordInput.text = "";
+
+                // Correctly starting the coroutine for FetchBills
+                BillManager billManager = FindObjectOfType<BillManager>();
+                if (billManager != null)
+                {
+                    StartCoroutine(billManager.FetchBills());  // Start the coroutine properly
+                }
             }
             else
             {
-                Debug.LogError("Error: " + request.error);
+                Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
+                ShowNotification($"Error: {request.error}");
             }
         }
+    }
+
+    // OG CODE
+    // public void LogoutUser()
+    // {
+    //     PlayerPrefs.DeleteKey("jwtToken");
+    //     PlayerPrefs.Save();
+    //     Debug.Log("User logged out. Token removed.");
+
+    //     if (string.IsNullOrEmpty(PlayerPrefs.GetString("jwtToken", "")))
+    //     {
+    //         Debug.Log("Token successfully cleared.");
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Token still exists after logout!");
+    //     }
+
+    //     HomePanel.SetActive(false);
+    //     LoginPanel.SetActive(true);
+    //     ShowNotification("You have been logged out.");
+    // }
+
+
+    public void LogoutUser()
+    {
+        PlayerPrefs.DeleteKey("jwtToken");
+        PlayerPrefs.Save();
+        Debug.Log("User logged out. Token removed.");
+
+        // Clear the bills data by calling the BillManager's ClearBills method
+        BillManager billManager = FindObjectOfType<BillManager>();
+        if (billManager != null)
+        {
+            billManager.ClearBills(); // This will clear the previous bills when logging out
+        }
+
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("jwtToken", "")))
+        {
+            Debug.Log("Token successfully cleared.");
+        }
+        else
+        {
+            Debug.LogError("Token still exists after logout!");
+        }
+
+        HomePanel.SetActive(false);
+        LoginPanel.SetActive(true);
+        ShowNotification("You have been logged out.");
+    }
+
+    void ShowNotification(string message)
+    {
+        NotificationText.text = message;
+        NotificationText.gameObject.SetActive(true);
+        StartCoroutine(HideNotification());
+    }
+
+    IEnumerator HideNotification()
+    {
+        yield return new WaitForSeconds(3f);
+        NotificationText.gameObject.SetActive(false);
+    }
+
+    void ClearInputFields()
+    {
+        FirstNameInput.text = "";
+        LastNameInput.text = "";
+        AddressInput.text = "";
+        EmailInput.text = "";
+        PasswordInput.text = "";
+    }
+
+    [System.Serializable]
+    public class RegisterData
+    {
+        public string first_name;
+        public string last_name;
+        public string address;
+        public string email;
+        public string password;
+    }
+
+    [System.Serializable]
+    public class LoginData
+    {
+        public string email;
+        public string password;
+    }
+
+    [System.Serializable]
+    public class LoginResponse
+    {
+        public string token;
     }
 }
