@@ -296,6 +296,7 @@ using TMPro;
 public class LoginRegister : MonoBehaviour
 {
     private string baseUrl = "http://localhost:5000/api";
+    private string PythonbaseUrl = "http://localhost:5001/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;

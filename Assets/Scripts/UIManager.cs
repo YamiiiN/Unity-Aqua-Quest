@@ -176,7 +176,7 @@ public class UIManager : MonoBehaviour
     public GameObject UploadPanel;
     public GameObject AnalyticsPanel1;
     public GameObject ProfilePanel;
-
+    // public GameObject MalupetPanel;
     private GameObject currentPanel;
     private bool hasRedirectedToLogin = false; // Track if redirection has occurred
 
@@ -262,5 +262,11 @@ public class UIManager : MonoBehaviour
     public void OnUserLoggedIn()
     {
         hasRedirectedToLogin = false; // Reset flag so redirection can happen again if needed
+    }
+    
+
+    public void HideAnalytics(GameObject Panelskie)
+    {
+        Panelskie.SetActive(false);
     }
 }
