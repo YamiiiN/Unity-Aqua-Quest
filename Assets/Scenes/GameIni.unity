@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 954905892}
   - component: {fileID: 954905891}
   - component: {fileID: 954905890}
+  - component: {fileID: 954905893}
   m_Layer: 5
   m_Name: Button (Legacy) (4)
   m_TagString: Untagged
@@ -933,7 +934,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 954905891}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 954905893}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: SceneChangerKo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954905891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,6 +985,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954905888}
   m_CullTransparentMesh: 1
+--- !u!114 &954905893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954905888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6dbd6bf3f86f6747ab6522bb54bc0b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scento: LevelSelect
 --- !u!1001 &1067662967
 PrefabInstance:
   m_ObjectHideFlags: 0

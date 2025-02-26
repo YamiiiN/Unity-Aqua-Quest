@@ -1,0 +1,780 @@
+fileFormatVersion: 2
+guid: 032314a038b083048aa0645ee75214b2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8885440262343818228
+    second: KanalKalaban_0
+  - first:
+      213: -7243223064013900606
+    second: KanalKalaban_1
+  - first:
+      213: -3202511121788942390
+    second: KanalKalaban_2
+  - first:
+      213: -6816021523673709143
+    second: KanalKalaban_3
+  - first:
+      213: 8631854779905215222
+    second: KanalKalaban_4
+  - first:
+      213: -9007682577175974370
+    second: KanalKalaban_5
+  - first:
+      213: 878874202385375388
+    second: KanalKalaban_6
+  - first:
+      213: 5689063833373975715
+    second: KanalKalaban_7
+  - first:
+      213: -9174231179431130666
+    second: KanalKalaban_8
+  - first:
+      213: -7083519968087008606
+    second: KanalKalaban_9
+  - first:
+      213: -6644393032532130464
+    second: KanalKalaban_10
+  - first:
+      213: -6999774584553379395
+    second: KanalKalaban_11
+  - first:
+      213: 2022257935284379215
+    second: KanalKalaban_12
+  - first:
+      213: -111690848438190440
+    second: KanalKalaban_13
+  - first:
+      213: 7452971672912462448
+    second: KanalKalaban_14
+  - first:
+      213: -4543039931107929825
+    second: KanalKalaban_15
+  - first:
+      213: 3933725579940395347
+    second: KanalKalaban_16
+  - first:
+      213: 7973357071961940849
+    second: KanalKalaban_17
+  - first:
+      213: -906290259077140730
+    second: KanalKalaban_18
+  - first:
+      213: 8068606348141212894
+    second: KanalKalaban_19
+  - first:
+      213: 7686354393910696621
+    second: KanalKalaban_20
+  - first:
+      213: -4604058168357653367
+    second: KanalKalaban_21
+  - first:
+      213: 128051178979045499
+    second: KanalKalaban_22
+  - first:
+      213: -3987339361391860357
+    second: KanalKalaban_23
+  - first:
+      213: -2998967614142943827
+    second: KanalKalaban_24
+  - first:
+      213: -8319070595840240180
+    second: KanalKalaban_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: KanalKalaban_0
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1241
+        width: 953
+        height: 916
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fbf4fd67dc6f4b70800000000000000
+      internalID: 8885440262343818228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_1
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 611
+        width: 662
+        height: 586
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c4f880eff6ea7b90800000000000000
+      internalID: -7243223064013900606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_2
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 1142
+        width: 101
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac748843a156e83d0800000000000000
+      internalID: -3202511121788942390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_3
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 1131
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a5030c7980a861a0800000000000000
+      internalID: -6816021523673709143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_4
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 737
+        width: 317
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa020550328ac770800000000000000
+      internalID: 8631854779905215222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_5
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 1096
+        width: 11
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1e63f9bb684ef280800000000000000
+      internalID: -9007682577175974370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_6
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 1033
+        width: 12
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c906f6b3e63623c00800000000000000
+      internalID: 878874202385375388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_7
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 962
+        width: 26
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a427cc1a6d93fe40800000000000000
+      internalID: 5689063833373975715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_8
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 951
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d9c1b679559ea080800000000000000
+      internalID: -9174231179431130666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_9
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 957
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aa99ce7e1842bd90800000000000000
+      internalID: -7083519968087008606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_10
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 926
+        width: 46
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06587db8dbf5ac3a0800000000000000
+      internalID: -6644393032532130464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_11
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 488
+        width: 438
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db963eb0a1ecbde90800000000000000
+      internalID: -6999774584553379395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_12
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 843
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e17d4b0e0801c10800000000000000
+      internalID: 2022257935284379215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_13
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 829
+        width: 35
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89efd2ed3c1337ef0800000000000000
+      internalID: -111690848438190440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_14
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 808
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0720ffcbf364e6760800000000000000
+      internalID: 7452971672912462448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_15
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 819
+        width: 6
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1195e1b041e3f0c0800000000000000
+      internalID: -4543039931107929825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_16
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 789
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 359f63cb296679630800000000000000
+      internalID: 3933725579940395347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_17
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 772
+        width: 6
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 173e3a5230e07ae60800000000000000
+      internalID: 7973357071961940849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_18
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 733
+        width: 6
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f6f44afc53c63f0800000000000000
+      internalID: -906290259077140730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_19
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 720
+        width: 31
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed43b6d69b279ff60800000000000000
+      internalID: 8068606348141212894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_20
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 704
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa5fc2e89a6baa60800000000000000
+      internalID: 7686354393910696621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_21
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 595
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9847ecd3d791b10c0800000000000000
+      internalID: -4604058168357653367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_22
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 576
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b70bd1c6edde6c100800000000000000
+      internalID: 128051178979045499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_23
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 242
+        width: 380
+        height: 440
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b752e450aff1aa8c0800000000000000
+      internalID: -3987339361391860357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_24
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 534
+        width: 9
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dadeb1a18d68166d0800000000000000
+      internalID: -2998967614142943827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KanalKalaban_25
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 62
+        width: 435
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc59b819e59bc8c80800000000000000
+      internalID: -8319070595840240180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

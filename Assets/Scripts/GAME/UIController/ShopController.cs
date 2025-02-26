@@ -5,7 +5,7 @@ public class ShopController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     public GameObject RelicPanel;
-    public GameObject PotionPanel;
+    public GameObject PotionPanel, InfoPanel;
 
     public GameObject[] Relics;
     public GameObject AssignedRelic;
@@ -22,6 +22,7 @@ public class ShopController : MonoBehaviour
                 relic.SetActive(false);
             }
         }
+        PotionPanel.SetActive(false);
     }
 
 
@@ -29,6 +30,7 @@ public class ShopController : MonoBehaviour
     public void OnPotionButton()
     {
         PotionPanel.SetActive(true);
+        InfoPanel.SetActive(false);
         foreach(GameObject relic in Relics)
         {
             
@@ -40,6 +42,8 @@ public class ShopController : MonoBehaviour
     public void OnRelicButton()
     {
         RelicPanel.SetActive(true);
+        PotionPanel.SetActive(false);
+        InfoPanel.SetActive(false);
     }
 
     public void OffPotionButton()

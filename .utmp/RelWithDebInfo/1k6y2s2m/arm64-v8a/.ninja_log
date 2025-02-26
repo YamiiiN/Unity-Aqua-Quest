@@ -1,0 +1,12 @@
+# ninja log v5
+61	673	7621846525134198	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	61d10157a5ecae6f
+676	1203	7621846529129083	C:/Users/Eliseo/Desktop/Aqua/Unity-Aqua-Quest/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1k6y2s2m/obj/arm64-v8a/libswappywrapper.so	7de0484abe96e672
+20	2752	7621846546169675	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	65c274a1342aced1
+14	2788	7621846546510788	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	82adba32379f3b5c
+42	2860	7621846547129852	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	bc029f6745259cb5
+33	2932	7621846547976460	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	6a9deb9002bd3a4f
+49	2982	7621846548295970	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	eade660fea5b8532
+7	3105	7621846549724956	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	2e58b62b98dc2ec3
+27	3286	7621846551526103	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	992abf6dcf859f74
+0	3433	7621846553039352	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	c51ede7b294e2197
+3433	3555	7621846554301307	C:/Users/Eliseo/Desktop/Aqua/Unity-Aqua-Quest/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1k6y2s2m/obj/arm64-v8a/libgame.so	4bf2401c2a2fccb4

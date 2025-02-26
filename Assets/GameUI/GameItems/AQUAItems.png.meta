@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6313732318024198737
+    second: AQUAItems_0
+  - first:
+      213: 64853810902272658
+    second: AQUAItems_1
+  - first:
+      213: -9200622430800479188
+    second: AQUAItems_2
+  - first:
+      213: 5090172220875311001
+    second: AQUAItems_3
+  - first:
+      213: -5181676846401248682
+    second: AQUAItems_4
+  - first:
+      213: 3088588781645557933
+    second: AQUAItems_5
+  - first:
+      213: 2063448361697206372
+    second: AQUAItems_6
+  - first:
+      213: 2359704648190179769
+    second: AQUAItems_7
+  - first:
+      213: -5827370628568212404
+    second: AQUAItems_8
+  - first:
+      213: -8395426203049973117
+    second: AQUAItems_9
+  - first:
+      213: -5200811431962688803
+    second: AQUAItems_10
+  - first:
+      213: -625300154013950893
+    second: AQUAItems_11
+  - first:
+      213: -6131116935533179465
+    second: AQUAItems_12
+  - first:
+      213: -8107786401227207737
+    second: AQUAItems_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AQUAItems_0
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1889
+        width: 159
+        height: 311
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa5934988ed1168a0800000000000000
+      internalID: -6313732318024198737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_1
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 1862
+        width: 370
+        height: 383
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a0929823866e000800000000000000
+      internalID: 64853810902272658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_2
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 1877
+        width: 353
+        height: 351
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c75ab65a2d05080800000000000000
+      internalID: -9200622430800479188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_3
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1492
+        width: 269
+        height: 331
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99785de7aace3a640800000000000000
+      internalID: 5090172220875311001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_4
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 1522
+        width: 238
+        height: 340
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6522365ac5cf618b0800000000000000
+      internalID: -5181676846401248682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_5
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 1485
+        width: 314
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da07d33022fdcda20800000000000000
+      internalID: 3088588781645557933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_6
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 1153
+        width: 274
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 460e2533a57d2ac10800000000000000
+      internalID: 2063448361697206372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_7
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 1088
+        width: 287
+        height: 334
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b9b63210ea5fb020800000000000000
+      internalID: 2359704648190179769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_8
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 1069
+        width: 320
+        height: 335
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4c95adb945012fa0800000000000000
+      internalID: -5827370628568212404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_9
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 646
+        width: 357
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38a233569547d7b80800000000000000
+      internalID: -8395426203049973117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_10
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 0
+        width: 101
+        height: 237
+      alignment: 9
+      pivot: {x: 3.3901296, y: -1.5314368}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2c216ce8103d7b0800000000000000
+      internalID: -5200811431962688803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_11
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 717
+        width: 311
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35c500aa2dc7257f0800000000000000
+      internalID: -625300154013950893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_12
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 725
+        width: 313
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bdc92591a5e9eaa0800000000000000
+      internalID: -6131116935533179465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AQUAItems_13
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 353
+        width: 328
+        height: 231
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb0c18993b5b7f80800000000000000
+      internalID: -8107786401227207737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 30ceeca2f4b84d14cafb50fb1cea48c1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      AQUAItems_0: -6313732318024198737
+      AQUAItems_1: 64853810902272658
+      AQUAItems_10: -5200811431962688803
+      AQUAItems_11: -625300154013950893
+      AQUAItems_12: -6131116935533179465
+      AQUAItems_13: -8107786401227207737
+      AQUAItems_2: -9200622430800479188
+      AQUAItems_3: 5090172220875311001
+      AQUAItems_4: -5181676846401248682
+      AQUAItems_5: 3088588781645557933
+      AQUAItems_6: 2063448361697206372
+      AQUAItems_7: 2359704648190179769
+      AQUAItems_8: -5827370628568212404
+      AQUAItems_9: -8395426203049973117
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

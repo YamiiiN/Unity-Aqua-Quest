@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0cf1a7f1ad0a4bb16a60794df7207, type: 3}
+  m_Name: Espadang Pambutas ng Bubong
+  m_EditorClassIdentifier: 
+  ItemID: 2
+  Type: Relic
+  Name: Espadang Pambutas ng Bubong
+  Description: Kapag lagpas-tao na ang baha at kailangan mo nang mag-exit sa bubong,
+    ito ang ultimate tool mo!
+  Effect: Damage
+  UnitEffectInt: 300
+  UnitEffectFloat: 0
+  Icon: {fileID: -5827370628568212404, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}
