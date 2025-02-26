@@ -210,7 +210,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      calendar-icon-vector-22895109-removebg-preview_0: -9141315705116070653
+      calendar-icon-vector-22895109-removebg-preview_1: -4955812457712062325
+      calendar-icon-vector-22895109-removebg-preview_2: -947214399544274270
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
