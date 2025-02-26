@@ -185,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      details-icon-symbol-design-illustration-vector-removebg-preview_0: -8701805283521014447
+      details-icon-symbol-design-illustration-vector-removebg-preview_1: -59736890674159202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

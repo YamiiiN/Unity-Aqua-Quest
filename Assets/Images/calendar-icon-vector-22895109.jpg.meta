@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      calendar-icon-vector-22895109_0: -4017503165401457474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
