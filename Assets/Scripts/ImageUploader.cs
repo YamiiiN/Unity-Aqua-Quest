@@ -138,8 +138,11 @@ public class ImageUploader : MonoBehaviour
     public Button UploadButton;
     public string uploadURL = "http://localhost:5000/api/waterBill/upload";
 
-    // Reference to BillManager
+    public GameObject UploadPanel;
+    public GameObject AnalyticsPanel1;
+
     public BillManager billManager;
+    public Analytics analytics;
 
     void Start()
     {
@@ -157,7 +160,44 @@ public class ImageUploader : MonoBehaviour
         }
     }
 
-    IEnumerator UploadImage(string filePath)
+    // OG CODE (lastest na ginagamit ko )
+    // IEnumerator UploadImage(string filePath)
+    // {
+    //     string jwtToken = PlayerPrefs.GetString("jwtToken", "");
+    //     if (string.IsNullOrEmpty(jwtToken))
+    //     {
+    //         Debug.LogError("JWT token is missing. Please log in.");
+    //         yield break;
+    //     }
+
+    //     byte[] imageData = File.ReadAllBytes(filePath);
+    //     string fileName = Path.GetFileName(filePath);
+    //     WWWForm form = new WWWForm();
+    //     form.AddBinaryData("imageUrl", imageData, fileName, "image/png");
+
+    //     using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
+    //     {
+
+    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             Debug.Log("Upload successful: " + request.downloadHandler.text);
+                
+    //             StartCoroutine(billManager.FetchBills()); 
+                
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("Upload failed: " + request.error);
+    //         }
+    //     }
+    // }
+
+    // MAGDDUPLICATE KAPAG SAME DATEBILL (WORKING NA)
+   IEnumerator UploadImage(string filePath)
     {
         string jwtToken = PlayerPrefs.GetString("jwtToken", "");
         if (string.IsNullOrEmpty(jwtToken))
@@ -173,17 +213,37 @@ public class ImageUploader : MonoBehaviour
 
         using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
         {
-
             request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
 
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Upload successful: " + request.downloadHandler.text);
-                
-                StartCoroutine(billManager.FetchBills()); 
-                
+                string responseText = request.downloadHandler.text;
+                Debug.Log("Upload successful: " + responseText);
+
+                UploadPanel.SetActive(false);
+                AnalyticsPanel1.SetActive(true);
+
+                if (responseText.Contains("Duplicate bill detected"))
+                {
+                    Debug.LogWarning("Duplicate bill detected! " + responseText);
+                }
+                else
+                {
+                    StartCoroutine(billManager.FetchBills());
+                }
+
+                if (analytics != null)
+                {
+                    StartCoroutine(analytics.FetchLatestBill());
+                    StartCoroutine(analytics.FetchMonthlyConsumption());
+                    StartCoroutine(analytics.FetchMonthlyCost());
+                }
+                else
+                {
+                    Debug.LogError("Analytics script reference is missing.");
+                }
             }
             else
             {
@@ -191,6 +251,8 @@ public class ImageUploader : MonoBehaviour
             }
         }
     }
+
+
 }
 
 

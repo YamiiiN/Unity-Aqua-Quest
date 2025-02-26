@@ -10,8 +10,8 @@ public class BillManager : MonoBehaviour
 {
     private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
 
-    public GameObject billPrefab; // Prefab containing fileIdText, DateText, OutcomeText
-    public Transform billContainer; // Parent container to hold all bill items
+    public GameObject billPrefab; 
+    public Transform billContainer;
 
 
     void Start()
@@ -58,7 +58,7 @@ public class BillManager : MonoBehaviour
         if (string.IsNullOrEmpty(jwtToken))
         {
             Debug.LogError("JWT token is missing. Please log in.");
-            yield break;  // Use yield break to exit the coroutine
+            yield break; 
         }
 
         UnityWebRequest request = UnityWebRequest.Get(getAllBillsURL);
@@ -85,20 +85,19 @@ public class BillManager : MonoBehaviour
     {
         foreach (Transform child in billContainer)
         {
-            Destroy(child.gameObject); // Clear old bills before adding new ones
+            Destroy(child.gameObject); 
         }
 
-        float yOffset = 100f; // Adjust spacing between bill items
+        float yOffset = 100f; 
 
         for (int i = 0; i < bills.Count; i++)
         {
             JObject bill = (JObject)bills[i];
 
             GameObject billInstance = Instantiate(billPrefab, billContainer);
-            billInstance.transform.localPosition = new Vector3(0, -i * yOffset, 0); // Stack downward
+            billInstance.transform.localPosition = new Vector3(0, -i * yOffset, 0); 
 
             
-            // Find the TextMeshPro elements inside the instantiated prefab
             TMP_Text fileIdText = billInstance.transform.Find("FileIdText")?.GetComponent<TMP_Text>();
             TMP_Text dateText = billInstance.transform.Find("DateText")?.GetComponent<TMP_Text>();
             TMP_Text outcomeText = billInstance.transform.Find("OutcomeText")?.GetComponent<TMP_Text>();
@@ -113,7 +112,7 @@ public class BillManager : MonoBehaviour
     {
         foreach (Transform child in billContainer)
         {
-            Destroy(child.gameObject); // Clear all old bill items
+            Destroy(child.gameObject); 
         }
 
         Debug.Log("Bills have been cleared.");
