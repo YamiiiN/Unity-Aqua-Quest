@@ -5,18 +5,23 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 using Newtonsoft.Json.Linq;
+using UnityEngine.UI;
 
 public class BillManager : MonoBehaviour
 {
-    private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
+    private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
 
     public GameObject billPrefab; 
     public Transform billContainer;
 
-
+    public Button BillButton;
+    
     void Start()
     {
-        StartCoroutine(FetchBills());
+        BillButton.onClick.AddListener(() => {
+             StartCoroutine(FetchBills());
+        });
+       
     }
 
     // OF CODE

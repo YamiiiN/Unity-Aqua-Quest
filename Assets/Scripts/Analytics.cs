@@ -302,26 +302,35 @@ using TMPro;
 using Newtonsoft.Json.Linq;
 using XCharts;
 using XCharts.Runtime;
+using UnityEngine.UI;
+using System.Linq;
+using System.Globalization;
+
+
+
 
 public class Analytics : MonoBehaviour
 {
-    private string baseUrl = "http://localhost:5000/api"; 
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
     public TMP_Text DateText;
     public TMP_Text ConsumptionText;
     public TMP_Text CostText;
 
     public BarChart consumptionChart;
     public LineChart costChart;
-    
-    // New Charts for Predictions
     public BarChart predictedConsumptionChart;
     public LineChart predictedCostChart;
 
+    public Button AnalyticsButton;
+
     void Start()
     {
-        StartCoroutine(FetchLatestBill());
-        StartCoroutine(FetchMonthlyConsumption());
-        StartCoroutine(FetchMonthlyCost());
+        AnalyticsButton.onClick.AddListener(() => {
+            StartCoroutine(FetchLatestBill());
+            StartCoroutine(FetchMonthlyConsumption());
+            StartCoroutine(FetchMonthlyCost());
+        });
+        
     }
 
     private string GetJWTToken()
@@ -334,6 +343,112 @@ public class Analytics : MonoBehaviour
         return token;
     }
 
+    // // OG
+    // public IEnumerator FetchLatestBill()
+    // {
+    //     string jwtToken = GetJWTToken();
+    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
+
+    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/waterBill/latest"))
+    //     {
+    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             string jsonResponse = request.downloadHandler.text;
+    //             Debug.Log("Latest Bill Data: " + jsonResponse);
+
+    //             JObject latestBill = JObject.Parse(jsonResponse);
+    //             if (latestBill.ContainsKey("message") && latestBill["message"].ToString() == "No bills found")
+    //             {
+    //                 Debug.LogWarning("No bills found for this user.");
+    //             }
+    //             else
+    //             {
+    //                 DateText.text = latestBill["billDate"]?.ToString() ?? "N/A";
+    //                 ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
+    //                 CostText.text = "₱" + (latestBill["billAmount"]?.ToString() ?? "N/A");
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError($"Failed to fetch latest bill. HTTP Code: {request.responseCode}, Error: {request.error}");
+    //         }
+    //     }
+    // }
+    
+    // // OG
+    // public IEnumerator FetchMonthlyConsumption()
+    // {
+    //     string jwtToken = GetJWTToken();
+    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
+
+    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/monthly-consumption"))
+    //     {
+    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             string jsonResponse = request.downloadHandler.text;
+    //             Debug.Log("Monthly Consumption Data: " + jsonResponse);
+
+    //             JArray consumptionData = JArray.Parse(jsonResponse);
+    //             List<string> months = new List<string>();
+    //             List<float> consumptions = new List<float>();
+
+    //             foreach (JObject entry in consumptionData)
+    //             {
+    //                 months.Add(entry["_id"].ToString());
+    //                 consumptions.Add(float.Parse(entry["totalConsumption"].ToString()));
+    //             }
+
+    //             UpdateConsumptionChart(months, consumptions);
+    //             PredictNextMonth(months, consumptions, "consumption");
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError($"Failed to fetch monthly consumption. Error: {request.error}");
+    //         }
+    //     }
+    // }
+
+    // // OG
+    // public IEnumerator FetchMonthlyCost()
+    // {
+    //     string jwtToken = GetJWTToken();
+    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
+
+    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/monthly-cost"))
+    //     {
+    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             string jsonResponse = request.downloadHandler.text;
+    //             Debug.Log("Monthly Cost Data: " + jsonResponse);
+
+    //             JArray costData = JArray.Parse(jsonResponse);
+    //             List<string> months = new List<string>();
+    //             List<float> costs = new List<float>();
+
+    //             foreach (JObject entry in costData)
+    //             {
+    //                 months.Add(entry["_id"].ToString());
+    //                 costs.Add(float.Parse(entry["totalCost"].ToString()));
+    //             }
+
+    //             UpdateCostChart(months, costs);
+    //             PredictNextMonth(months, costs, "cost");
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError($"Failed to fetch monthly cost. Error: {request.error}");
+    //         }
+    //     }
+    // }
     public IEnumerator FetchLatestBill()
     {
         string jwtToken = GetJWTToken();
@@ -357,7 +472,7 @@ public class Analytics : MonoBehaviour
                 else
                 {
                     DateText.text = latestBill["billDate"]?.ToString() ?? "N/A";
-                    ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
+                    ConsumptionText.text = $"{latestBill["waterConsumption"]?.ToString()} m³" ?? "N/A";
                     CostText.text = "₱" + (latestBill["billAmount"]?.ToString() ?? "N/A");
                 }
             }

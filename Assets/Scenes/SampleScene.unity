@@ -6881,7 +6881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UploadButton: {fileID: 1509943111}
-  uploadURL: http://localhost:5000/api/waterBill/upload
+  uploadURL: https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload
   UploadPanel: {fileID: 463825751}
   AnalyticsPanel1: {fileID: 681988580}
   billManager: {fileID: 906950321}
@@ -15276,6 +15276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   billPrefab: {fileID: 2092280375}
   billContainer: {fileID: 414893417}
+  BillButton: {fileID: 1874505910}
 --- !u!1 &908114942
 GameObject:
   m_ObjectHideFlags: 0
@@ -26858,6 +26859,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639443357}
   m_CullTransparentMesh: 1
+--- !u!114 &1639682499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9188437539563407726, guid: cf545235457a98f49871f6ba1951a987, type: 3}
+  m_PrefabInstance: {fileID: 7763391445357618167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1641973838 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1666956265564656365, guid: 6f7889a14d007144688579f207f80345, type: 3}
@@ -30996,6 +31008,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873560816}
   m_CullTransparentMesh: 1
+--- !u!114 &1874505910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4644878172154353153, guid: cf545235457a98f49871f6ba1951a987, type: 3}
+  m_PrefabInstance: {fileID: 7763391445357618167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1877720551
 GameObject:
   m_ObjectHideFlags: 0
@@ -32772,6 +32795,7 @@ MonoBehaviour:
   costChart: {fileID: 234528430}
   predictedConsumptionChart: {fileID: 1003894945}
   predictedCostChart: {fileID: 563579739}
+  AnalyticsButton: {fileID: 1639682499}
 --- !u!114 &2006221410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32791,6 +32815,7 @@ MonoBehaviour:
   costChart: {fileID: 234528430}
   predictedConsumptionChart: {fileID: 1003894945}
   predictedCostChart: {fileID: 563579739}
+  AnalyticsButton: {fileID: 1639682499}
 --- !u!1 &2025767738
 GameObject:
   m_ObjectHideFlags: 0
