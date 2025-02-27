@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     public GameObject pauseMenuUI; // Assign your Pause Menu Panel in the Inspector
-    public Button resumeButton; // Assign Resume Button
+    public Button resumeButton, InvButton, MainMenuButton; // Assign Resume Button
     public Button menuButton; // Assign Menu Button
 
     private bool isPaused = false;
@@ -16,6 +16,8 @@ public class PauseManager : MonoBehaviour
 
         // Attach button listeners
         resumeButton.onClick.AddListener(ResumeGame);
+        InvButton.onClick.AddListener(ResumeGame);
+        Main.onClick.AddListener(ResumeGame);
         menuButton.onClick.AddListener(TogglePause);
     }
 
