@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI; // Use Unity's Button instead of Windows Forms
-
+using UnityEngine.SceneManagement;
 public class DisplayDescription : MonoBehaviour
 {
     public GameObject DescriptionPanel;
@@ -12,9 +12,9 @@ public class DisplayDescription : MonoBehaviour
     public LevelDetails Level;
     public GameObject NotifPanel, PowerInfo;
     public Button PlayButton; // Corrected to use UnityEngine.UI.Button
-
+    
     private string savePath;
-
+    public string SceneName;
     // Base stats if file does not exist
     private const int BASE_HEALTH = 200;
     private const int BASE_DAMAGE = 20;
@@ -54,6 +54,7 @@ public class DisplayDescription : MonoBehaviour
         else
         {
             NotifPanel.SetActive(false);
+            SceneManager.LoadScene(SceneName);
             Debug.Log("Player is eligible to play the level.");
             // Add logic to start the level if needed
         }

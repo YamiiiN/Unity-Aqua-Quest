@@ -21,8 +21,8 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelect.unity
     guid: 4526694fccd6bd24b9783f6371fc6bfb
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Level1.unity
+    guid: 979b97b96bb319d48a8fccce759ffe55
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: a10d547d766e0904184a4d47ce09d815, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c15410d8ab05d2542a369a079376e8eb, type: 2}
