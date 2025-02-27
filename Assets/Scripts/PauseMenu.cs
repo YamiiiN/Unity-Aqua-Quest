@@ -17,7 +17,7 @@ public class PauseManager : MonoBehaviour
         // Attach button listeners
         resumeButton.onClick.AddListener(ResumeGame);
         InvButton.onClick.AddListener(ResumeGame);
-        Main.onClick.AddListener(ResumeGame);
+        MainMenuButton.onClick.AddListener(ResumeGame);
         menuButton.onClick.AddListener(TogglePause);
     }
 
