@@ -65,6 +65,12 @@ public class GameListener : MonoBehaviour
                 DestroyAllEnemies();
                 SuccessUi.SetActive(true);
                 SuccessKillcount.text = current.ToString();
+
+                continueButton.onClick.AddListener(() =>
+                {
+                    current = 0;
+                    return;
+                });
                 
             }
             else
