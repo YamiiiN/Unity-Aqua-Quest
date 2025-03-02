@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CharacterAnimation : MonoBehaviour
 {
@@ -14,6 +15,28 @@ public class CharacterAnimation : MonoBehaviour
     private Vector2 minBounds;
     private Vector2 maxBounds;
     private bool isAttacking = false;
+
+    private BoxCollider2D seg1, seg2, seg3;
+
+    GameListener gameListener;
+
+    // Seg1 = gameListener.bound1;
+
+    private void Awake() // Or use Start()
+    {
+        gameListener = FindFirstObjectByType<GameListener>(); // Find GameListener in the scene
+        
+        if (gameListener != null)
+        {
+            seg1 = gameListener.bound1; // Assign the BoxCollider2D
+            seg2 = gameListener.bound2; // Assign the BoxCollider2D
+            seg3 = gameListener.bound3; // Assign the BoxCollider2D
+        }
+        else
+        {
+            Debug.LogError("GameListener not found in the scene!");
+        }
+    }
 
     private void Start()
     {
@@ -34,6 +57,21 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Update()
     {
+        if(seg1.isActiveAndEnabled)
+        {
+            minBounds = seg1.bounds.min;
+            maxBounds = seg1.bounds.max;
+        }
+        else if(seg2.isActiveAndEnabled)
+        {
+            minBounds = seg2.bounds.min;
+            maxBounds = seg2.bounds.max;
+        }
+        else if(seg3.isActiveAndEnabled)
+        {
+            minBounds = seg3.bounds.min;
+            maxBounds = seg3.bounds.max;
+        }
         if (isAttacking) return; // Prevent movement during attack
 
         movement.x = joystick.Horizontal;
