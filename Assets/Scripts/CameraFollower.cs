@@ -4,17 +4,30 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target; // The player's transform
     public float smoothSpeed = 5f; // Smooth camera movement speed
-    public float yOffset = 0f; // Keep Y position fixed
-    public float zOffset = -10f; // Keep the camera at a proper depth
+    private float yOffset = 8.082069f; // Keep Y position fixed
+    private float zOffset = -4.98f; // Camera depth position
 
-    public float minX = -5f; // Left boundary
-    public float maxX = 50f; // Right boundary
+    private float minX = -8.54f; // Left boundary
+    private float maxX = 53.88f; // Right boundary
+
+    private void Start()
+    {
+        if (target == null)
+        {
+            target = GameObject.FindWithTag("Player")?.transform;
+
+            if (target == null)
+            {
+                Debug.LogError("CameraFollow: No Player found in scene!");
+            }
+        }
+    }
 
     private void LateUpdate()
     {
         if (target == null) return;
 
-        // Get the target position and clamp it within minX and maxX
+        // Get the target position and clamp within minX and maxX
         float clampedX = Mathf.Clamp(target.position.x, minX, maxX);
         Vector3 targetPosition = new Vector3(clampedX, yOffset, zOffset);
 
