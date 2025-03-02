@@ -6883,7 +6883,7 @@ MonoBehaviour:
   UploadButton: {fileID: 1509943111}
   uploadURL: https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload
   UploadPanel: {fileID: 463825751}
-  AnalyticsPanel1: {fileID: 681988580}
+  BillPanel: {fileID: 8806630934044065832}
   billManager: {fileID: 906950321}
   analytics: {fileID: 2006221409}
 --- !u!4 &422599090
@@ -39295,7 +39295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7979779956708686257, guid: cf545235457a98f49871f6ba1951a987, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001608575153760533, guid: cf545235457a98f49871f6ba1951a987, type: 3}
       propertyPath: m_Name
@@ -39391,6 +39391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 315070658587106541, guid: cf545235457a98f49871f6ba1951a987, type: 3}
+    - {fileID: 7979779956708686257, guid: cf545235457a98f49871f6ba1951a987, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1085285385666783140, guid: cf545235457a98f49871f6ba1951a987, type: 3}
     - {fileID: 2953834660428272519, guid: cf545235457a98f49871f6ba1951a987, type: 3}

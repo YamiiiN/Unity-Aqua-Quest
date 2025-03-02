@@ -8,6 +8,7 @@ using TMPro;
 public class LoginRegister : MonoBehaviour
 {
     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
     private string PythonbaseUrl = "https://aquaquest-flask.onrender.com/api";
 
     public TMP_InputField FirstNameInput;
@@ -79,7 +80,7 @@ public class LoginRegister : MonoBehaviour
         }
     }
 
-    // OG CODE
+    // OG CODE (INCASE OF EMERGENCY)
     // IEnumerator LoginUser()
     // {
     //     if (EmailInput == null || PasswordInput == null)
@@ -131,87 +132,6 @@ public class LoginRegister : MonoBehaviour
     //             LoginPanel.SetActive(false);
     //             EmailInput.text = "";
     //             PasswordInput.text = "";
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
-    //             ShowNotification($"Error: {request.error}");
-    //         }
-    //     }
-    // }
-
-    // LATEST NA GAMIT
-    // IEnumerator LoginUser()
-    // {
-    //     Analytics analytics = FindObjectOfType<Analytics>();
-    //     if (analytics != null)
-    //     {
-    //         analytics.ClearLatestBill();
-    //     }
-
-    //     if (EmailInput == null || PasswordInput == null)
-    //     {
-    //         Debug.LogError("EmailInput or PasswordInput is not assigned in the Inspector!");
-    //         yield break;
-    //     }
-
-    //     if (string.IsNullOrEmpty(EmailInput.text) || string.IsNullOrEmpty(PasswordInput.text))
-    //     {
-    //         Debug.LogError("Email or password is empty.");
-    //         ShowNotification("Email and password are required.");
-    //         yield break;
-    //     }
-
-    //     string jsonData = JsonUtility.ToJson(new LoginData()
-    //     {
-    //         email = EmailInput.text,
-    //         password = PasswordInput.text
-    //     });
-
-    //     byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-
-    //     using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/login", "POST"))
-    //     {
-    //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    //         request.downloadHandler = new DownloadHandlerBuffer();
-    //         request.SetRequestHeader("Content-Type", "application/json");
-
-    //         Debug.Log("Sending login request...");
-
-    //         yield return request.SendWebRequest();
-
-    //         Debug.Log("Request completed!");
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             Debug.Log("Login Successful: " + request.downloadHandler.text);
-    //             ShowNotification("Login successful!");
-
-    //             LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-                
-    //             PlayerPrefs.SetString("jwtToken", response.token);
-    //             PlayerPrefs.Save(); 
-
-    //             Debug.Log("Token saved: " + response.token);
-
-    //             HomePanel.SetActive(true);
-    //             LoginPanel.SetActive(false);
-    //             EmailInput.text = "";
-    //             PasswordInput.text = "";
-
-    //             BillManager billManager = FindObjectOfType<BillManager>();
-    //             if (billManager != null)
-    //             {
-    //                 StartCoroutine(billManager.FetchBills());  
-    //             }
-
-    //             if (analytics != null)
-    //             {
-    //                 StartCoroutine(analytics.FetchLatestBill()); 
-    //                 StartCoroutine(analytics.FetchMonthlyConsumption());
-    //                 StartCoroutine(analytics.FetchMonthlyCost());
-                   
-    //             }
     //         }
     //         else
     //         {
@@ -302,8 +222,7 @@ public class LoginRegister : MonoBehaviour
     }
 
 
-
-    // OG CODE
+    // OG CODE (INCASE OF EMERGENCY)
     // public void LogoutUser()
     // {
     //     PlayerPrefs.DeleteKey("jwtToken");
@@ -320,42 +239,6 @@ public class LoginRegister : MonoBehaviour
     //     }
 
     //     HomePanel.SetActive(false);
-    //     LoginPanel.SetActive(true);
-    //     ShowNotification("You have been logged out.");
-    // }
-
-    // LATEST NA GAMIT
-    // public void LogoutUser()
-    // {
-    //     PlayerPrefs.DeleteKey("jwtToken");
-    //     PlayerPrefs.Save();
-    //     Debug.Log("User logged out. Token removed.");
-
-    //     BillManager billManager = FindObjectOfType<BillManager>();
-    //     if (billManager != null)
-    //     {
-    //         billManager.ClearBills(); 
-    //     }
-
-    //     Analytics analytics = FindObjectOfType<Analytics>();
-    //     if (analytics != null)
-    //     {
-    //         analytics.ClearLatestBill(); 
-    //     }
-
-    //     if (string.IsNullOrEmpty(PlayerPrefs.GetString("jwtToken", "")))
-    //     {
-    //         Debug.Log("Token successfully cleared.");
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Token still exists after logout!");
-    //     }
-
-    //     HomePanel.SetActive(false);
-    //     UploadPanel.SetActive(false);
-    //     AnalyticsPanel1.SetActive(false);
-    //     ProfilePanel.SetActive(false);
     //     LoginPanel.SetActive(true);
     //     ShowNotification("You have been logged out.");
     // }
