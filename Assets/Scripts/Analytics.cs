@@ -106,7 +106,7 @@
 
 
 
-// W/ CHARTS (LATEST NA GINAGAMIT)
+// W/ CHARTS
 // using System.Collections;
 // using System.Collections.Generic;
 // using UnityEngine;
@@ -292,7 +292,7 @@
 
 
 
-// W/ PREDICTIVE CHARTS
+// W/ CHARTS AND PREDICTIVE CHARTS
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -306,12 +306,11 @@ using UnityEngine.UI;
 using System.Linq;
 using System.Globalization;
 
-
-
-
 public class Analytics : MonoBehaviour
 {
     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
+    // private string baseUrl = "http://localhost:5000/api";
+
     public TMP_Text DateText;
     public TMP_Text ConsumptionText;
     public TMP_Text CostText;
@@ -343,7 +342,7 @@ public class Analytics : MonoBehaviour
         return token;
     }
 
-    // // OG
+    // OG
     // public IEnumerator FetchLatestBill()
     // {
     //     string jwtToken = GetJWTToken();
@@ -368,7 +367,7 @@ public class Analytics : MonoBehaviour
     //             {
     //                 DateText.text = latestBill["billDate"]?.ToString() ?? "N/A";
     //                 ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
-    //                 CostText.text = "₱" + (latestBill["billAmount"]?.ToString() ?? "N/A");
+    //                 CostText.text = (latestBill["billAmount"]?.ToString() ?? "N/A");
     //             }
     //         }
     //         else
@@ -377,78 +376,8 @@ public class Analytics : MonoBehaviour
     //         }
     //     }
     // }
-    
-    // // OG
-    // public IEnumerator FetchMonthlyConsumption()
-    // {
-    //     string jwtToken = GetJWTToken();
-    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
 
-    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/monthly-consumption"))
-    //     {
-    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             string jsonResponse = request.downloadHandler.text;
-    //             Debug.Log("Monthly Consumption Data: " + jsonResponse);
-
-    //             JArray consumptionData = JArray.Parse(jsonResponse);
-    //             List<string> months = new List<string>();
-    //             List<float> consumptions = new List<float>();
-
-    //             foreach (JObject entry in consumptionData)
-    //             {
-    //                 months.Add(entry["_id"].ToString());
-    //                 consumptions.Add(float.Parse(entry["totalConsumption"].ToString()));
-    //             }
-
-    //             UpdateConsumptionChart(months, consumptions);
-    //             PredictNextMonth(months, consumptions, "consumption");
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError($"Failed to fetch monthly consumption. Error: {request.error}");
-    //         }
-    //     }
-    // }
-
-    // // OG
-    // public IEnumerator FetchMonthlyCost()
-    // {
-    //     string jwtToken = GetJWTToken();
-    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
-
-    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/monthly-cost"))
-    //     {
-    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             string jsonResponse = request.downloadHandler.text;
-    //             Debug.Log("Monthly Cost Data: " + jsonResponse);
-
-    //             JArray costData = JArray.Parse(jsonResponse);
-    //             List<string> months = new List<string>();
-    //             List<float> costs = new List<float>();
-
-    //             foreach (JObject entry in costData)
-    //             {
-    //                 months.Add(entry["_id"].ToString());
-    //                 costs.Add(float.Parse(entry["totalCost"].ToString()));
-    //             }
-
-    //             UpdateCostChart(months, costs);
-    //             PredictNextMonth(months, costs, "cost");
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError($"Failed to fetch monthly cost. Error: {request.error}");
-    //         }
-    //     }
-    // }
+    // TRIAL
     public IEnumerator FetchLatestBill()
     {
         string jwtToken = GetJWTToken();
@@ -471,9 +400,13 @@ public class Analytics : MonoBehaviour
                 }
                 else
                 {
-                    DateText.text = latestBill["billDate"]?.ToString() ?? "N/A";
-                    ConsumptionText.text = $"{latestBill["waterConsumption"]?.ToString()} m³" ?? "N/A";
-                    CostText.text = "₱" + (latestBill["billAmount"]?.ToString() ?? "N/A");
+                    // Convert ISO date format to readable format
+                    DateTime billDate = DateTime.Parse(latestBill["billDate"]?.ToString() ?? DateTime.MinValue.ToString());
+                    string formattedDate = billDate.ToString("dd MMM yyyy"); // Example: "04 Jan 2025"
+
+                    DateText.text = formattedDate; 
+                    ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
+                    CostText.text = (latestBill["billAmount"]?.ToString() ?? "N/A");
                 }
             }
             else
@@ -483,6 +416,8 @@ public class Analytics : MonoBehaviour
         }
     }
 
+    
+    // OG
     public IEnumerator FetchMonthlyConsumption()
     {
         string jwtToken = GetJWTToken();
@@ -518,6 +453,7 @@ public class Analytics : MonoBehaviour
         }
     }
 
+    // OG
     public IEnumerator FetchMonthlyCost()
     {
         string jwtToken = GetJWTToken();

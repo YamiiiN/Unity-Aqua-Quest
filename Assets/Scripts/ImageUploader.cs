@@ -137,9 +137,10 @@ public class ImageUploader : MonoBehaviour
 {
     public Button UploadButton;
     public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
+    //  public string uploadURL = "http://localhost:5000/api/waterBill/upload";
 
     public GameObject UploadPanel;
-    public GameObject AnalyticsPanel1;
+    public GameObject BillPanel;
 
     public BillManager billManager;
     public Analytics analytics;
@@ -160,43 +161,6 @@ public class ImageUploader : MonoBehaviour
         }
     }
 
-    // OG CODE (lastest na ginagamit ko )
-    // IEnumerator UploadImage(string filePath)
-    // {
-    //     string jwtToken = PlayerPrefs.GetString("jwtToken", "");
-    //     if (string.IsNullOrEmpty(jwtToken))
-    //     {
-    //         Debug.LogError("JWT token is missing. Please log in.");
-    //         yield break;
-    //     }
-
-    //     byte[] imageData = File.ReadAllBytes(filePath);
-    //     string fileName = Path.GetFileName(filePath);
-    //     WWWForm form = new WWWForm();
-    //     form.AddBinaryData("imageUrl", imageData, fileName, "image/png");
-
-    //     using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
-    //     {
-
-    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             Debug.Log("Upload successful: " + request.downloadHandler.text);
-                
-    //             StartCoroutine(billManager.FetchBills()); 
-                
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Upload failed: " + request.error);
-    //         }
-    //     }
-    // }
-
-    // MAGDDUPLICATE KAPAG SAME DATEBILL (WORKING NA)
    IEnumerator UploadImage(string filePath)
     {
         string jwtToken = PlayerPrefs.GetString("jwtToken", "");
@@ -223,7 +187,7 @@ public class ImageUploader : MonoBehaviour
                 Debug.Log("Upload successful: " + responseText);
 
                 UploadPanel.SetActive(false);
-                AnalyticsPanel1.SetActive(true);
+                BillPanel.SetActive(true);
 
                 if (responseText.Contains("Duplicate bill detected"))
                 {

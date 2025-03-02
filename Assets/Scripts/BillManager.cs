@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class BillManager : MonoBehaviour
 {
     private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
+    // private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
 
     public GameObject billPrefab; 
     public Transform billContainer;
@@ -23,38 +24,6 @@ public class BillManager : MonoBehaviour
         });
        
     }
-
-    // OF CODE
-    // IEnumerator FetchBills()
-    // {
-    //     string jwtToken = PlayerPrefs.GetString("jwtToken", "");
-
-    //     if (string.IsNullOrEmpty(jwtToken))
-    //     {
-    //         Debug.LogError("JWT token is missing. Please log in.");
-    //         yield break;
-    //     }
-
-    //     UnityWebRequest request = UnityWebRequest.Get(getAllBillsURL);
-    //     request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
-    //     yield return request.SendWebRequest();
-
-    //     if (request.result == UnityWebRequest.Result.Success)
-    //     {
-    //         string jsonResponse = request.downloadHandler.text;
-    //         JArray bills = JArray.Parse(jsonResponse);
-
-    //         Debug.Log("Fetched Bills Successfully: " + jsonResponse);
-
-    //         DisplayBills(bills);
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Failed to fetch bills: " + request.error);
-    //     }
-    // }
-
 
     public IEnumerator FetchBills()
     {
