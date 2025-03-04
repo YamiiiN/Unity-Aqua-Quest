@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using System.IO;
+
 
 public class LoginRegister : MonoBehaviour
 {
@@ -12,7 +17,7 @@ public class LoginRegister : MonoBehaviour
     private string PythonbaseUrl = "https://aquaquest-flask.onrender.com/api";
 
     public TMP_InputField FirstNameInput;
-    public TMP_InputField LastNameInput;
+    public TMP_InputField LastNameInput;    
     public TMP_InputField AddressInput;
     public TMP_InputField EmailInput;
     public TMP_InputField PasswordInput;
@@ -25,7 +30,25 @@ public class LoginRegister : MonoBehaviour
     public GameObject ProfilePanel;
     public GameObject BillPanel;
 
-    // string jwtToken;
+    private string userInfoFilePath;
+
+    // BAGO
+    void Start()
+    {
+        string projectFolderPath = Application.dataPath; // Points to "Assets" folder in the project
+        string saveFolder = Path.Combine(projectFolderPath, "UserData"); // Create a subfolder
+
+        if (!Directory.Exists(saveFolder))
+        {
+            Directory.CreateDirectory(saveFolder); // Ensure the folder exists
+        }
+
+        userInfoFilePath = Path.Combine(saveFolder, "userInfo.json");
+        Debug.Log("User info file path: " + userInfoFilePath);
+
+        // Load user info when the game starts
+        LoadUserInfo();
+    }
 
     public void OnRegisterButtonClick()
     {
@@ -190,10 +213,23 @@ public class LoginRegister : MonoBehaviour
                 Debug.Log("Login Successful: " + request.downloadHandler.text);
                 ShowNotification("Login successful!");
 
-                LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                // LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
 
+                // PlayerPrefs.SetString("jwtToken", response.token);
+                // PlayerPrefs.Save();
+
+
+                LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 PlayerPrefs.SetString("jwtToken", response.token);
                 PlayerPrefs.Save();
+
+                // Extract User ID from the token
+                string extractedUserId = GetUserIdFromToken(response.token);
+                if (!string.IsNullOrEmpty(extractedUserId))
+                {
+                    SaveUserInfo(extractedUserId, response.token);
+                }
+
 
                 Debug.Log("Token saved: " + response.token);
 
@@ -220,12 +256,109 @@ public class LoginRegister : MonoBehaviour
                 {
                     StartCoroutine(fetchTips.FetchWaterSavingTips()); 
                 }
+
+                Profile profile = FindObjectOfType<Profile>();
+                if (profile != null)
+                {
+                    StartCoroutine(profile.FetchUserProfile()); 
+                }
             }
             else
             {
                 Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification($"Error: {request.error}");
             }
+        }
+    }
+
+    // BAGO
+    public static string GetUserIdFromToken(string jwtToken)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(jwtToken))
+            {
+                Debug.LogError("JWT token is empty or null.");
+                return null;
+            }
+
+            string[] tokenParts = jwtToken.Split('.');
+            if (tokenParts.Length != 3) // A valid JWT should have 3 parts
+            {
+                Debug.LogError("Invalid JWT token format: " + jwtToken);
+                return null;
+            }
+
+            string payload = tokenParts[1];
+            Debug.Log("JWT Payload (Base64 Encoded): " + payload);
+
+            // Decode Base64 URL (convert it to standard Base64)
+            payload = payload.Replace('-', '+').Replace('_', '/');
+            while (payload.Length % 4 != 0) // Fix padding if needed
+            {
+                payload += "=";
+            }
+
+            byte[] decodedBytes = Convert.FromBase64String(payload);
+            string decodedJson = Encoding.UTF8.GetString(decodedBytes);
+
+            Debug.Log("Decoded JWT Payload: " + decodedJson);
+
+            JObject payloadData = JObject.Parse(decodedJson);
+
+            // Match the backend field for user ID
+            string userId = payloadData.ContainsKey("id") ? payloadData["id"]?.ToString() :
+                            payloadData.ContainsKey("_id") ? payloadData["_id"]?.ToString() : null;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                Debug.LogError("JWT payload does not contain 'id' or '_id' field.");
+                return null;
+            }
+
+            Debug.Log("Extracted User ID: " + userId);
+            return userId;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error decoding JWT token: {ex.Message}");
+            return null;
+        }
+    }
+
+    // Ensures Base64 padding is correct
+    private static string PadBase64(string input)
+    {
+        int padding = 4 - (input.Length % 4);
+        if (padding != 4) input += new string('=', padding);
+        return input.Replace('-', '+').Replace('_', '/'); // Convert Base64 URL encoding to standard Base64
+    }
+
+
+    void SaveUserInfo(string userId, string token)
+    {
+        UserInfo userInfo = new UserInfo { userId = userId, token = token };
+        string json = JsonUtility.ToJson(userInfo, true); 
+        File.WriteAllText(userInfoFilePath, json);
+
+        Debug.Log("User info saved: " + json);
+    }
+
+    void LoadUserInfo()
+    {
+        if (File.Exists(userInfoFilePath))
+        {
+            string json = File.ReadAllText(userInfoFilePath);
+            if (!string.IsNullOrWhiteSpace(json)) 
+            {
+                UserInfo userInfo = JsonUtility.FromJson<UserInfo>(json);
+                Debug.Log("Loaded User Info: " + json);
+            }
+        }
+        else
+        {
+            Debug.Log("No user info file found. Creating an empty file.");
+            File.WriteAllText(userInfoFilePath, "{}"); // Ensure the file exists
         }
     }
 
@@ -253,9 +386,15 @@ public class LoginRegister : MonoBehaviour
 
     public void LogoutUser()
     {
+        // PlayerPrefs.DeleteKey("jwtToken");
+        // PlayerPrefs.Save();
+        // Debug.Log("User logged out. Token removed.");
         PlayerPrefs.DeleteKey("jwtToken");
         PlayerPrefs.Save();
-        Debug.Log("User logged out. Token removed.");
+        if (File.Exists(userInfoFilePath))
+        {
+            File.WriteAllText(userInfoFilePath, "{}"); // Empty the JSON file
+        }
 
         BillManager billManager = FindObjectOfType<BillManager>();
         if (billManager != null)
@@ -276,6 +415,12 @@ public class LoginRegister : MonoBehaviour
             fetchTips.ClearTips();
         }
 
+        Profile profile = FindObjectOfType<Profile>();
+        if (profile != null)
+        {
+            profile.ClearInputFields();
+        }
+
         HomePanel.SetActive(false);
         UploadPanel.SetActive(false);
         AnalyticsPanel1.SetActive(false);
@@ -284,6 +429,7 @@ public class LoginRegister : MonoBehaviour
         LoginPanel.SetActive(true);
 
         ShowNotification("You have been logged out.");
+        Debug.Log("User logged out. userInfo.json emptied.");
     }
 
 
@@ -329,6 +475,14 @@ public class LoginRegister : MonoBehaviour
     [System.Serializable]
     public class LoginResponse
     {
+        public string userId;
+        public string token;
+    }
+
+    [System.Serializable]
+    public class UserInfo
+    {
+        public string userId;
         public string token;
     }
 }

@@ -75,35 +75,6 @@ public class UIManager : MonoBehaviour
         ShowPanel(HomePanel); 
     }
 
-    // public void ShowPanel(GameObject panel)
-    // {
-    //     if (panel == null)
-    //     {
-    //         Debug.LogError("Panel is not assigned!");
-    //         return;
-    //     }
-
-    
-    //     // If trying to access a restricted panel (not Home, Login, or Register) and user is NOT logged in, redirect to LoginPanel
-    //     if (panel != HomePanel && panel != LoginPanel && panel != RegisterPanel && !IsUserLoggedIn())
-    //     {
-    //         Debug.Log("User not logged in. Redirecting to Login Panel.");
-    //         panel = LoginPanel; // Redirect to LoginPanel
-    //     }
-
-    //     if (currentPanel != null)
-    //     {
-    //         Debug.Log("Disabling panel: " + currentPanel.name);
-    //         currentPanel.SetActive(false); // Disable the old panel
-    //     }
-
-    //     Debug.Log("Enabling panel: " + panel.name);
-    //     panel.SetActive(true); // Show the new panel
-    //     currentPanel = panel; // Set the new panel as the current one
-
-    //     Debug.Log("Successfully switched to panel: " + panel.name);
-    // }
-
     public void ShowPanel(GameObject panel)
     {
         if (panel == null)

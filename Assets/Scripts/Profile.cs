@@ -149,7 +149,8 @@ using System.IO;
 
 public class Profile : MonoBehaviour
 {
-    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
@@ -169,7 +170,7 @@ public class Profile : MonoBehaviour
         StartCoroutine(FetchUserProfile());
     }
 
-    IEnumerator FetchUserProfile()
+    public IEnumerator FetchUserProfile()
     {
         string token = PlayerPrefs.GetString("jwtToken", "");
 
@@ -232,54 +233,54 @@ public class Profile : MonoBehaviour
         StartCoroutine(UpdateUserProfile());
     }
 
-IEnumerator UpdateUserProfile()
-{
-    string token = PlayerPrefs.GetString("jwtToken", "");
-
-    if (string.IsNullOrEmpty(token))
+    IEnumerator UpdateUserProfile()
     {
-        Debug.LogError("No token found, user needs to log in.");
-        ShowNotification("Session expired. Please log in.");
-        yield break;
-    }
+        string token = PlayerPrefs.GetString("jwtToken", "");
 
-    WWWForm form = new WWWForm();
-    form.AddField("first_name", FirstNameInput.text);
-    form.AddField("last_name", LastNameInput.text);
-    form.AddField("address", AddressInput.text);
-    form.AddField("email", EmailInput.text);
-
-    if (!string.IsNullOrWhiteSpace(PasswordInput.text))
-    {
-        form.AddField("password", PasswordInput.text);
-    }
-
-    // 🔹 Upload the selected image (if user selected one)
-    if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
-    {
-        byte[] fileData = File.ReadAllBytes(selectedFilePath);
-        form.AddBinaryData("images", fileData, Path.GetFileName(selectedFilePath), "image/png");
-    }
-
-    using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/update", form)) // ✅ FIXED LINE
-    {
-        request.SetRequestHeader("Authorization", "Bearer " + token);
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
+        if (string.IsNullOrEmpty(token))
         {
-            Debug.Log("Profile updated successfully: " + request.downloadHandler.text);
-            ShowNotification("Profile updated successfully!");
-            PasswordInput.text = "";
+            Debug.LogError("No token found, user needs to log in.");
+            ShowNotification("Session expired. Please log in.");
+            yield break;
         }
-        else
+
+        WWWForm form = new WWWForm();
+        form.AddField("first_name", FirstNameInput.text);
+        form.AddField("last_name", LastNameInput.text);
+        form.AddField("address", AddressInput.text);
+        form.AddField("email", EmailInput.text);
+
+        if (!string.IsNullOrWhiteSpace(PasswordInput.text))
         {
-            Debug.LogError($"Error updating profile: {request.error}, Response: {request.downloadHandler.text}");
-            ShowNotification("Failed to update profile.");
+            form.AddField("password", PasswordInput.text);
+        }
+
+        // 🔹 Upload the selected image (if user selected one)
+        if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
+        {
+            byte[] fileData = File.ReadAllBytes(selectedFilePath);
+            form.AddBinaryData("images", fileData, Path.GetFileName(selectedFilePath), "image/png");
+        }
+
+        using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/update", form)) // ✅ FIXED LINE
+        {
+            request.SetRequestHeader("Authorization", "Bearer " + token);
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Profile updated successfully: " + request.downloadHandler.text);
+                ShowNotification("Profile updated successfully!");
+                PasswordInput.text = "";
+            }
+            else
+            {
+                Debug.LogError($"Error updating profile: {request.error}, Response: {request.downloadHandler.text}");
+                ShowNotification("Failed to update profile.");
+            }
         }
     }
-}
 
 
     void ShowNotification(string message)
@@ -303,5 +304,14 @@ IEnumerator UpdateUserProfile()
         public string address;
         public string email;
         public string password;
+    }
+
+    public void ClearInputFields()
+    {
+        FirstNameInput.text = "";
+        LastNameInput.text = "";
+        AddressInput.text = "";
+        EmailInput.text = "";
+        PasswordInput.text = "";
     }
 }
