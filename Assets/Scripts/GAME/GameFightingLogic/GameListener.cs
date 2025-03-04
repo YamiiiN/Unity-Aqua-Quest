@@ -68,7 +68,7 @@ public class GameListener : MonoBehaviour
 
                 continueButton.onClick.AddListener(() =>
                 {
-                    current = 0;
+                    KillReset.ResetKillCount();
                     return;
                 });
                 

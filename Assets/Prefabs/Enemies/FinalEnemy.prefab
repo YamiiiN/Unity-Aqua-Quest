@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 300
+  enemyName: KanalGoblin
   healthBarFill: {fileID: 1131371784152862386}
 --- !u!114 &2900768073290736425
 MonoBehaviour:

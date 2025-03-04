@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.IO;
 
 public class CharacterAnimation : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    private float moveSpeed;
     public Rigidbody2D rb;
     public Animator animator;
     public Joystick joystick;
     public BoxCollider2D boundary;
+    private string jsonFilePath;
     public UnityEngine.UI.Button attackButton; // Assign in Inspector
 
     private Vector2 movement;
@@ -40,6 +42,23 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Start()
     {
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
+        if (File.Exists(jsonFilePath))
+        {
+            string json = File.ReadAllText(jsonFilePath);
+            PlayerStats playerStats = JsonUtility.FromJson<PlayerStats>(json);
+
+            // maxHealth = playerStats.PlayerAttributes.TotalHealth;   // Load from PlayerAttributes
+            // defense = playerStats.PlayerAttributes.TotalDefense;   // Load defense from PlayerAttributes
+            moveSpeed = playerStats.PlayerAttributes.TotalSpeed;   // Load speed from PlayerAttributes
+        }
+        else
+        {
+            Debug.LogError("PlayerStats.json not found!");
+            // maxHealth = 100; // Default values
+            // defense = 5;
+        }
+
         originalScale = transform.localScale;
         if (boundary != null)
         {

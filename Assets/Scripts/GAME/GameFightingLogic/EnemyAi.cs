@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (player == null){
+        if (!playerObj.activeSelf){
             anim.SetTrigger("YIPIE");
             return;
         }
@@ -55,8 +55,9 @@ public class EnemyAI : MonoBehaviour
     void ChasePlayer()
     {
        
-            if(player == null)
+            if(!playerObj.activeSelf)
             {
+                 anim.SetTrigger("YIPIE");
                 return;
             }
             anim.SetBool("IsPlayerFar", true);
@@ -76,6 +77,11 @@ public class EnemyAI : MonoBehaviour
 
     void Attack()
     {
+        if(!playerObj.activeSelf)
+            {
+                 anim.SetTrigger("YIPIE");
+                return;
+            }
         isAttacking = true;
         anim.SetBool("IsPlayerFar", false);
         

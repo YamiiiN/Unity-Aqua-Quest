@@ -7,7 +7,26 @@ using TMPro;
 public class PlayerStats
 {
     public RelicStats Relics = new RelicStats(); // Holds individual items
-    public PlayerAttributes PlayerAttributes;    // Holds total values and power level
+    public PlayerAttributes PlayerAttributes;
+
+    public Kills Kills = new Kills();
+    
+      
+}
+
+[Serializable]
+public class Kills
+{
+    public Monster KanalGoblin;
+    public Monster ElNiño;
+    public Monster PinsalangKinamada;
+    public int OverallKills; 
+}
+
+[Serializable]
+public class Monster
+{
+    public int TotalKills;
 }
 
 [Serializable]

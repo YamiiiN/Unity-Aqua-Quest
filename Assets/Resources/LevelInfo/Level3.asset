@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b616206b36ddd1489239030bf18ce26, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: 
-  Description: "Sabi nga nila, \u201CAll roads lead to Cubao,\u201D pero paano kung
-    ang kalsadang ito ay may ibang destinasyon? Saan kaya ito patungo\u2014sa isang
-    masarap na lugawan sa kanto, sa isang makulay na palengke, o sa isang lugar na
-    hindi mo inaasahan?  Baka sa dulo nito ay isang adventure na hindi mo pa nasusubukan,
-    o baka naman isang traffic jam na magpapatanong sa'yo kung tama ba ang dinaanan
-    mo. Pero teka, mag-ingat ka lang sa bawat hakbang\u2014hindi lahat ng daan ay
-    patag, at baka sa halip na sa Cubao, eh diretso ka sa kanal! Kaya bago ka sumugod,
-    siguraduhin mong alam mo ang pupuntahan mo... o kung gusto mong masurpresa, bahala
-    na si Batman!"
-  PowerLevel: 700
+  Story: "Welcome sa ultimate swimming pool ng bayan\u2014pero hindi tubig ang bida,
+    kundi tambak ng floating basura! Mag-ingat sa lumulutang na plastic, sirang gulong,
+    at misteryosong bagay na \u2018di mo na gustong malaman kung ano. "
+  PowerLevel: 2000

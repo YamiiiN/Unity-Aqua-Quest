@@ -24,6 +24,7 @@ public class BillManager : MonoBehaviour
         });
        
     }
+    
 
     public IEnumerator FetchBills()
     {
