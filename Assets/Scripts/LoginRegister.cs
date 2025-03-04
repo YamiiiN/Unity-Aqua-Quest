@@ -25,6 +25,8 @@ public class LoginRegister : MonoBehaviour
     public GameObject ProfilePanel;
     public GameObject BillPanel;
 
+    // string jwtToken;
+
     public void OnRegisterButtonClick()
     {
         StartCoroutine(RegisterUser());
@@ -212,6 +214,12 @@ public class LoginRegister : MonoBehaviour
                     StartCoroutine(analytics.FetchMonthlyConsumption());
                     StartCoroutine(analytics.FetchMonthlyCost());
                 }
+
+                WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+                if (fetchTips != null)
+                {
+                    StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+                }
             }
             else
             {
@@ -260,6 +268,12 @@ public class LoginRegister : MonoBehaviour
         {
             analytics.ClearCharts();
             analytics.ClearLatestBill(); 
+        }
+
+        WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+        if (fetchTips != null)
+        {
+            fetchTips.ClearTips();
         }
 
         HomePanel.SetActive(false);

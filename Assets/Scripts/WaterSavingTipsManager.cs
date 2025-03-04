@@ -1,105 +1,129 @@
+// WORKING NALABAS NA SA CONSOLE RESPONSE NI GROQ
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using TMPro;
+using Newtonsoft.Json.Linq;
 
 public class WaterSavingTipsManager : MonoBehaviour
 {
-    public GameObject tipPrefab; 
-    public Transform contentPanel; 
-    // private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips"; 
-    private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
+    public GameObject tipPrefab;
+    public Transform contentPanel;
+    // public string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
+    public string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
 
     void Start()
     {
         StartCoroutine(FetchWaterSavingTips());
     }
 
-    IEnumerator FetchWaterSavingTips()
+    public IEnumerator FetchWaterSavingTips()
     {
         string authToken = PlayerPrefs.GetString("jwtToken");
-
         if (string.IsNullOrEmpty(authToken))
         {
             Debug.LogError("Authorization token is missing.");
             yield break;
         }
 
-        Debug.Log("Token Confirmation para sa Saving Tips: " + authToken);
+        Debug.Log("Fetching water-saving tips from API: " + apiUrl);
 
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
             request.SetRequestHeader("Authorization", "Bearer " + authToken);
+            request.SetRequestHeader("Content-Type", "application/json");
 
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                string jsonResponse = request.downloadHandler.text;
+                Debug.Log("Raw JSON Response: " + jsonResponse);
+
                 try
                 {
-                    // Deserialize the response
-                    WaterSavingTipsResponse response = JsonUtility.FromJson<WaterSavingTipsResponse>(request.downloadHandler.text);
+                    JObject responseObject = JObject.Parse(jsonResponse);
 
-                    // Ensure tips are received and there are at least 4
-                    if (response != null && response.tips != null && response.tips.Length >= 4)
+                    if (responseObject["tips"] != null)
                     {
-                        Debug.Log("Received Tips: " + string.Join(", ", response.tips));
-                        PopulateTips(response.tips);
+                        JArray tipsArray = (JArray)responseObject["tips"];
+                        List<string> tips = tipsArray.ToObject<List<string>>();
+
+                        Debug.Log($"Number of tips received: {tips.Count}");
+
+                        if (tips.Count > 0)
+                        {
+                            PopulateTips(tips.ToArray());
+                        }
+                        else
+                        {
+                            Debug.LogWarning("No water-saving tips were received from the server.");
+                            PopulateTips(new string[] { "No tips available at this time." });
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning("Insufficient tips received. Displaying default message.");
-                        PopulateTips(new string[] { "Not enough water-saving tips available. Try again later." });
+                        Debug.LogError("Response does not contain 'tips' key.");
+                        PopulateTips(new string[] { "No tips available." });
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.LogError("Error parsing water-saving tips: " + ex.Message);
+                    Debug.LogError("Error parsing tips: " + ex.Message);
                     PopulateTips(new string[] { "Error occurred while fetching tips." });
                 }
             }
             else
             {
-                // Handle HTTP errors
-                Debug.LogError($"Error fetching water-saving tips: {request.error}");
-                Debug.LogError($"Response Code: {request.responseCode}");
-                Debug.LogError($"Response Text: {request.downloadHandler.text}");
-                PopulateTips(new string[] { "Error occurred while fetching tips." });
+                Debug.LogError($"API Error: {request.error} ({request.responseCode})");
+                PopulateTips(new string[] { "Failed to fetch tips." });
             }
         }
     }
 
-    // Function to populate the tips in the ScrollView
     private void PopulateTips(string[] tips)
     {
-        // Clear old tips
         foreach (Transform child in contentPanel)
         {
             Destroy(child.gameObject);
         }
 
-        // Instantiate new tips
         foreach (string tip in tips)
         {
             GameObject newTip = Instantiate(tipPrefab, contentPanel);
+            TextMeshProUGUI textComponent = newTip.GetComponentInChildren<TextMeshProUGUI>();
 
-            // Ensure the prefab has a TextMeshProUGUI component
-            TMPro.TextMeshProUGUI textComponent = newTip.GetComponent<TMPro.TextMeshProUGUI>();
-            if (textComponent != null)
-            {
+            if (textComponent)
                 textComponent.text = tip;
-            }
             else
-            {
                 Debug.LogError("tipPrefab does not have a TextMeshProUGUI component!");
-            }
+        }
+
+        StartCoroutine(AdjustContentPanelHeight());
+    }
+
+    private IEnumerator AdjustContentPanelHeight()
+    {
+        yield return new WaitForEndOfFrame();
+
+        RectTransform contentPanelRect = contentPanel.GetComponent<RectTransform>();
+        float totalHeight = 0f;
+
+        foreach (Transform child in contentPanel)
+        {
+            totalHeight += child.GetComponent<RectTransform>().rect.height;
+        }
+
+        contentPanelRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
+    }
+
+    public void ClearTips()
+    {
+        foreach (Transform child in contentPanel)
+        {
+            Destroy(child.gameObject);
         }
     }
-}
-
-[System.Serializable]
-public class WaterSavingTipsResponse
-{
-    public string[] tips;
 }

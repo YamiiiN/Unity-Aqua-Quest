@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
 
     private bool IsUserLoggedIn()
     {
-        return PlayerPrefs.HasKey("auth_token");
+        return PlayerPrefs.HasKey("jwtToken");
     }
 
     
