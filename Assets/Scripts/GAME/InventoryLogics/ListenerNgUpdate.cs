@@ -16,7 +16,7 @@ public class ListenerNgUpdate : MonoBehaviour
     public TMP_Text DamageDisplay, HealthDisplay, DefenseDisplay, SpeedDisplay, PowerDisplay;
 
     public GameItemsDatabase gameItemsDatabase; // Reference to the ScriptableObject
-
+    // private static readonly string InvPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
     private string savePath;
 
     void Start()
@@ -25,7 +25,10 @@ public class ListenerNgUpdate : MonoBehaviour
         if (!File.Exists(savePath))
         {
             CreateDefaultPlayerStatsFile();
+            
+            // addDefaultWoins();
         }
+        // SaveManager.addWoins();
         UpdateEquipDisplay();
         UpdateRelicImages();
         UpdateStatusDisplay();
@@ -63,6 +66,7 @@ public class ListenerNgUpdate : MonoBehaviour
     string json = JsonUtility.ToJson(defaultStats, true);
     File.WriteAllText(savePath, json);
 }
+    
 
     private void UpdateStatusDisplay()
     {

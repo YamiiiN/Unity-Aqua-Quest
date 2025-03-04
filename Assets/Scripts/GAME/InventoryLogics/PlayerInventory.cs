@@ -200,6 +200,8 @@ public class PlayerInventory : MonoBehaviour
             AssignStartingItems();
              // No saved data, assign starting items
         }
+
+        SaveManager.addDefaultWoins();
     }
 
     public void LoadPlayerInventoryPotions()
