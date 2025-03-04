@@ -208,6 +208,12 @@ public class ImageUploader : MonoBehaviour
                 {
                     Debug.LogError("Analytics script reference is missing.");
                 }
+
+                WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+                if (fetchTips != null)
+                {
+                    StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+                }
             }
             else
             {
