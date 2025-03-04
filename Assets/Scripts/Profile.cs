@@ -149,7 +149,7 @@ using System.IO;
 
 public class Profile : MonoBehaviour
 {
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
