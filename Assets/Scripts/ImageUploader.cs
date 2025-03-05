@@ -352,6 +352,7 @@ public class ImageUploader : MonoBehaviour
 
     public BillManager billManager;
     public Analytics analytics;
+    public GameObject BillPanel;
 
     void Start()
     {
