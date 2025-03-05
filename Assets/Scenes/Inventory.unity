@@ -2185,6 +2185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startGameItemsDatabase: {fileID: 11400000, guid: 8c35452a545e1d8489c55f6a962f7358, type: 2}
   startGamePotionDatabase: {fileID: 11400000, guid: e0c7fa68aaf933c47b37f590bed91870, type: 2}
+  Woins: {fileID: 185178334}
   AttrButtonH: {fileID: 585492100}
   AttrButtonD: {fileID: 559957665}
   AttrButtonDef: {fileID: 186223468}
@@ -7999,6 +8000,6 @@ SceneRoots:
   - {fileID: 535132702}
   - {fileID: 651905072}
   - {fileID: 1568415676}
-  - {fileID: 641462124}
   - {fileID: 1530100477}
   - {fileID: 475583748}
+  - {fileID: 641462124}
