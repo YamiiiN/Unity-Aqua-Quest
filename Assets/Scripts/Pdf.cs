@@ -96,7 +96,7 @@ using System.IO;
 
 public class PDFDownloader : MonoBehaviour
 {
-    private string pdfUrl = "http://localhost:5000/api/pdf/download"; // ✅ Use your backend API URL
+    private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
 
     public void OnDownloadPDFButtonClick()
     {
