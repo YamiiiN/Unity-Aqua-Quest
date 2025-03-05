@@ -371,6 +371,7 @@ public class Profile : MonoBehaviour
         public string address;
         public string email;
         public string password;
+        public string images;
     }
 
     public void ClearInputFields()

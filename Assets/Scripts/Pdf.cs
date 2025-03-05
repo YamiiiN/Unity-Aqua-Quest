@@ -104,46 +104,46 @@ public class PDFDownloader : MonoBehaviour
     }
 
     IEnumerator DownloadPDF()
-{
-    string token = PlayerPrefs.GetString("jwtToken", "");
-    if (string.IsNullOrEmpty(token))
     {
-        Debug.LogError("No token found, user needs to log in.");
-        yield break;
-    }
+        string token = PlayerPrefs.GetString("jwtToken", "");
+        if (string.IsNullOrEmpty(token))
+        {
+            Debug.LogError("No token found, user needs to log in.");
+            yield break;
+        }
 
-    string filePath;
-    
-    // ✅ Detect platform and set the correct Downloads folder
-    if (Application.platform == RuntimePlatform.Android)
-    {
-        filePath = Path.Combine("/storage/emulated/0/Download", "User_Report.pdf"); // Android Download folder
-    }
-    else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
-    {
-        filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads", "User_Report.pdf"); // Windows Download folder
-    }
-    else
-    {
-        filePath = Path.Combine(Application.persistentDataPath, "User_Report.pdf"); // Fallback
-    }
+        string filePath;
+        
+        // ✅ Detect platform and set the correct Downloads folder
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            filePath = Path.Combine("/storage/emulated/0/Download", "User_Report.pdf"); // Android Download folder
+        }
+        else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads", "User_Report.pdf"); // Windows Download folder
+        }
+        else
+        {
+            filePath = Path.Combine(Application.persistentDataPath, "User_Report.pdf"); // Fallback
+        }
 
-    UnityWebRequest request = UnityWebRequest.Get(pdfUrl);
-    request.SetRequestHeader("Authorization", "Bearer " + token);
-    request.downloadHandler = new DownloadHandlerFile(filePath);
+        UnityWebRequest request = UnityWebRequest.Get(pdfUrl);
+        request.SetRequestHeader("Authorization", "Bearer " + token);
+        request.downloadHandler = new DownloadHandlerFile(filePath);
 
-    yield return request.SendWebRequest();
+        yield return request.SendWebRequest();
 
-    if (request.result == UnityWebRequest.Result.Success)
-    {
-        Debug.Log("PDF downloaded successfully: " + filePath);
-        Application.OpenURL(filePath); // Open the downloaded PDF
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("PDF downloaded successfully: " + filePath);
+            Application.OpenURL(filePath); // Open the downloaded PDF
+        }
+        else
+        {
+            Debug.LogError($"Error downloading PDF: {request.error}");
+        }
     }
-    else
-    {
-        Debug.LogError($"Error downloading PDF: {request.error}");
-    }
-}
 
     // IEnumerator DownloadPDF()
     // {
