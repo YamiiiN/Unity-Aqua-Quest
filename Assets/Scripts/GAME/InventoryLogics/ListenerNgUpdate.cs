@@ -27,26 +27,26 @@ public class ListenerNgUpdate : MonoBehaviour
         {
             CreateDefaultPlayerStatsFile();
             
-            // addDefaultWoins();
+            // FetchWoins(woinsPath);
         }
         
-        woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
-        
+       
         // SaveManager.addWoins();
         UpdateEquipDisplay();
         UpdateRelicImages();
         UpdateStatusDisplay();
-        FetchWoins(woinsPath);
+        string woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        // FetchWoins(woinsPath);
     }
 
     void Update()
     {
-        UpdateEquipDisplay();
         UpdateRelicImages();
+        UpdateEquipDisplay();
         UpdateStatusDisplay();
     }
 
-    private void FetchWoins(string patt)
+    public void FetchWoins(string patt)
     {
         
             string json = File.ReadAllText(patt);

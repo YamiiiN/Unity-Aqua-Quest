@@ -3,7 +3,10 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    void Start()
+    {
+        OnRelic();
+    }
     public GameObject AttributesButtons;
     public void OnPotion()
     {

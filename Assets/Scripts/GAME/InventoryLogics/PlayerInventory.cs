@@ -2,12 +2,15 @@ using System.Collections.Generic;
 // using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using TMPro;
+using Newtonsoft.Json;
 public class PlayerInventory : MonoBehaviour
 {
     public GameItemsDatabase startGameItemsDatabase;
     public PotionDatabase startGamePotionDatabase; // Reference to the starting items
     private List<GameItems> playerInventory = new List<GameItems>();
-    
+    public TMP_Text Woins;
     private List<Potion> PlayerInventoryPotion = new List<Potion>(); // Player's inventory
     public Button AttrButtonH, AttrButtonD,AttrButtonDef,AttrButtonS, RelicRefresh, PotionClick;
     // public GameObject Grid;
@@ -19,7 +22,13 @@ public class PlayerInventory : MonoBehaviour
     void Start()
     {
         LoadPlayerInventory();
-
+        
+        string woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        string json = File.ReadAllText(woinsPath);
+        PlayerData data = JsonConvert.DeserializeObject<PlayerData>(json);
+        int playerWoins = data.Woins;
+        Woins.text = playerWoins.ToString();
+        Debug.Log("Fetched Woins: " + playerWoins);
         // LoadPlayerInventoryPotions();
         AttrButtonD.onClick.RemoveAllListeners();
         AttrButtonH.onClick.RemoveAllListeners();
@@ -199,6 +208,8 @@ public class PlayerInventory : MonoBehaviour
         {
             AssignStartingItems();
             SaveManager.addDefaultWoins();
+            // string woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+            // ListenerNgUpdate.FetchWoins(woinsPath);
              // No saved data, assign starting items
         }
 
