@@ -178,7 +178,8 @@ using UnityEngine.UI;
 
 public class Profile : MonoBehaviour
 {
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
@@ -199,7 +200,7 @@ public class Profile : MonoBehaviour
         StartCoroutine(FetchUserProfile());
     }
 
-    IEnumerator FetchUserProfile()
+    public IEnumerator FetchUserProfile()
     {
         string token = PlayerPrefs.GetString("jwtToken", "");
 
@@ -369,6 +370,15 @@ public class Profile : MonoBehaviour
         public string last_name;
         public string address;
         public string email;
-        public string images;
+        public string password;
+    }
+
+    public void ClearInputFields()
+    {
+        FirstNameInput.text = "";
+        LastNameInput.text = "";
+        AddressInput.text = "";
+        EmailInput.text = "";
+        PasswordInput.text = "";
     }
 }
