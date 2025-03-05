@@ -806,3 +806,4 @@ MonoBehaviour:
   maxHealth: 500
   enemyName: PinsalangKinamada
   healthBarFill: {fileID: 2274512690939184206}
+  AmIWorthy: 20

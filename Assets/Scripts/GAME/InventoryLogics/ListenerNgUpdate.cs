@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using Newtonsoft.Json;
 
 public class ListenerNgUpdate : MonoBehaviour
 {
     public TMP_Text EquipDisplay;
     public TMP_Text itemNameText;
     public TMP_Text effectType; // Set dynamically to know which attribute to check
-
+    public TMP_Text Woins;
     public Image healthRelicImage;
     public Image damageRelicImage;
     public Image defenseRelicImage;
@@ -17,7 +18,7 @@ public class ListenerNgUpdate : MonoBehaviour
 
     public GameItemsDatabase gameItemsDatabase; // Reference to the ScriptableObject
     // private static readonly string InvPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
-    private string savePath;
+    private string savePath, woinsPath;
 
     void Start()
     {
@@ -28,10 +29,14 @@ public class ListenerNgUpdate : MonoBehaviour
             
             // addDefaultWoins();
         }
+        
+        woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        
         // SaveManager.addWoins();
         UpdateEquipDisplay();
         UpdateRelicImages();
         UpdateStatusDisplay();
+        FetchWoins(woinsPath);
     }
 
     void Update()
@@ -39,6 +44,17 @@ public class ListenerNgUpdate : MonoBehaviour
         UpdateEquipDisplay();
         UpdateRelicImages();
         UpdateStatusDisplay();
+    }
+
+    private void FetchWoins(string patt)
+    {
+        
+            string json = File.ReadAllText(patt);
+            PlayerData data = JsonConvert.DeserializeObject<PlayerData>(json);
+            int playerWoins = data.Woins;
+            Woins.text = playerWoins.ToString();
+            Debug.Log("Fetched Woins: " + playerWoins);
+        
     }
     private void CreateDefaultPlayerStatsFile()
 {

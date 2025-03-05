@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Begtu Na Malupetu
   Description: Pinaka Kakaibang Tubig sa Balat ng taguig
   Effect: Health
+  Price: 35
   UnitEffectInt: 80
   UnitEffectFloat: 0
   Icon: {fileID: 249403535649006323, guid: 9dbd5c900edb32f459664333a9ecb78e, type: 3}

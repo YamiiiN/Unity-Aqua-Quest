@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Evo Helmet
   Description: 'Huhulihin ka ng MMDA '
   Effect: Health
+  Price: 300
   UnitEffectInt: 500
   UnitEffectFloat: 0
   Icon: {fileID: -8395426203049973117, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

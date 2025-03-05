@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using Newtonsoft.Json.Linq;
+
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 100;
@@ -10,9 +11,10 @@ public class EnemyHealth : MonoBehaviour
     private Rigidbody2D rb;
     private bool isDead = false;
     public string enemyName;
-    public static int killCount = 0;
-    private string filePath;
+    public static int killCount;
+    private string filePath, woinsFilePath;
     public Image healthBarFill; // Drag the health bar fill image in the Inspector
+    public static int AmIWorthy; // The amount of Woins earned when enemy dies
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
         anim = GetComponent<Animator>();
         UpdateHealthBar(); // Ensure health bar is full on start
         filePath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
+        woinsFilePath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
     }
 
     public void TakeDamage(int damage)
@@ -57,9 +60,9 @@ public class EnemyHealth : MonoBehaviour
 
         killCount++;
         UpdateKillCount(enemyName);
+        Earnings(); // Increase Woins when enemy dies
 
-        // Destroy enemy after animation finishes (adjust time as needed)
-        // Adjust 2f to match your animation length
+        // Destroy enemy after animation (adjust as needed)
     }
 
     public void UpdateKillCount(string enemyName)
@@ -95,8 +98,36 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void Earnings()
+    {
+        if (!File.Exists(woinsFilePath))
+        {
+            Debug.LogError("PlayerInventory.json not found: " + woinsFilePath);
+            return;
+        }
+
+        // Read current JSON data
+        string jsonContent = File.ReadAllText(woinsFilePath);
+        JObject jsonData = JObject.Parse(jsonContent);
+
+        // Ensure "Woins" exists in JSON
+        if (jsonData["Woins"] != null)
+        {
+            int currentWoins = jsonData["Woins"].Value<int>();
+            jsonData["Woins"] = currentWoins + AmIWorthy; // Increase Woins
+
+            // Write updated data back to file
+            File.WriteAllText(woinsFilePath, jsonData.ToString());
+            Debug.Log($"Earned {AmIWorthy} Woins! Total Woins: {currentWoins + AmIWorthy}");
+        }
+        else
+        {
+            Debug.LogWarning("Woins field missing in PlayerInventory.json.");
+        }
+    }
+
     public void Sira()
     {
-         Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

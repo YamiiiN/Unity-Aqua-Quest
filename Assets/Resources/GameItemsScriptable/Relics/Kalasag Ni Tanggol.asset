@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Kalasag Ni Tanggol
   Description: Pangontra sa lamig ng tubig sa umaga
   Effect: Defense
+  Price: 200
   UnitEffectInt: 150
   UnitEffectFloat: 0
   Icon: {fileID: 5090172220875311001, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

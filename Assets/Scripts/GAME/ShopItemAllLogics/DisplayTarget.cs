@@ -9,6 +9,7 @@ public class DisplayTarget : MonoBehaviour
     public TMP_Text itemEffectText;
     public TMP_Text titleText;
     public TMP_Text EquipDisplay;
+    public TMP_Text Price;
 
     
 
@@ -31,6 +32,7 @@ public class DisplayTarget : MonoBehaviour
         }
 
         titleText.text = item.Effect;
+        Price.text = item.Price.ToString();
 
         // Check if the item is equipped and update EquipDisplay text
        
@@ -46,6 +48,7 @@ public class DisplayTarget : MonoBehaviour
         itemDescriptionText.text = item.Description;
         titleText.text = "Health Effect: ";
         itemEffectText.text = " " + item.HealthEffect;
+        Price.text = item.Price.ToString();
     }
 
     

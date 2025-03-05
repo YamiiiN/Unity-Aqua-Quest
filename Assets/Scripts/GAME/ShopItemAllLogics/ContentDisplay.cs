@@ -9,6 +9,7 @@ public class ContentDisplay : MonoBehaviour
     public TMP_Text itemDescriptionText;
     public TMP_Text itemEffectText;
     public TMP_Text Title;
+    public TMP_Text Price;
 
     private GameItems currentItem;
     private Potion currentPotion;

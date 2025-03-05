@@ -17,4 +17,5 @@ MonoBehaviour:
   Description: Pinepreserbang tubig-ulan mula sa alulod! Bawal sa maarte, bagay sa
     matitibay.
   HealthEffect: 150
+  Price: 300
   Icon: {fileID: -6313732318024198737, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

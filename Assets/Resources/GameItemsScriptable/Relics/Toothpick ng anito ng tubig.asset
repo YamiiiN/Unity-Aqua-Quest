@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Toothpick ng anito ng tubig
   Description: Sinasabi sa alamat na sa mga mapagmahal sa tubig lamang ito nag papakita
   Effect: Damage
+  Price: 250
   UnitEffectInt: 400
   UnitEffectFloat: 0
   Icon: {fileID: -9200622430800479188, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

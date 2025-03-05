@@ -170,7 +170,7 @@ public class PlayerInventory : MonoBehaviour
         });
     }
 
-    private void LoadPlayerInventory()
+    public void LoadPlayerInventory()
     {
         PlayerData data = SaveManager.LoadData();
         if (data != null && data.Relics.Length > 0)
@@ -198,10 +198,11 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             AssignStartingItems();
+            SaveManager.addDefaultWoins();
              // No saved data, assign starting items
         }
 
-        SaveManager.addDefaultWoins();
+        
     }
 
     public void LoadPlayerInventoryPotions()
