@@ -267,26 +267,61 @@ public class Profile : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
+    // public void OnSelectFileButtonClick()
+    // {
+    //     var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
+    //     var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
+
+    //     if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]) && File.Exists(paths[0]))
+    //     {
+    //         selectedFilePath = paths[0];
+    //         Debug.Log("Selected File: " + selectedFilePath);
+    //         ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+
+    //         StartCoroutine(LoadImageFromFile(selectedFilePath));
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("No valid file selected.");
+    //     }
+    // }
+
     public void OnSelectFileButtonClick()
     {
-        var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
-        var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
+#if UNITY_EDITOR || UNITY_STANDALONE
+                var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
+                var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
 
-        if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]) && File.Exists(paths[0]))
-        {
-            selectedFilePath = paths[0];
-            Debug.Log("Selected File: " + selectedFilePath);
-            ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
-
-            StartCoroutine(LoadImageFromFile(selectedFilePath));
-        }
-        else
-        {
-            Debug.LogWarning("No valid file selected.");
-        }
+                if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]) && File.Exists(paths[0]))
+                {
+                    selectedFilePath = paths[0];
+                    Debug.Log("Selected File: " + selectedFilePath);
+                    ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+                    StartCoroutine(LoadImageFromFile(selectedFilePath));
+                }
+                else
+                {
+                    Debug.LogWarning("No valid file selected.");
+                }
+#else
+        PickImageFromGallery();
+#endif
     }
 
-   
+    public void PickImageFromGallery()
+    {
+        NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                selectedFilePath = path;
+                Debug.Log("Selected File: " + selectedFilePath);
+                ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+                StartCoroutine(LoadImageFromFile(selectedFilePath));
+            }
+        }, "Select Profile Image", "image/*");
+    }
+
     public void OnUpdateProfileButtonClick()
     {
         StartCoroutine(UpdateUserProfile());
@@ -349,7 +384,7 @@ public class Profile : MonoBehaviour
         ProfileImage.sprite = SpriteFromTexture(texture);
         yield return null;
     }
-    
+
     void ShowNotification(string message)
     {
         NotificationText.text = message;

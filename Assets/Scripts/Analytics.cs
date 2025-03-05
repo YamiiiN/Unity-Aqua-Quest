@@ -305,6 +305,7 @@ using XCharts.Runtime;
 using UnityEngine.UI;
 using System.Linq;
 using System.Globalization;
+using System.IO;
 
 public class Analytics : MonoBehaviour
 {
@@ -322,14 +323,21 @@ public class Analytics : MonoBehaviour
 
     public Button AnalyticsButton;
 
+    private float predictedMonthlyCostKo;
+    private float predictedMonthlyConsumptionKo;
+
+    private string monthKo;
+
     void Start()
     {
-        AnalyticsButton.onClick.AddListener(() => {
+        AnalyticsButton.onClick.AddListener(() =>
+        {
             StartCoroutine(FetchLatestBill());
             StartCoroutine(FetchMonthlyConsumption());
             StartCoroutine(FetchMonthlyCost());
+            // StartCoroutine(SavePredictedData(PredictedData.month, PredictedData.consumption, PredictedData.cost));
         });
-        
+
     }
 
     private string GetJWTToken()
@@ -342,42 +350,6 @@ public class Analytics : MonoBehaviour
         return token;
     }
 
-    // OG
-    // public IEnumerator FetchLatestBill()
-    // {
-    //     string jwtToken = GetJWTToken();
-    //     if (string.IsNullOrEmpty(jwtToken)) yield break;
-
-    //     using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/waterBill/latest"))
-    //     {
-    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-    //         yield return request.SendWebRequest();
-
-    //         if (request.result == UnityWebRequest.Result.Success)
-    //         {
-    //             string jsonResponse = request.downloadHandler.text;
-    //             Debug.Log("Latest Bill Data: " + jsonResponse);
-
-    //             JObject latestBill = JObject.Parse(jsonResponse);
-    //             if (latestBill.ContainsKey("message") && latestBill["message"].ToString() == "No bills found")
-    //             {
-    //                 Debug.LogWarning("No bills found for this user.");
-    //             }
-    //             else
-    //             {
-    //                 DateText.text = latestBill["billDate"]?.ToString() ?? "N/A";
-    //                 ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
-    //                 CostText.text = (latestBill["billAmount"]?.ToString() ?? "N/A");
-    //             }
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError($"Failed to fetch latest bill. HTTP Code: {request.responseCode}, Error: {request.error}");
-    //         }
-    //     }
-    // }
-
-    // TRIAL
     public IEnumerator FetchLatestBill()
     {
         string jwtToken = GetJWTToken();
@@ -404,7 +376,7 @@ public class Analytics : MonoBehaviour
                     DateTime billDate = DateTime.Parse(latestBill["billDate"]?.ToString() ?? DateTime.MinValue.ToString());
                     string formattedDate = billDate.ToString("dd MMM yyyy"); // Example: "04 Jan 2025"
 
-                    DateText.text = formattedDate; 
+                    DateText.text = formattedDate;
                     ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
                     CostText.text = (latestBill["billAmount"]?.ToString() ?? "N/A");
                 }
@@ -416,7 +388,6 @@ public class Analytics : MonoBehaviour
         }
     }
 
-    
     // OG
     public IEnumerator FetchMonthlyConsumption()
     {
@@ -445,6 +416,7 @@ public class Analytics : MonoBehaviour
 
                 UpdateConsumptionChart(months, consumptions);
                 PredictNextMonth(months, consumptions, "consumption");
+
             }
             else
             {
@@ -539,25 +511,46 @@ public class Analytics : MonoBehaviour
         string nextMonth = GetNextMonth(months[lastIndex]);
 
         Debug.Log($"Predicted {type} for {nextMonth}: {predictedValue}");
+        PredictedData.month = nextMonth;
+
 
         if (type == "consumption")
         {
             UpdatePredictionBarChart(predictedConsumptionChart, nextMonth, predictedValue);
+            PredictedData.consumption = predictedValue;
+            return;
+            // SavePredictedData(nextMonth, predictedConsumption, predictedValue);
+
         }
         else if (type == "cost")
         {
             UpdatePredictionLineChart(predictedCostChart, nextMonth, predictedValue);
+            PredictedData.cost = predictedValue;
+            // return ;
+
+            // SavePredictedData(month, predictedConsumption, predictedAmount);
         }
+        StartCoroutine(SavePredictedData(PredictedData.month, PredictedData.consumption, PredictedData.cost));
+
+
     }
 
-    public string GetNextMonth(string lastMonth)
+    public static string GetNextMonth(string lastMonth)
     {
-        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-        int lastMonthIndex = System.Array.IndexOf(mfi.MonthNames, lastMonth.ToLower());
-        if (lastMonthIndex < 0) return "Next Month";
+        DateTime lastMonthDate;
 
-        int nextMonthIndex = (lastMonthIndex + 1) % 12;
-        return mfi.MonthNames[nextMonthIndex];
+        // Try parsing the input date in "yyyy-MM-dd" format
+        if (!DateTime.TryParseExact(lastMonth, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out lastMonthDate))
+        {
+            Debug.LogError($"Failed to parse date: {lastMonth}");
+            return "Invalid Date";
+        }
+
+        // Get the next month's date
+        DateTime nextMonthDate = lastMonthDate.AddMonths(1);
+
+        // Return formatted string in "yyyy-MM-dd"
+        return nextMonthDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
     }
 
     public void UpdatePredictionBarChart(BarChart chart, string nextMonth, float predictedValue)
@@ -623,4 +616,109 @@ public class Analytics : MonoBehaviour
         }
     }
 
+    // public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
+    // {
+    //     Debug.Log($"🔍 Starting SavePredictedData - Month: {month}, Predicted Consumption: {predictedConsumption}, Predicted Amount: {predictedAmount}");
+
+    //     string jwtToken = GetJWTToken();
+    //     if (string.IsNullOrEmpty(jwtToken))
+    //     {
+    //         Debug.LogError("❌ JWT Token is missing! Cannot send request.");
+    //         yield break;
+    //     }
+
+    //     JObject predictedData = new JObject
+    //     {
+    //         { "predictedMonth", month },
+    //         { "predictedConsumption", predictedConsumption },
+    //         { "predictedAmount", predictedAmount } // Updated key to align with backend
+    //     };
+
+    //     string jsonPayload = predictedData.ToString();
+    //     byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+
+    //     Debug.Log($"📦 JSON Payload: {jsonPayload}");
+
+    //     using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/chart/save-prediction", "POST"))
+    //     {
+    //         request.SetRequestHeader("Content-Type", "application/json");
+    //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+    //         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    //         request.downloadHandler = new DownloadHandlerBuffer();
+    //         request.method = UnityWebRequest.kHttpVerbPOST;
+
+    //         Debug.Log("⏳ Sending HTTP request...");
+    //         yield return request.SendWebRequest();
+
+    //         if (request.result == UnityWebRequest.Result.Success)
+    //         {
+    //             string responseText = request.downloadHandler.text;
+    //             Debug.Log($"✅ Predicted data saved successfully! Response: {responseText}");
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+    //             Debug.LogError($"Server Response: {request.downloadHandler.text}");
+    //         }
+    //     }
+    // }
+
+
+    public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
+    {
+        Debug.Log($"🔍 Checking existing predictions for {month}...");
+
+        // Step 1: Get existing predictions before saving
+        // string jwtToken = GetJWTToken();
+
+
+        string folderpath = Application.dataPath;
+        string savePath = Path.Combine(folderpath, "UserData");
+        string userDataPath = Path.Combine(savePath, "userInfo.json");
+        string jsonContent = File.ReadAllText(userDataPath);
+        JObject PlayerId = JObject.Parse(jsonContent);
+        string userid = PlayerId["userId"]?.ToString();
+        string jwtToken = PlayerId["token"]?.ToString();
+        Debug.Log($"📦 Saving new prediction for {month}...");
+
+        JObject predictedData = new JObject
+            {
+                {"user", userid},
+                { "predictedAmount", predictedAmount },
+                { "predictedConsumption", predictedConsumption },
+                { "predictedMonth", month },
+
+
+
+            };
+
+        string jsonPayload = predictedData.ToString();
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+
+        using (UnityWebRequest request = new UnityWebRequest("https://aqua-quest-backend-deployment.onrender.com/api/chart/save-prediction", "POST"))
+        {
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.method = UnityWebRequest.kHttpVerbPOST;
+
+            Debug.Log("⏳ Sending HTTP request...");
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
+            }
+            else
+            {
+                Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+                Debug.LogError($"Server Response: {request.downloadHandler.text}");
+            }
+        }
+    }
+
+
+
 }
+
