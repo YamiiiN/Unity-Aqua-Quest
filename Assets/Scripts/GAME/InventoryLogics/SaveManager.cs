@@ -7,7 +7,7 @@ public class PlayerData
 {
     public string[] Relics;
     public string[] Potions; // Save items as names
-    public int Woins;
+    public int Woins; 
 }
 
 public static class SaveManager

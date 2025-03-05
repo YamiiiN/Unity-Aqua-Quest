@@ -17,4 +17,15 @@ public class Static
 
 
     }
+
+    public class FetchData
+    {
+        public static  PlayerData PlayerInventory { get; private set; }
+        public static  PlayerStats PlayerStats { get; private set; }
+        public static void SetData(PlayerData inventory, PlayerStats stats)
+        {
+            PlayerInventory = inventory;
+            PlayerStats = stats;
+        }
+    }
 }

@@ -4,6 +4,8 @@ using Newtonsoft.Json.Linq;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 using System.Text;
+using System;
+using Newtonsoft.Json;
 
 public class SendData
 {
@@ -125,35 +127,56 @@ public class SendData
 
     public static async void GetPlayerData()
     {
-        JObject playerID = GetPlayer();
-
-        if (playerID == null)
+        try
         {
-            Debug.LogError("Failed to retrieve user data.");
-            return;
+            JObject playerID = GetPlayer();
+
+            if (playerID == null || !playerID.ContainsKey("userId"))
+            {
+                Debug.LogError("Failed to retrieve user data. Invalid player ID.");
+                return;
+            }
+
+            string userId = playerID["userId"]?.ToString();
+            if (string.IsNullOrEmpty(userId))
+            {
+                Debug.LogError("User ID is null or empty.");
+                return;
+            }
+
+            string apiUrl = GetStatFile + userId;
+
+            using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+            {
+                // request.SetRequestHeader("Authorization", "Bearer " + token); // Send JWT token in headers
+
+                var operation = request.SendWebRequest();
+                while (!operation.isDone)
+                {
+                    await Task.Yield();
+                }
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    string jsonResponse = request.downloadHandler.text;
+
+                    // Deserialize JSON correctly
+                    PlayerDatas playerData = JsonConvert.DeserializeObject<PlayerDatas>(jsonResponse);
+
+                    // Assign data to static class
+                    Static.FetchData.SetData(playerData.PlayerInventory, playerData.PlayerStats);
+
+                    GenerateFileAfterLogin.SaveData();
+                }
+                else
+                {
+                    Debug.LogError($"Error retrieving player data: {request.result}, {request.error}");
+                }
+            }
         }
-
-        string userId = playerID["userId"]?.ToString();
-        
-
-        string apiUrl = GetStatFile + userId;
-
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        catch (Exception ex)
         {
-            // request.SetRequestHeader("Authorization", "Bearer " + token); // Send JWT token in headers
-
-            // Await the request
-            await request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                Debug.Log("Player data retrieved successfully: " + request.downloadHandler.text);
-                // Handle the response data here
-            }
-            else
-            {
-                Debug.LogError("Error retrieving player data: " + request.error);
-            }
+            Debug.LogError($"An exception occurred while retrieving player data: {ex.Message}");
         }
     }
 }
