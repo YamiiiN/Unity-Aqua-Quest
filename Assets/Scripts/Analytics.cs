@@ -309,8 +309,8 @@ using System.IO;
 
 public class Analytics : MonoBehaviour
 {
-    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
+    // private string baseUrl = "http://localhost:5000/api";
 
     public TMP_Text DateText;
     public TMP_Text ConsumptionText;
@@ -330,13 +330,14 @@ public class Analytics : MonoBehaviour
 
     void Start()
     {
-        AnalyticsButton.onClick.AddListener(() => {
+        AnalyticsButton.onClick.AddListener(() =>
+        {
             StartCoroutine(FetchLatestBill());
             StartCoroutine(FetchMonthlyConsumption());
             StartCoroutine(FetchMonthlyCost());
             // StartCoroutine(SavePredictedData(PredictedData.month, PredictedData.consumption, PredictedData.cost));
         });
-        
+
     }
 
     private string GetJWTToken()
@@ -375,7 +376,7 @@ public class Analytics : MonoBehaviour
                     DateTime billDate = DateTime.Parse(latestBill["billDate"]?.ToString() ?? DateTime.MinValue.ToString());
                     string formattedDate = billDate.ToString("dd MMM yyyy"); // Example: "04 Jan 2025"
 
-                    DateText.text = formattedDate; 
+                    DateText.text = formattedDate;
                     ConsumptionText.text = latestBill["waterConsumption"]?.ToString() + " m³" ?? "N/A";
                     CostText.text = (latestBill["billAmount"]?.ToString() ?? "N/A");
                 }
@@ -386,7 +387,7 @@ public class Analytics : MonoBehaviour
             }
         }
     }
-   
+
     // OG
     public IEnumerator FetchMonthlyConsumption()
     {
@@ -498,7 +499,7 @@ public class Analytics : MonoBehaviour
 
     public void PredictNextMonth(List<string> months, List<float> values, string type)
     {
-        if (values.Count < 2) return; 
+        if (values.Count < 2) return;
 
         int lastIndex = values.Count - 1;
         float previous = values[lastIndex - 1];
@@ -511,22 +512,22 @@ public class Analytics : MonoBehaviour
 
         Debug.Log($"Predicted {type} for {nextMonth}: {predictedValue}");
         PredictedData.month = nextMonth;
-    
+
 
         if (type == "consumption")
         {
             UpdatePredictionBarChart(predictedConsumptionChart, nextMonth, predictedValue);
             PredictedData.consumption = predictedValue;
-            return ;
+            return;
             // SavePredictedData(nextMonth, predictedConsumption, predictedValue);
-            
+
         }
         else if (type == "cost")
         {
             UpdatePredictionLineChart(predictedCostChart, nextMonth, predictedValue);
             PredictedData.cost = predictedValue;
             // return ;
-          
+
             // SavePredictedData(month, predictedConsumption, predictedAmount);
         }
         StartCoroutine(SavePredictedData(PredictedData.month, PredictedData.consumption, PredictedData.cost));
@@ -664,57 +665,58 @@ public class Analytics : MonoBehaviour
 
 
     public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
-        {
-            Debug.Log($"🔍 Checking existing predictions for {month}...");
+    {
+        Debug.Log($"🔍 Checking existing predictions for {month}...");
 
-            // Step 1: Get existing predictions before saving
-            // string jwtToken = GetJWTToken();
-           
+        // Step 1: Get existing predictions before saving
+        // string jwtToken = GetJWTToken();
 
-            string folderpath = Application.dataPath;
-            string savePath = Path.Combine(folderpath, "UserData");
-            string userDataPath = Path.Combine(savePath, "userInfo.json");
-            string jsonContent = File.ReadAllText (userDataPath);
-            JObject PlayerId = JObject.Parse(jsonContent);
-            string userid = PlayerId["userId"]?.ToString();
-            Debug.Log($"📦 Saving new prediction for {month}...");
 
-            JObject predictedData = new JObject
+        string folderpath = Application.dataPath;
+        string savePath = Path.Combine(folderpath, "UserData");
+        string userDataPath = Path.Combine(savePath, "userInfo.json");
+        string jsonContent = File.ReadAllText(userDataPath);
+        JObject PlayerId = JObject.Parse(jsonContent);
+        string userid = PlayerId["userId"]?.ToString();
+        string jwtToken = PlayerId["token"]?.ToString();
+        Debug.Log($"📦 Saving new prediction for {month}...");
+
+        JObject predictedData = new JObject
             {
                 {"user", userid},
                 { "predictedAmount", predictedAmount },
                 { "predictedConsumption", predictedConsumption },
                 { "predictedMonth", month },
-                
-    
-                
+
+
+
             };
 
-            string jsonPayload = predictedData.ToString();
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
+        string jsonPayload = predictedData.ToString();
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
 
-            using (UnityWebRequest request = new UnityWebRequest("http://localhost:5000/api/chart/save-prediction", "POST"))
+        using (UnityWebRequest request = new UnityWebRequest("https://aqua-quest-backend-deployment.onrender.com/api/chart/save-prediction", "POST"))
+        {
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.method = UnityWebRequest.kHttpVerbPOST;
+
+            Debug.Log("⏳ Sending HTTP request...");
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
             {
-                request.SetRequestHeader("Content-Type", "application/json");
-                // request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.method = UnityWebRequest.kHttpVerbPOST;
-
-                Debug.Log("⏳ Sending HTTP request...");
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
-                }
-                else
-                {
-                    Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
-                    Debug.LogError($"Server Response: {request.downloadHandler.text}");
-                }
+                Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
+            }
+            else
+            {
+                Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+                Debug.LogError($"Server Response: {request.downloadHandler.text}");
             }
         }
+    }
 
 
 
