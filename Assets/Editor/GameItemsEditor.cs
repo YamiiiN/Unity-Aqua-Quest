@@ -13,6 +13,8 @@ public class GameItemsEditor : Editor
 
         item.ItemID = EditorGUILayout.TextField("Item ID", item.ItemID);
 
+        item.Price = EditorGUILayout.IntField("Price", item.Price);
+
         // Dropdown for Type
         int selectedTypeIndex = Mathf.Max(0, System.Array.IndexOf(typeOptions, item.Type));
         selectedTypeIndex = EditorGUILayout.Popup("Type", selectedTypeIndex, typeOptions);

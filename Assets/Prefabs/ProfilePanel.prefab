@@ -606,7 +606,6 @@ RectTransform:
   - {fileID: 7698836725864835995}
   - {fileID: 8434125572269458313}
   - {fileID: 320423656037159802}
-  - {fileID: 7798186107295034585}
   - {fileID: 8019868390251589592}
   - {fileID: 690785808078879532}
   - {fileID: 2657590581170483547}
@@ -1770,16 +1769,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4312003014893791345}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7875559230672407907}
+  m_Father: {fileID: 320423656037159802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -577, y: 66.801}
+  m_AnchoredPosition: {x: 0, y: -2.1989975}
   m_SizeDelta: {x: 138.528, y: 153.408}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3466986032934725887
@@ -4697,6 +4696,7 @@ GameObject:
   - component: {fileID: 320423656037159802}
   - component: {fileID: 5737890144941173247}
   - component: {fileID: 4609115237769291940}
+  - component: {fileID: 6049100277223534664}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4715,7 +4715,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7798186107295034585}
   m_Father: {fileID: 7875559230672407907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4761,6 +4762,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6049100277223534664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850912886714140137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &9012191232949992276
 GameObject:
   m_ObjectHideFlags: 0

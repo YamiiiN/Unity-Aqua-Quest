@@ -8,6 +8,7 @@ public class Potion : ScriptableObject
     public string Description;
 
     public int HealthEffect;
+    public int Price;
 
     public Sprite Icon;
 }

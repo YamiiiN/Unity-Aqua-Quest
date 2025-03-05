@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Armor ni Elza
   Description: LET IT GO, LET IT GO
   Effect: Defense
+  Price: 225
   UnitEffectInt: 200
   UnitEffectFloat: 0
   Icon: {fileID: -8107786401227207737, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

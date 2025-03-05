@@ -18,6 +18,7 @@ MonoBehaviour:
   Description: Para sa lahat ng sirang tubo pagkatapos ng bagyo! Pero kung wala kang
     skills, baka lumala lang.
   Effect: Damage
+  Price: 0
   UnitEffectInt: 100
   UnitEffectFloat: 0
   Icon: {fileID: 3088588781645557933, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

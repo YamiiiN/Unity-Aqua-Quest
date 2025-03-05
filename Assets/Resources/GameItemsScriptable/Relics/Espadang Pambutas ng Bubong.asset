@@ -18,6 +18,7 @@ MonoBehaviour:
   Description: Kapag lagpas-tao na ang baha at kailangan mo nang mag-exit sa bubong,
     ito ang ultimate tool mo!
   Effect: Damage
+  Price: 200
   UnitEffectInt: 300
   UnitEffectFloat: 0
   Icon: {fileID: -5827370628568212404, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

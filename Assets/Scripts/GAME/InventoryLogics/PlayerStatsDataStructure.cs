@@ -62,3 +62,10 @@ public class SpeedStatData
     public float ItemEffect;
 }
 
+[Serializable]
+public class PlayerDatas
+{
+    public PlayerStats PlayerStats { get; set; }
+    public PlayerData PlayerInventory { get; set; }
+}
+

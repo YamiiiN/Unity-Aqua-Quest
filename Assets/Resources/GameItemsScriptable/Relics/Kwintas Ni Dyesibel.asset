@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: Kwintas Ni Dyesibel
   Description: pangpakunat ng balat pangontra baha
   Effect: Health
+  Price: 150
   UnitEffectInt: 200
   UnitEffectFloat: 0
   Icon: {fileID: -5181676846401248682, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

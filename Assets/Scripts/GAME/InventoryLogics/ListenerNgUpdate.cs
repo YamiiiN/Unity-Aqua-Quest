@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using Newtonsoft.Json;
 
 public class ListenerNgUpdate : MonoBehaviour
 {
     public TMP_Text EquipDisplay;
     public TMP_Text itemNameText;
     public TMP_Text effectType; // Set dynamically to know which attribute to check
-
+    public TMP_Text Woins;
     public Image healthRelicImage;
     public Image damageRelicImage;
     public Image defenseRelicImage;
@@ -16,8 +17,8 @@ public class ListenerNgUpdate : MonoBehaviour
     public TMP_Text DamageDisplay, HealthDisplay, DefenseDisplay, SpeedDisplay, PowerDisplay;
 
     public GameItemsDatabase gameItemsDatabase; // Reference to the ScriptableObject
-
-    private string savePath;
+    // private static readonly string InvPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+    private string savePath, woinsPath;
 
     void Start()
     {
@@ -25,17 +26,35 @@ public class ListenerNgUpdate : MonoBehaviour
         if (!File.Exists(savePath))
         {
             CreateDefaultPlayerStatsFile();
+            
+            // FetchWoins(woinsPath);
         }
+        
+       
+        // SaveManager.addWoins();
         UpdateEquipDisplay();
         UpdateRelicImages();
         UpdateStatusDisplay();
+        string woinsPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        // FetchWoins(woinsPath);
     }
 
     void Update()
     {
-        UpdateEquipDisplay();
         UpdateRelicImages();
+        UpdateEquipDisplay();
         UpdateStatusDisplay();
+    }
+
+    public void FetchWoins(string patt)
+    {
+        
+            string json = File.ReadAllText(patt);
+            PlayerData data = JsonConvert.DeserializeObject<PlayerData>(json);
+            int playerWoins = data.Woins;
+            Woins.text = playerWoins.ToString();
+            Debug.Log("Fetched Woins: " + playerWoins);
+        
     }
     private void CreateDefaultPlayerStatsFile()
 {
@@ -63,6 +82,7 @@ public class ListenerNgUpdate : MonoBehaviour
     string json = JsonUtility.ToJson(defaultStats, true);
     File.WriteAllText(savePath, json);
 }
+    
 
     private void UpdateStatusDisplay()
     {

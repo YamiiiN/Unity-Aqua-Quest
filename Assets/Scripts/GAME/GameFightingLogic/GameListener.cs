@@ -9,7 +9,7 @@ public class GameListener : MonoBehaviour
     public GameObject player, ArrowUI, ClearedUI, SuccessUi, spawner1, spawner2, spawner3;
     public BoxCollider2D bound1, bound2, bound3;
 
-    public TMP_Text ScoreCard, SuccessKillcount;
+    public TMP_Text ScoreCard, SuccessKillcount, Earnings;
 
     public Button continueButton;
     private int current;
@@ -65,7 +65,8 @@ public class GameListener : MonoBehaviour
                 DestroyAllEnemies();
                 SuccessUi.SetActive(true);
                 SuccessKillcount.text = current.ToString();
-
+                int totalEarn = current * EnemyHealth.AmIWorthy;
+                Earnings.text = totalEarn.ToString();
                 continueButton.onClick.AddListener(() =>
                 {
                     KillReset.ResetKillCount();

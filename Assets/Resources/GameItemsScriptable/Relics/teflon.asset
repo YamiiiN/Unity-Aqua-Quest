@@ -17,6 +17,7 @@ MonoBehaviour:
   Name: teflon
   Description: Pinaka-Maangas na Teflon
   Effect: Health
+  Price: 0
   UnitEffectInt: 50
   UnitEffectFloat: 0
   Icon: {fileID: 2063448361697206372, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

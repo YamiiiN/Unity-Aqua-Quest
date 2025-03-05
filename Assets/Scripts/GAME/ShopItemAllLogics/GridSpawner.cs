@@ -1,4 +1,9 @@
 using UnityEngine;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
+using TMPro;
+using System.Collections.Generic;
 
 public class GridSpawner : MonoBehaviour
 {
@@ -6,53 +11,115 @@ public class GridSpawner : MonoBehaviour
     public PotionDatabase Potion;
     public GameObject gridItemPrefab;
     public Transform HealthGridParent, DamageGridParent, DefenseGridParent, SpeedGridParent, PotionGridParent;
-    public DisplayTarget displayTarget; // Reference to the external object
+    public DisplayTarget displayTarget;
     public GameObject targeting;
+    private string filePath;
+    private string lastFileContent;
+    public TMP_Text woinn;
 
     void Start()
     {
-        spawnLogic();
-        SpawnPotionLogic();
-    }
+        filePath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
-    void spawnLogic()
-    {
-        SpawnItems(Health, HealthGridParent);
-        SpawnItems(Damage, DamageGridParent);
-        SpawnItems(Defense, DefenseGridParent);
-        SpawnItems(Speed, SpeedGridParent);
-    }
-
-    public void SpawnPotionLogic()
-    {
-        SpawnPotion(Potion, PotionGridParent);
-    }
-    void SpawnPotion(PotionDatabase database, Transform parent)
-    {
-        foreach (Potion item in database.Potions)
+        if (File.Exists(filePath))
         {
-            GameObject gridItem = Instantiate(gridItemPrefab, parent);
-            ContentDisplay display = gridItem.GetComponent<ContentDisplay>();
+            lastFileContent = File.ReadAllText(filePath); // Store initial file content
+            PlayerData data = JsonConvert.DeserializeObject<PlayerData>(lastFileContent);
+            woinn.text = data.Woins.ToString();
+        }
 
-            if (display != null)
+        SpawnAllItems();
+    }
+
+    void Update()
+    {
+        if (File.Exists(filePath))
+        {
+            string currentContent = File.ReadAllText(filePath);
+
+            if (currentContent != lastFileContent) // Detect changes in the inventory file
             {
-                display.potionSetup(item, displayTarget, targeting); // Pass external object reference
+                Debug.Log("Inventory file changed! Reloading UI...");
+                lastFileContent = currentContent;
+                PlayerData data = JsonConvert.DeserializeObject<PlayerData>(lastFileContent);
+                woinn.text = data.Woins.ToString();
+                ReloadUI();
             }
         }
     }
 
-    void SpawnItems(GameItemsDatabase database, Transform parent)
+    public void ReloadUI()
+    {
+        ClearGrid(HealthGridParent);
+        ClearGrid(DamageGridParent);
+        ClearGrid(DefenseGridParent);
+        ClearGrid(SpeedGridParent);
+        ClearGrid(PotionGridParent);
+        SpawnAllItems();
+    }
+
+    private void SpawnAllItems()
+    {
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("Inventory file not found: " + filePath);
+            return;
+        }
+
+        PlayerData inventory = LoadInventory();
+        
+        SpawnItems(Health, HealthGridParent, inventory.Relics);
+        SpawnItems(Damage, DamageGridParent, inventory.Relics);
+        SpawnItems(Defense, DefenseGridParent, inventory.Relics);
+        SpawnItems(Speed, SpeedGridParent, inventory.Relics);
+        SpawnPotions(Potion, PotionGridParent, inventory.Potions);
+    }
+
+    private PlayerData LoadInventory()
+    {
+        string json = File.ReadAllText(filePath);
+        return JsonConvert.DeserializeObject<PlayerData>(json);
+    }
+
+    private void SpawnItems(GameItemsDatabase database, Transform parent, string[] ownedItems)
     {
         foreach (GameItems item in database.Items)
         {
-            GameObject gridItem = Instantiate(gridItemPrefab, parent);
-            ContentDisplay display = gridItem.GetComponent<ContentDisplay>();
-
-            if (display != null)
+            if (!ownedItems.Contains(item.Name)) // Show only unowned items
             {
-                display.Setup(item, displayTarget, targeting); // Pass external object reference
+                GameObject gridItem = Instantiate(gridItemPrefab, parent);
+                ContentDisplay display = gridItem.GetComponent<ContentDisplay>();
+
+                if (display != null)
+                {
+                    display.Setup(item, displayTarget, targeting);
+                }
             }
         }
     }
-    
+
+    private void SpawnPotions(PotionDatabase database, Transform parent, string[] ownedPotions)
+    {
+        foreach (Potion item in database.Potions)
+        {
+            if (!ownedPotions.Contains(item.Name)) // Show only unowned potions
+            {
+                GameObject gridItem = Instantiate(gridItemPrefab, parent);
+                ContentDisplay display = gridItem.GetComponent<ContentDisplay>();
+
+                if (display != null)
+                {
+                    display.potionSetup(item, displayTarget, targeting);
+                }
+            }
+        }
+    }
+
+    private void ClearGrid(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }

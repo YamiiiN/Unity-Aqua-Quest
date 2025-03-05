@@ -1,13 +1,18 @@
+
+//     private string baseUrl = "http://localhost:5000/api";
+
 // using System.Collections;
 // using UnityEngine;
 // using UnityEngine.Networking;
 // using TMPro;
 // using SFB;
 // using System.IO;
+// using UnityEngine.UI;
+
 
 // public class Profile : MonoBehaviour
 // {
-//     private string baseUrl = "http://localhost:5000/api";
+//     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
 
 //     public TMP_InputField FirstNameInput;
 //     public TMP_InputField LastNameInput;
@@ -20,7 +25,8 @@
 //     public GameObject ProfilePanel;
 //     public GameObject LoginPanel;
 
-//     private string selectedFilePath;
+//     private string selectedFilePath; // Stores the selected file path
+
 //     void Start()
 //     {
 //         StartCoroutine(FetchUserProfile());
@@ -39,10 +45,9 @@
 //             yield break;
 //         }
 
-//         using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/profile", "GET"))
+//         using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/profile"))
 //         {
 //             request.downloadHandler = new DownloadHandlerBuffer();
-//             request.SetRequestHeader("Content-Type", "application/json");
 //             request.SetRequestHeader("Authorization", "Bearer " + token);
 
 //             yield return request.SendWebRequest();
@@ -66,6 +71,25 @@
 //         }
 //     }
 
+//     // 🔹 BUTTON CLICK: Select File (Triggers File Picker)
+//     public void OnSelectFileButtonClick()
+//     {
+//         var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
+//         var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
+
+//         if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]) && File.Exists(paths[0]))
+//         {
+//             selectedFilePath = paths[0];
+//             Debug.Log("Selected File: " + selectedFilePath);
+//             ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+//         }
+//         else
+//         {
+//             Debug.LogWarning("No valid file selected.");
+//         }
+//     }
+
+//     // 🔹 BUTTON CLICK: Save Profile (Updates Details + Uploads Image)
 //     public void OnUpdateProfileButtonClick()
 //     {
 //         StartCoroutine(UpdateUserProfile());
@@ -82,23 +106,26 @@
 //             yield break;
 //         }
 
-//         UserProfile updatedProfile = new UserProfile
-//         {
-//             first_name = FirstNameInput.text,
-//             last_name = LastNameInput.text,
-//             address = AddressInput.text,
-//             email = EmailInput.text,
-//             password = string.IsNullOrWhiteSpace(PasswordInput.text) ? null : PasswordInput.text
-//         };
+//         WWWForm form = new WWWForm();
+//         form.AddField("first_name", FirstNameInput.text);
+//         form.AddField("last_name", LastNameInput.text);
+//         form.AddField("address", AddressInput.text);
+//         form.AddField("email", EmailInput.text);
 
-//         string jsonData = JsonUtility.ToJson(updatedProfile);
-//         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-
-//         using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/update", "PUT"))
+//         if (!string.IsNullOrWhiteSpace(PasswordInput.text))
 //         {
-//             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-//             request.downloadHandler = new DownloadHandlerBuffer();
-//             request.SetRequestHeader("Content-Type", "application/json");
+//             form.AddField("password", PasswordInput.text);
+//         }
+
+//         // 🔹 Upload the selected image (if user selected one)
+//         if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
+//         {
+//             byte[] fileData = File.ReadAllBytes(selectedFilePath);
+//             form.AddBinaryData("images", fileData, Path.GetFileName(selectedFilePath), "image/png");
+//         }
+
+//         using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/update", form)) // ✅ FIXED LINE
+//         {
 //             request.SetRequestHeader("Authorization", "Bearer " + token);
 
 //             yield return request.SendWebRequest();
@@ -116,6 +143,7 @@
 //             }
 //         }
 //     }
+
 
 //     void ShowNotification(string message)
 //     {
@@ -146,6 +174,7 @@ using UnityEngine.Networking;
 using TMPro;
 using SFB;
 using System.IO;
+using UnityEngine.UI;
 
 public class Profile : MonoBehaviour
 {
@@ -158,6 +187,7 @@ public class Profile : MonoBehaviour
     public TMP_InputField EmailInput;
     public TMP_InputField PasswordInput;
     public TMP_Text NotificationText;
+    public Image ProfileImage; // 🔹 Add this in the Unity Inspector
 
     public GameObject HomePanel;
     public GameObject ProfilePanel;
@@ -200,6 +230,11 @@ public class Profile : MonoBehaviour
                 AddressInput.text = userProfile.address;
                 EmailInput.text = userProfile.email;
                 PasswordInput.text = "";
+
+                if (!string.IsNullOrEmpty(userProfile.images))
+                {
+                    StartCoroutine(LoadProfileImage(userProfile.images));
+                }
             }
             else
             {
@@ -209,7 +244,29 @@ public class Profile : MonoBehaviour
         }
     }
 
-    // 🔹 BUTTON CLICK: Select File (Triggers File Picker)
+    IEnumerator LoadProfileImage(string imageUrl)
+    {
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                ProfileImage.sprite = SpriteFromTexture(texture);
+            }
+            else
+            {
+                Debug.LogError($"Failed to load image: {request.error}");
+            }
+        }
+    }
+
+    private Sprite SpriteFromTexture(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    }
+
     public void OnSelectFileButtonClick()
     {
         var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
@@ -220,6 +277,8 @@ public class Profile : MonoBehaviour
             selectedFilePath = paths[0];
             Debug.Log("Selected File: " + selectedFilePath);
             ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+
+            StartCoroutine(LoadImageFromFile(selectedFilePath));
         }
         else
         {
@@ -227,7 +286,42 @@ public class Profile : MonoBehaviour
         }
     }
 
-    // 🔹 BUTTON CLICK: Save Profile (Updates Details + Uploads Image)
+//  public void OnSelectFileButtonClick()
+//     {
+// #if UNITY_EDITOR || UNITY_STANDALONE
+//         var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
+//         var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
+
+//         if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]) && File.Exists(paths[0]))
+//         {
+//             selectedFilePath = paths[0];
+//             Debug.Log("Selected File: " + selectedFilePath);
+//             ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+//             StartCoroutine(LoadImageFromFile(selectedFilePath));
+//         }
+//         else
+//         {
+//             Debug.LogWarning("No valid file selected.");
+//         }
+// #else
+//         PickImageFromGallery();
+// #endif
+//     }
+
+//     public void PickImageFromGallery()
+//     {
+//         NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
+//         {
+//             if (!string.IsNullOrEmpty(path))
+//             {
+//                 selectedFilePath = path;
+//                 Debug.Log("Selected File: " + selectedFilePath);
+//                 ShowNotification("File selected: " + Path.GetFileName(selectedFilePath));
+//                 StartCoroutine(LoadImageFromFile(selectedFilePath));
+//             }
+//         }, "Select Profile Image", "image/*");
+//     }
+   
     public void OnUpdateProfileButtonClick()
     {
         StartCoroutine(UpdateUserProfile());
@@ -281,8 +375,16 @@ public class Profile : MonoBehaviour
             }
         }
     }
-
-
+    
+    IEnumerator LoadImageFromFile(string filePath)
+    {
+        byte[] imageBytes = File.ReadAllBytes(filePath);
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(imageBytes);
+        ProfileImage.sprite = SpriteFromTexture(texture);
+        yield return null;
+    }
+    
     void ShowNotification(string message)
     {
         NotificationText.text = message;
@@ -304,6 +406,7 @@ public class Profile : MonoBehaviour
         public string address;
         public string email;
         public string password;
+        public string images;
     }
 
     public void ClearInputFields()

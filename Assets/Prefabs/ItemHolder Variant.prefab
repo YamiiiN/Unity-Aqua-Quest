@@ -150,6 +150,7 @@ MonoBehaviour:
   itemDescriptionText: {fileID: 0}
   itemEffectText: {fileID: 0}
   Title: {fileID: 0}
+  Price: {fileID: 0}
 --- !u!1001 &5275473049266382034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,14 +252,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6531824806554529964, guid: 57be8028c4bac14408933364d500c0dc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2658498283086473128}
+      addedObject: {fileID: 8474833986307880459}
   m_SourcePrefab: {fileID: 100100000, guid: 57be8028c4bac14408933364d500c0dc, type: 3}
 --- !u!1 &1410623684098331774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6531824806554529964, guid: 57be8028c4bac14408933364d500c0dc, type: 3}
   m_PrefabInstance: {fileID: 5275473049266382034}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2658498283086473128
+--- !u!114 &8474833986307880459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,6 +276,7 @@ MonoBehaviour:
   itemDescriptionText: {fileID: 0}
   itemEffectText: {fileID: 0}
   Title: {fileID: 0}
+  Price: {fileID: 0}
 --- !u!224 &4023613015150413948 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9142448468563242158, guid: 57be8028c4bac14408933364d500c0dc, type: 3}

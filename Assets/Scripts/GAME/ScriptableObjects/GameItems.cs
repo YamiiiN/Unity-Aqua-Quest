@@ -8,6 +8,8 @@ public class GameItems : ScriptableObject
     public string Name;
     public string Description;
     public string Effect;
+
+    public int Price;
     
     
     public int UnitEffectInt;

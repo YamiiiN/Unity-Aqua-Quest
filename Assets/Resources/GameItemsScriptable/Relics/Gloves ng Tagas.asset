@@ -18,6 +18,7 @@ MonoBehaviour:
   Description: Para sa mga tuberong walang oras para maghintay ng barangay plumber.
     May tagas? Ito na sagot mo!
   Effect: Defense
+  Price: 0
   UnitEffectInt: 50
   UnitEffectFloat: 0
   Icon: {fileID: -625300154013950893, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

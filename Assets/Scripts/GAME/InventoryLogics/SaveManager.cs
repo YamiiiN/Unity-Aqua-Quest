@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-
+using Newtonsoft.Json;
 [System.Serializable]
 public class PlayerData
 {
     public string[] Relics;
     public string[] Potions; // Save items as names
+    public int Woins; 
 }
 
 public static class SaveManager
@@ -70,4 +71,24 @@ public static class SaveManager
         Debug.LogWarning("No save file found. Returning null.");
         return null;
     }
+
+    public static void addDefaultWoins()
+    {
+        // 
+        string json = File.ReadAllText(SavePath);
+        PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(json);
+
+        if (playerData == null)
+        {
+            Debug.LogError("Failed to deserialize PlayerData!");
+            return;
+        }
+
+        playerData.Woins = 200; // Update only Woins
+        File.WriteAllText(SavePath, JsonConvert.SerializeObject(playerData, Formatting.Indented));
+        // Debug.Log($"Updated Woins: {newWoins}");
+    }
+
+
+
 }
