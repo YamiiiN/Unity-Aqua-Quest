@@ -9,6 +9,7 @@ public class SendData
 {
     // API Endpoints
     private static string CreateStatFile = Static.Links.baseUrl + "createStatFiles/"; // Adjust API endpoint as needed
+    private static string GetStatFile = Static.Links.baseUrl + "getStatFiles/"; // Adjust API endpoint as needed
 
     /// <summary>
     /// Reads and returns the content of PlayerStats.json as a JObject.
@@ -117,6 +118,41 @@ public class SendData
             else
             {
                 Debug.LogError("Error sending game data: " + request.error);
+            }
+        }
+    }
+
+
+    public static async void GetPlayerData()
+    {
+        JObject playerID = GetPlayer();
+
+        if (playerID == null)
+        {
+            Debug.LogError("Failed to retrieve user data.");
+            return;
+        }
+
+        string userId = playerID["userId"]?.ToString();
+        
+
+        string apiUrl = GetStatFile + userId;
+
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        {
+            // request.SetRequestHeader("Authorization", "Bearer " + token); // Send JWT token in headers
+
+            // Await the request
+            await request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Player data retrieved successfully: " + request.downloadHandler.text);
+                // Handle the response data here
+            }
+            else
+            {
+                Debug.LogError("Error retrieving player data: " + request.error);
             }
         }
     }
