@@ -165,7 +165,7 @@ public class SendData
 
                     // Assign data to static class
                     Static.FetchData.SetData(playerData.PlayerInventory, playerData.PlayerStats);
-
+                    Debug.Log(jsonResponse);
                     GenerateFileAfterLogin.SaveData();
                 }
                 else

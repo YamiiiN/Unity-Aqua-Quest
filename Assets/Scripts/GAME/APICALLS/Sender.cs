@@ -7,8 +7,8 @@ public class Sender : MonoBehaviour
     {
         SendData.SendGameData();
     }
-    public void SENDME()
-    {
-        SendData.SendGameData();
-    }
+    // public void SENDME()
+    // {
+    //     SendData.SendGameData();
+    // }
 }

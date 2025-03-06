@@ -8,6 +8,7 @@ using System;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using System.IO;
+// using UnityEditor.Overlays;
 
 
 public class LoginRegister : MonoBehaviour
@@ -58,8 +59,8 @@ public class LoginRegister : MonoBehaviour
     public void OnLoginButtonClick()
     {       
         StartCoroutine(LoginUser());
-        SendData.GetPlayerData();
-        GenerateFileAfterLogin.SaveData();
+        // SendData.GetPlayerData();
+        // GenerateFileAfterLogin.SaveData();
         
     }
 
@@ -232,6 +233,8 @@ public class LoginRegister : MonoBehaviour
                 if (!string.IsNullOrEmpty(extractedUserId))
                 {
                     SaveUserInfo(extractedUserId, response.token);
+                    SendData.GetPlayerData();
+                    Debug.Log("IMSENDINGHERE");
                 }
 
 

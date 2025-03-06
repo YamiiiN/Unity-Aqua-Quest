@@ -7003,9 +7003,10 @@ MonoBehaviour:
   UploadButton: {fileID: 1509943111}
   uploadURL: https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload
   UploadPanel: {fileID: 463825751}
-  BillPanel: {fileID: 8806630934044065832}
+  AnalyticsPanel1: {fileID: 0}
   billManager: {fileID: 906950321}
   analytics: {fileID: 2006221409}
+  BillPanel: {fileID: 8806630934044065832}
 --- !u!4 &422599090
 Transform:
   m_ObjectHideFlags: 0
