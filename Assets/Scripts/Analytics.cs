@@ -686,8 +686,6 @@ public class Analytics : MonoBehaviour
                 { "predictedConsumption", predictedConsumption },
                 { "predictedMonth", month },
                 
-    
-                
             };
 
             string jsonPayload = predictedData.ToString();
