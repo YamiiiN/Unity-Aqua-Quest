@@ -223,7 +223,10 @@ public class LoginRegister : MonoBehaviour
                 // PlayerPrefs.SetString("jwtToken", response.token);
                 // PlayerPrefs.Save();
 
-
+                HomePanel.SetActive(true);
+                    LoginPanel.SetActive(false);
+                    EmailInput.text = "";
+                    PasswordInput.text = "";
                 LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 PlayerPrefs.SetString("jwtToken", response.token);
                 PlayerPrefs.Save();
@@ -233,17 +236,15 @@ public class LoginRegister : MonoBehaviour
                 if (!string.IsNullOrEmpty(extractedUserId))
                 {
                     SaveUserInfo(extractedUserId, response.token);
-                    SendData.GetPlayerData();
+                    
                     Debug.Log("IMSENDINGHERE");
+                    
                 }
 
 
                 Debug.Log("Token saved: " + response.token);
 
-                HomePanel.SetActive(true);
-                LoginPanel.SetActive(false);
-                EmailInput.text = "";
-                PasswordInput.text = "";
+                
 
                 BillManager billManager = FindObjectOfType<BillManager>();
                 if (billManager != null)

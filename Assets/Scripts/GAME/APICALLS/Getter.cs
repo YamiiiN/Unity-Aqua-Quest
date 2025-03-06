@@ -4,6 +4,11 @@ public class Getter : MonoBehaviour
 {
      void Start()
     {
-        SendData.GetPlayerData();    
+           
+    }
+
+    public void executeme()
+    {
+        SendData.GetPlayerData(); 
     }
 }
