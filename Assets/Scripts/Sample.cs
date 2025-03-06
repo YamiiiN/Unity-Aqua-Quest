@@ -10,7 +10,7 @@ using UnityEngine.Networking; // Required for UnityWebRequest
 
 public class FileUploader : MonoBehaviour
 {
-    private string uploadURL = "http://localhost:5000/api/waterBill/upload"; // Change this to your API endpoint
+    private string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload"; // Change this to your API endpoint
 
     public void PickAndUploadFile()
     {

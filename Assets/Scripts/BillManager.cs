@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class BillManager : MonoBehaviour
 {
-    // private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
-    private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
+    private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
+    // private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
 
     public GameObject billPrefab; 
     public Transform billContainer;
