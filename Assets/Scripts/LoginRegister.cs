@@ -58,11 +58,15 @@ public class LoginRegister : MonoBehaviour
     public void OnLoginButtonClick()
     {       
         StartCoroutine(LoginUser());
+        SendData.GetPlayerData();
+        GenerateFileAfterLogin.SaveData();
+        
     }
 
     public void OnLogoutButtonClick()
     {
         LogoutUser();
+        GenerateFileAfterLogin.DestroyFiles();
     }
 
     IEnumerator RegisterUser()
