@@ -191,7 +191,7 @@ public class Profile : MonoBehaviour
 
     public GameObject HomePanel;
     public GameObject ProfilePanel;
-    public GameObject LoginPanel;
+    public GameObject LoginPanel, LoadingScreen;
 
     private string selectedFilePath; // Stores the selected file path
 
@@ -217,14 +217,14 @@ public class Profile : MonoBehaviour
         {
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Authorization", "Bearer " + token);
-
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Profile fetched successfully: " + request.downloadHandler.text);
                 UserProfile userProfile = JsonUtility.FromJson<UserProfile>(request.downloadHandler.text);
-
+                LoadingScreen.SetActive(false);
                 FirstNameInput.text = userProfile.first_name;
                 LastNameInput.text = userProfile.last_name;
                 AddressInput.text = userProfile.address;
@@ -240,6 +240,7 @@ public class Profile : MonoBehaviour
             {
                 Debug.LogError($"Error fetching profile: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification("Failed to fetch profile.");
+                LoadingScreen.SetActive(false);
             }
         }
     }
@@ -248,16 +249,19 @@ public class Profile : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl))
         {
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                LoadingScreen.SetActive(false);
                 Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
                 ProfileImage.sprite = SpriteFromTexture(texture);
             }
             else
             {
                 Debug.LogError($"Failed to load image: {request.error}");
+                LoadingScreen.SetActive(false);
             }
         }
     }
@@ -359,11 +363,13 @@ public class Profile : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Post($"{baseUrl}/update", form)) // ✅ FIXED LINE
         {
             request.SetRequestHeader("Authorization", "Bearer " + token);
+            LoadingScreen.SetActive(true);
 
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                LoadingScreen.SetActive(false);
                 Debug.Log("Profile updated successfully: " + request.downloadHandler.text);
                 ShowNotification("Profile updated successfully!");
                 PasswordInput.text = "";
@@ -372,6 +378,7 @@ public class Profile : MonoBehaviour
             {
                 Debug.LogError($"Error updating profile: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification("Failed to update profile.");
+                LoadingScreen.SetActive(true);
             }
         }
     }

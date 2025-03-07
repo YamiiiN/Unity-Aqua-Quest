@@ -30,6 +30,7 @@ public class LoginRegister : MonoBehaviour
     public GameObject AnalyticsPanel1;
     public GameObject ProfilePanel;
     public GameObject BillPanel;
+    public GameObject LoadingScreen;
 
     private string userInfoFilePath;
 
@@ -208,7 +209,7 @@ public class LoginRegister : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
 
             Debug.Log("Sending login request...");
-
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             Debug.Log("Request completed!");
@@ -216,6 +217,7 @@ public class LoginRegister : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Login Successful: " + request.downloadHandler.text);
+                LoadingScreen.SetActive(false);
                 ShowNotification("Login successful!");
 
                 // LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
@@ -223,10 +225,11 @@ public class LoginRegister : MonoBehaviour
                 // PlayerPrefs.SetString("jwtToken", response.token);
                 // PlayerPrefs.Save();
 
+                LoginPanel.SetActive(false);
                 HomePanel.SetActive(true);
-                    LoginPanel.SetActive(false);
-                    EmailInput.text = "";
-                    PasswordInput.text = "";
+                
+                EmailInput.text = "";
+                PasswordInput.text = "";
                 LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 PlayerPrefs.SetString("jwtToken", response.token);
                 PlayerPrefs.Save();
@@ -275,6 +278,7 @@ public class LoginRegister : MonoBehaviour
             {
                 Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification($"Error: {request.error}");
+                LoadingScreen.SetActive(false);
             }
         }
     }

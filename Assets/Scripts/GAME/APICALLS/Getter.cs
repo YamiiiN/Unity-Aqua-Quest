@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Getter : MonoBehaviour
 {
+
+    public GameObject LoadingScreen;
      void Start()
     {
            
@@ -9,6 +11,6 @@ public class Getter : MonoBehaviour
 
     public void executeme()
     {
-        SendData.GetPlayerData(); 
+        SendData.GetPlayerData(LoadingScreen); 
     }
 }
