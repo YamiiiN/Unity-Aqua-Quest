@@ -2106,6 +2106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Updater
       objectReference: {fileID: 0}
+    - target: {fileID: 2040620217713179450, guid: b41fe1faaaa84bd46acce9a79fb6563d, type: 3}
+      propertyPath: LoadingScreen
+      value: 
+      objectReference: {fileID: 5941327977176688905, guid: 41586c864d8e19541b0865a77f6a16d3, type: 3}
     - target: {fileID: 6154126421820758618, guid: b41fe1faaaa84bd46acce9a79fb6563d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 953.7027

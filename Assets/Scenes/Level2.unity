@@ -7373,6 +7373,7 @@ MonoBehaviour:
   bound1: {fileID: 991464346}
   bound2: {fileID: 1586894464}
   bound3: {fileID: 867981572}
+  enemyDetail: {fileID: 11400000, guid: e9f86d2c8c870754c9f5c31ab9b358dc, type: 2}
   ScoreCard: {fileID: 1013589864}
   SuccessKillcount: {fileID: 1923288672}
   Earnings: {fileID: 1337406150728589969}

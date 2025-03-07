@@ -8,6 +8,7 @@ using System;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using System.IO;
+// using UnityEditor.Overlays;
 
 
 public class LoginRegister : MonoBehaviour
@@ -29,6 +30,7 @@ public class LoginRegister : MonoBehaviour
     public GameObject AnalyticsPanel1;
     public GameObject ProfilePanel;
     public GameObject BillPanel;
+    public GameObject LoadingScreen;
 
     private string userInfoFilePath;
 
@@ -58,11 +60,15 @@ public class LoginRegister : MonoBehaviour
     public void OnLoginButtonClick()
     {       
         StartCoroutine(LoginUser());
+        // SendData.GetPlayerData();
+        // GenerateFileAfterLogin.SaveData();
+        
     }
 
     public void OnLogoutButtonClick()
     {
         LogoutUser();
+        GenerateFileAfterLogin.DestroyFiles();
     }
 
     IEnumerator RegisterUser()
@@ -203,7 +209,7 @@ public class LoginRegister : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
 
             Debug.Log("Sending login request...");
-
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             Debug.Log("Request completed!");
@@ -211,6 +217,7 @@ public class LoginRegister : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Login Successful: " + request.downloadHandler.text);
+                LoadingScreen.SetActive(false);
                 ShowNotification("Login successful!");
 
                 // LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
@@ -218,7 +225,11 @@ public class LoginRegister : MonoBehaviour
                 // PlayerPrefs.SetString("jwtToken", response.token);
                 // PlayerPrefs.Save();
 
-
+                LoginPanel.SetActive(false);
+                HomePanel.SetActive(true);
+                
+                EmailInput.text = "";
+                PasswordInput.text = "";
                 LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
                 PlayerPrefs.SetString("jwtToken", response.token);
                 PlayerPrefs.Save();
@@ -228,15 +239,15 @@ public class LoginRegister : MonoBehaviour
                 if (!string.IsNullOrEmpty(extractedUserId))
                 {
                     SaveUserInfo(extractedUserId, response.token);
+                    
+                    Debug.Log("IMSENDINGHERE");
+                    
                 }
 
 
                 Debug.Log("Token saved: " + response.token);
 
-                HomePanel.SetActive(true);
-                LoginPanel.SetActive(false);
-                EmailInput.text = "";
-                PasswordInput.text = "";
+                
 
                 BillManager billManager = FindObjectOfType<BillManager>();
                 if (billManager != null)
@@ -269,6 +280,7 @@ public class LoginRegister : MonoBehaviour
             {
                 Debug.LogError($"Login Error: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification($"Error: {request.error}");
+                LoadingScreen.SetActive(false);
             }
         }
     }

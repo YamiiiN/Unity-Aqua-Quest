@@ -804,6 +804,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  enemyName: PinsalangKinamada
   healthBarFill: {fileID: 2274512690939184206}
-  AmIWorthy: 20
+  enemyDetail: {fileID: 11400000, guid: 5a4d9eb6942379f448db8622f73aee5d, type: 2}

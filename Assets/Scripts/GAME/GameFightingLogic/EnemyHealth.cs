@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class EnemyHealth : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private bool isDead = false;
-    public string enemyName;
+    // public string enemyName;
     public static int killCount;
     private string filePath, woinsFilePath;
     public Image healthBarFill; // Drag the health bar fill image in the Inspector
-    public static int AmIWorthy; // The amount of Woins earned when enemy dies
+    public EnemyDetail enemyDetail; // Assign in the Inspector
+    // public int AmIWorthy ; // The amount of Woins earned when enemy dies
 
     private void Start()
     {
@@ -59,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
 
         killCount++;
-        UpdateKillCount(enemyName);
+        UpdateKillCount(enemyDetail.Name);
         Earnings(); // Increase Woins when enemy dies
 
         // Destroy enemy after animation (adjust as needed)
@@ -114,11 +116,11 @@ public class EnemyHealth : MonoBehaviour
         if (jsonData["Woins"] != null)
         {
             int currentWoins = jsonData["Woins"].Value<int>();
-            jsonData["Woins"] = currentWoins + AmIWorthy; // Increase Woins
+            jsonData["Woins"] = currentWoins + enemyDetail.worth; // Increase Woins
 
             // Write updated data back to file
             File.WriteAllText(woinsFilePath, jsonData.ToString());
-            Debug.Log($"Earned {AmIWorthy} Woins! Total Woins: {currentWoins + AmIWorthy}");
+            Debug.Log($"Earned {enemyDetail.worth} Woins! Total Woins: {currentWoins + enemyDetail.worth}");
         }
         else
         {

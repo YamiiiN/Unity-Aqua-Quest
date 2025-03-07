@@ -96,7 +96,8 @@ using System.IO;
 
 public class PDFDownloader : MonoBehaviour
 {
-    private string pdfUrl = "http://localhost:5000/api/pdf/download"; // ✅ Use your backend API URL
+    // private string pdfUrl = "http://localhost:5000/api/pdf/download"; // ✅ Use your backend API URL
+private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
 
     public void OnDownloadPDFButtonClick()
     {
@@ -117,7 +118,7 @@ public class PDFDownloader : MonoBehaviour
         // ✅ Detect platform and set the correct Downloads folder
         if (Application.platform == RuntimePlatform.Android)
         {
-            filePath = Path.Combine("/storage/emulated/0/Download", "User_Report.pdf"); // Android Download folder
+            filePath = Path.Combine("/storage/emulated/0/Downloads", "User_Report.pdf"); // Android Download folder
         }
         else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {

@@ -7,6 +7,7 @@ using TMPro;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
 
+
 public class BillManager : MonoBehaviour
 {
     // private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
@@ -14,6 +15,9 @@ public class BillManager : MonoBehaviour
 
     public GameObject billPrefab; 
     public Transform billContainer;
+
+    public GameObject LoginScreen;
+
 
     public Button BillButton;
     
@@ -38,14 +42,14 @@ public class BillManager : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Get(getAllBillsURL);
         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
+        LoginScreen.SetActive(true);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
             string jsonResponse = request.downloadHandler.text;
             JArray bills = JArray.Parse(jsonResponse);
-
+            LoginScreen.SetActive(false);
             Debug.Log("Fetched Bills Successfully: " + jsonResponse);
 
             DisplayBills(bills);

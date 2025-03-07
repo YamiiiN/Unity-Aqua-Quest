@@ -417,9 +417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 300
-  enemyName: KanalGoblin
   healthBarFill: {fileID: 1131371784152862386}
-  AmIWorthy: 10
+  enemyDetail: {fileID: 11400000, guid: d7a13fd6c1e031f41b3da0cd2f3fef0f, type: 2}
 --- !u!114 &2900768073290736425
 MonoBehaviour:
   m_ObjectHideFlags: 0
