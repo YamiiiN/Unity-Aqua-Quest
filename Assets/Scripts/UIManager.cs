@@ -84,11 +84,11 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        // if (currentPanel != null)
-        // {
-        //     Debug.Log("Disabling panel: " + currentPanel.name);
-        //     currentPanel.SetActive(false); 
-        // }
+        if (currentPanel != null)
+        {
+            // Debug.Log("Disabling panel: " + currentPanel.name);
+            currentPanel.SetActive(false); 
+        }
 
         // Debug.Log("Enabling panel: " + panel.name);
         panel.SetActive(true); 
