@@ -11,8 +11,8 @@ public class WaterSavingTipsManager : MonoBehaviour
 {
     public GameObject tipPrefab;
     public Transform contentPanel;
-    // private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
-    private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
+    private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
+    // private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
 
     void Start()
     {

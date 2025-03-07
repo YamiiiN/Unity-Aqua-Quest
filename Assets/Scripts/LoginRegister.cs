@@ -12,8 +12,8 @@ using System.IO;
 
 public class LoginRegister : MonoBehaviour
 {
-    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
-    // private string baseUrl = "http://localhost:5000/api";
+    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    private string baseUrl = "http://localhost:5000/api";
     private string PythonbaseUrl = "https://aquaquest-flask.onrender.com/api";
 
     public TMP_InputField FirstNameInput;
@@ -249,6 +249,8 @@ public class LoginRegister : MonoBehaviour
                     StartCoroutine(analytics.FetchLatestBill()); 
                     StartCoroutine(analytics.FetchMonthlyConsumption());
                     StartCoroutine(analytics.FetchMonthlyCost());
+                    StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
+                    StartCoroutine(analytics.FetchPredictedMonthlyCost());
                 }
 
                 WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
