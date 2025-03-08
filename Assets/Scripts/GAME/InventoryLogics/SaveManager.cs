@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Unity.Android.Gradle.Manifest;
 [System.Serializable]
 public class PlayerData
 {
@@ -12,7 +13,7 @@ public class PlayerData
 
 public static class SaveManager
 {
-    private static readonly string SavePath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+    private static readonly string SavePath = Path.Combine(UnityEngine.Application.persistentDataPath, "PlayerInventory.json");
 
     public static void SaveData(List<GameItems> items)
     {
