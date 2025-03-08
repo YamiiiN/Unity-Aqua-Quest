@@ -14,14 +14,14 @@ public class FetchAllRewards : MonoBehaviour
     void Start()
     {
         string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
-        LetsFetchEmAll();
+        LetsFetchEmAll(getRewardsLink);
     }
 
-    private async Task LetsFetchEmAll()
+    private async Task LetsFetchEmAll(string lenk)
     {
         try
         {
-            using (UnityWebRequest request = UnityWebRequest.Get(getRewardsLink))
+            using (UnityWebRequest request = UnityWebRequest.Get(lenk))
             {
                 var opp = request.SendWebRequest();
 
