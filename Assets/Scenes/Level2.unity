@@ -14449,6 +14449,18 @@ PrefabInstance:
       propertyPath: failedUI
       value: 
       objectReference: {fileID: 1450606725}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: PotionButton
+      value: 
+      objectReference: {fileID: 1422516069537246144}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: healthPotion
+      value: 
+      objectReference: {fileID: 11400000, guid: c5bab6c4b63fa1b43bb9a2f9af028576, type: 2}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: AnimHolderOfButton
+      value: 
+      objectReference: {fileID: 1422516069537246145}
     - target: {fileID: 5317911173838784853, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -14855,6 +14867,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3110c7e8aaa5bc44b8e179ac711db1a5, type: 3}
+--- !u!114 &1422516069537246144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6985644815426453677, guid: 3110c7e8aaa5bc44b8e179ac711db1a5, type: 3}
+  m_PrefabInstance: {fileID: 1422516069537246143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1422516069537246145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7745639118761250865, guid: 3110c7e8aaa5bc44b8e179ac711db1a5, type: 3}
+  m_PrefabInstance: {fileID: 1422516069537246143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5339591060685597715
 PrefabInstance:
   m_ObjectHideFlags: 0

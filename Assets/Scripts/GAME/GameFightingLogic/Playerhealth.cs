@@ -10,8 +10,10 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
     private string jsonFilePath;
     private Animator anim;
-    
-    public GameObject failedUI;
+    public Potion healthPotion;
+    public GameObject failedUI, AnimHolderOfButton;
+
+    public Button PotionButton;
 
     void Start()
     {
@@ -21,7 +23,15 @@ public class PlayerHealth : MonoBehaviour
         anim = GetComponent<Animator>();
 
         currentHealth = maxHealth;
+        if(!CheckIfPotionIsInInventory())
+        {
+            AnimHolderOfButton.SetActive(false);
+        }
+        
         UpdateHealthBar();
+        PotionButton.GetComponent<Image>().sprite = healthPotion.Icon;
+
+        PotionButton.onClick.AddListener(OnPotionUseAddHealth);
     }
 
     public void TakeDamage(int damage)
@@ -79,30 +89,33 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void CheckIfPotionIsInInventory()
+    private bool CheckIfPotionIsInInventory()
     {
         // Check if a specific potion is in the player's inventory
-        string potionName = "Health Potion";
+        string potionName = healthPotion.Name;
         PlayerData playerData = SaveManager.LoadData();
 
-        if (playerData != null && playerData.Potions != null)
+        foreach(string pots in SaveManager.LoadData().Relics)
         {
-           
-            foreach(string potion in playerData.Potions)
+            if(pots == potionName)
             {
-                if (potion == potionName)
-                {
-                    // Potion is in the inventory
-                    Debug.Log("Player has a Health Potion!");
-                    break;
-                }
+                return true;
             }
         }
+        return false;
+
     }
 
 
     void OnPotionUseAddHealth()
     {
         
+        if (CheckIfPotionIsInInventory())
+        {
+            AnimHolderOfButton.GetComponent<Animator>().SetTrigger("ImPressed");
+            currentHealth += healthPotion.HealthEffect;
+            currentHealth = Mathf.Min(currentHealth, maxHealth); // Cap at maxHealth
+            UpdateHealthBar();
+        }
     }
 }
