@@ -178,8 +178,8 @@ using UnityEngine.UI;
 
 public class Profile : MonoBehaviour
 {
-    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
@@ -364,11 +364,12 @@ public class Profile : MonoBehaviour
         {
             request.SetRequestHeader("Authorization", "Bearer " + token);
             LoadingScreen.SetActive(true);
-
+            // LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                // LoadingScreen.SetActive(false);
                 LoadingScreen.SetActive(false);
                 Debug.Log("Profile updated successfully: " + request.downloadHandler.text);
                 ShowNotification("Profile updated successfully!");
@@ -376,9 +377,10 @@ public class Profile : MonoBehaviour
             }
             else
             {
+                
                 Debug.LogError($"Error updating profile: {request.error}, Response: {request.downloadHandler.text}");
                 ShowNotification("Failed to update profile.");
-                LoadingScreen.SetActive(true);
+                LoadingScreen.SetActive(false);
             }
         }
     }

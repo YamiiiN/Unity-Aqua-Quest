@@ -16,27 +16,27 @@ public class LoginHandler : MonoBehaviour
 
     public void ClickME()
     {
-        string projectFolderPath = Application.dataPath; // Points to "Assets" folder in the project
-        string saveFolder = Path.Combine(projectFolderPath, "UserData");
-        if (!Directory.Exists(saveFolder))
+        string saveFolder = Path.Combine(Application.dataPath, "UserData");
+        string userFilePath = Path.Combine(saveFolder, "userInfo.json");
+
+        if (File.Exists(userFilePath))
         {
-            Directory.CreateDirectory(saveFolder); // Ensure the folder exists
-        }
-        userFilepAth = Path.Combine(saveFolder, "userInfo.json");
-        if (File.Exists(userFilepAth))
-        {
-            string json = File.ReadAllText(userFilepAth);
-            if (!string.IsNullOrWhiteSpace(json)) 
+            string json = File.ReadAllText(userFilePath);
+            if (!string.IsNullOrWhiteSpace(json) && json != "{}")
             {
-               ME.SetActive(false);
-               LOGIN.SetActive(false);
-               HOME.SetActive(true);
+                ME.SetActive(false);
+                LOGIN.SetActive(false);
+                HOME.SetActive(true);
+                return;
             }
         }
         else
         {
-            ME.SetActive(false);
-            LOGIN.SetActive(true);
+            Directory.CreateDirectory(saveFolder); // Ensures directory exists
         }
+
+        ME.SetActive(false);
+        LOGIN.SetActive(true);
     }
+
 }
