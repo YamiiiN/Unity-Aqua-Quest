@@ -254,7 +254,7 @@
 //     void PickImageFromGallery()
 //     {
 //         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-        
+
 //         if (permission == NativeGallery.Permission.ShouldAsk)
 //         {
 //             permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
@@ -349,7 +349,7 @@ public class ImageUploader : MonoBehaviour
 
     public GameObject UploadPanel;
     public GameObject AnalyticsPanel1;
-
+    public GameObject BillPanel;
     public BillManager billManager;
     public Analytics analytics;
 
@@ -361,7 +361,7 @@ public class ImageUploader : MonoBehaviour
     void PickImagesFromGallery()
     {
         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-        
+
         if (permission == NativeGallery.Permission.ShouldAsk)
         {
             permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
@@ -389,7 +389,7 @@ public class ImageUploader : MonoBehaviour
         }
     }
 
-   IEnumerator UploadImage(string filePath)
+    IEnumerator UploadImage(string filePath)
     {
         string jwtToken = PlayerPrefs.GetString("jwtToken", "");
         if (string.IsNullOrEmpty(jwtToken))
@@ -440,7 +440,7 @@ public class ImageUploader : MonoBehaviour
                 WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
                 if (fetchTips != null)
                 {
-                    StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+                    StartCoroutine(fetchTips.FetchWaterSavingTips());
                 }
             }
             else
@@ -477,7 +477,7 @@ public class ImageUploader : MonoBehaviour
 //     void PickImagesFromGallery()
 //     {
 //         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-        
+
 //         if (permission == NativeGallery.Permission.ShouldAsk)
 //         {
 //             permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);

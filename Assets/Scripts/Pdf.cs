@@ -1,94 +1,3 @@
-// using UnityEngine;
-// using System.Collections;
-// using UnityEngine.Networking;
-// using TMPro;
-
-// public class Pdf : MonoBehaviour
-// {
-//     private string baseUrl = "http://localhost:5000/api/pdf/download"; 
-
-
-//     public void StartDownload()
-//     {
-//         StartCoroutine(DownloadPDF());
-//     }
-
-//     IEnumerator DownloadPDF()
-//     {
-//         string userId = PlayerPrefs.GetString("user_id", "default_id"); // Retrieve user ID
-//         if (string.IsNullOrEmpty(userId) || userId == "default_id")
-//         {
-//             Debug.LogError("User ID not found. Ensure it's stored in PlayerPrefs.");
-//             yield break;
-//         }
-
-//         string downloadUrl = $"{baseUrl}/{userId}";
-//         Debug.Log("Downloading PDF from: " + downloadUrl);
-
-//         using (UnityWebRequest request = UnityWebRequest.Get(downloadUrl))
-//         {
-//             request.downloadHandler = new DownloadHandlerBuffer();
-//             yield return request.SendWebRequest();
-
-//             if (request.result == UnityWebRequest.Result.Success)
-//             {
-//                 Debug.Log("Download started: " + downloadUrl);
-//                 Application.OpenURL(downloadUrl); // Open browser to trigger download
-//             }
-//             else
-//             {
-//                 Debug.LogError($"Error downloading PDF: {request.error}, Response: {request.downloadHandler.text}");
-//             }
-//         }
-//     }
-
-
-// }
-// using UnityEngine;
-// using System.Collections;
-// using UnityEngine.Networking;
-// using System;
-
-// public class Pdf : MonoBehaviour
-// {
-//     private string baseUrl = "http://localhost:5000/api/pdf/download";
-
-//     public void StartDownload()
-//     {
-//         string token = PlayerPrefs.GetString("jwtToken", "");
-
-//         if (string.IsNullOrEmpty(token))
-//         {
-//             Debug.LogError("No JWT token found. User must log in.");
-//             return;
-//         }
-
-//         StartCoroutine(DownloadPDF(token));
-//         // StartCoroutine(PingAndDownloadPDF(token));
-//     }
-
-//     IEnumerator DownloadPDF(string token)
-//     {
-//         string downloadUrl = $"http://localhost:5000/api/pdf/download?token={token}";
-
-//         // Open the link in a browser (user will manually download it)
-//         Application.OpenURL(downloadUrl);
-//         Debug.Log("Redirecting to: " + downloadUrl);
-
-//         yield return null;
-//     }
-
-//     IEnumerator PingAndDownloadPDF(string token)
-//     {
-//         using (UnityWebRequest pingRequest = UnityWebRequest.Get("http://localhost:5000/api/pdf/download"))
-//         {
-//             yield return pingRequest.SendWebRequest();
-//         }
-
-//         yield return DownloadPDF(token);
-//     }
-
-// }
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -96,8 +5,8 @@ using System.IO;
 
 public class PDFDownloader : MonoBehaviour
 {
-    private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
-
+    // private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; 
+    private string pdfUrl = "http://localhost:5000/api/pdf/download";
     public void OnDownloadPDFButtonClick()
     {
         StartCoroutine(DownloadPDF());
@@ -113,7 +22,7 @@ public class PDFDownloader : MonoBehaviour
         }
 
         string filePath;
-        
+
         // ✅ Detect platform and set the correct Downloads folder
         if (Application.platform == RuntimePlatform.Android)
         {
