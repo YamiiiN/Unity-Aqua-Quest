@@ -9,10 +9,11 @@ using Newtonsoft.Json;
 
 public class FetchAllRewards : MonoBehaviour
 {
-    private string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
+    
     // private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
     void Start()
     {
+        string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
         LetsFetchEmAll();
     }
 
