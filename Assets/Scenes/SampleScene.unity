@@ -49900,7 +49900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbca12c2c06dea45990d392ed386fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadingScreen: {fileID: 0}
+  LoadingScreen: {fileID: 5941327977176688905, guid: 41586c864d8e19541b0865a77f6a16d3, type: 3}
 --- !u!1 &2000718171
 GameObject:
   m_ObjectHideFlags: 0
