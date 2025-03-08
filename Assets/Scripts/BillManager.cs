@@ -16,7 +16,7 @@ public class BillManager : MonoBehaviour
     public GameObject billPrefab; 
     public Transform billContainer;
 
-    public GameObject LoginScreen;
+    public GameObject LoadingScreen;
 
 
     public Button BillButton;
@@ -42,14 +42,14 @@ public class BillManager : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Get(getAllBillsURL);
         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-        LoginScreen.SetActive(true);
+        LoadingScreen.SetActive(true);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
             string jsonResponse = request.downloadHandler.text;
             JArray bills = JArray.Parse(jsonResponse);
-            LoginScreen.SetActive(false);
+            LoadingScreen.SetActive(false);
             Debug.Log("Fetched Bills Successfully: " + jsonResponse);
 
             DisplayBills(bills);

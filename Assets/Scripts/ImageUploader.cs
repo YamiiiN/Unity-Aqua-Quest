@@ -238,8 +238,10 @@ public class ImageUploader : MonoBehaviour
 
 
 
-
+// MAKE SURE TO ATTACH LOADING SCREEN IN THE INSPECTOR BEFORE UNCOMMENTING THIS ======================================
 // MOBILE UPLOAD (WORKING)
+
+
 // using System.Collections;
 // using System.IO;
 // using UnityEngine;
@@ -256,6 +258,7 @@ public class ImageUploader : MonoBehaviour
 
 //     public BillManager billManager;
 //     public Analytics analytics;
+//     public GameObject LoadingScreen;
 
 //     void Start()
 //     {
@@ -304,14 +307,14 @@ public class ImageUploader : MonoBehaviour
 //         using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
 //         {
 //             request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
+            // LoadingScreen.SetActive(true);
 //             yield return request.SendWebRequest();
 
 //             if (request.result == UnityWebRequest.Result.Success)
 //             {
 //                 string responseText = request.downloadHandler.text;
 //                 Debug.Log("Upload successful: " + responseText);
-
+                // LoadingScreen.SetActive(false);
 //                 UploadPanel.SetActive(false);
 //                 AnalyticsPanel1.SetActive(true);
 
@@ -338,6 +341,7 @@ public class ImageUploader : MonoBehaviour
 //             else
 //             {
 //                 Debug.LogError("Upload failed: " + request.error);
+                // LoadingScreen.SetActive(false);
 //             }
 //         }
 //     }
@@ -492,7 +496,7 @@ public class ImageUploader : MonoBehaviour
 //     void PickImagesFromGallery()
 //     {
 //         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-        
+
 //         if (permission == NativeGallery.Permission.ShouldAsk)
 //         {
 //             permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
