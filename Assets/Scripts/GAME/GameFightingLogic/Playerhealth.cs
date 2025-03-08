@@ -78,4 +78,31 @@ public class PlayerHealth : MonoBehaviour
             defense = 5;
         }
     }
+
+    void CheckIfPotionIsInInventory()
+    {
+        // Check if a specific potion is in the player's inventory
+        string potionName = "Health Potion";
+        PlayerData playerData = SaveManager.LoadData();
+
+        if (playerData != null && playerData.Potions != null)
+        {
+           
+            foreach(string potion in playerData.Potions)
+            {
+                if (potion == potionName)
+                {
+                    // Potion is in the inventory
+                    Debug.Log("Player has a Health Potion!");
+                    break;
+                }
+            }
+        }
+    }
+
+
+    void OnPotionUseAddHealth()
+    {
+        
+    }
 }
