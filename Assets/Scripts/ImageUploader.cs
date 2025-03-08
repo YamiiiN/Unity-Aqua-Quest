@@ -136,8 +136,8 @@ using SFB;
 public class ImageUploader : MonoBehaviour
 {
     public Button UploadButton;
-    // public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
-    public string uploadURL = "http://localhost:5000/api/waterBill/upload";
+    public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
+    // public string uploadURL = "http://localhost:5000/api/waterBill/upload";
 
     public GameObject UploadPanel;
     public GameObject BillPanel;
@@ -205,6 +205,7 @@ public class ImageUploader : MonoBehaviour
                     StartCoroutine(analytics.FetchMonthlyCost());
                     StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
                     StartCoroutine(analytics.FetchPredictedMonthlyCost());
+                    
                 }
                 else
                 {
@@ -216,6 +217,13 @@ public class ImageUploader : MonoBehaviour
                 {
                     StartCoroutine(fetchTips.FetchWaterSavingTips()); 
                 }
+
+                SaveWaterBill saveWaterBiill = FindObjectOfType<SaveWaterBill>();
+                if (saveWaterBiill != null)
+                {
+                    StartCoroutine(saveWaterBiill.SavePredictedVsActual()); 
+                    StartCoroutine(saveWaterBiill.FetchMonthlySavedCost()); 
+                }
             }
             else
             {
@@ -223,6 +231,7 @@ public class ImageUploader : MonoBehaviour
             }
         }
     }
+
 
 
 }

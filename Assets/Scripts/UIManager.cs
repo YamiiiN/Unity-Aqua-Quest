@@ -1,4 +1,3 @@
-// BASIC SWITCHING PANELS
 // using UnityEngine;
 
 // public class UIManager : MonoBehaviour
@@ -9,46 +8,60 @@
 //     public GameObject UploadPanel;
 //     public GameObject AnalyticsPanel1;
 //     public GameObject ProfilePanel;
-//     public GameObject AdminDashboardPanel;
+//     public GameObject BillPanel;
 
 //     private GameObject currentPanel;
+//     private bool hasRedirectedToLogin = false; 
 
 //     void Start()
 //     {
-//         if (HomePanel == null)
-//         {
-//             Debug.LogError("HomePanel is not assigned in the Inspector!");
-//             return;
-//         }
-//         ShowPanel(HomePanel);
+
+
+//         ShowPanel(HomePanel); 
 //     }
 
 //     public void ShowPanel(GameObject panel)
 //     {
-//         if (panel == null)
+
+//         if (panel != HomePanel && panel != LoginPanel && panel != RegisterPanel && !IsUserLoggedIn())
 //         {
-//             Debug.LogError("Panel is not assigned!");
-//             return;
+//             if (!hasRedirectedToLogin && currentPanel == HomePanel)
+//             {
+//                 Debug.Log("User not logged in. Redirecting to Login Panel.");
+//                 panel = LoginPanel; 
+//                 hasRedirectedToLogin = true; 
+//             }
 //         }
 
 //         if (currentPanel != null)
 //         {
-//             Debug.Log("Disabling panel: " + currentPanel.name);
-//             currentPanel.SetActive(false); // Disable the old panel
+//             // Debug.Log("Disabling panel: " + currentPanel.name);
+//             currentPanel.SetActive(false); 
 //         }
 
-//         Debug.Log("Enabling panel: " + panel.name);
-//         panel.SetActive(true); // Show the new panel
-//         currentPanel = panel; // Set the new panel as the current one
+//         // Debug.Log("Enabling panel: " + panel.name);
+//         panel.SetActive(true); 
+//         currentPanel = panel; 
 
-//         Debug.Log("Successfully switched to panel: " + panel.name); 
+//         // Debug.Log("Successfully switched to panel: " + panel.name);
 //     }
 
-//     void Update() { }
+//     private bool IsUserLoggedIn()
+//     {
+//         return PlayerPrefs.HasKey("jwtToken");
+//     }
+
+    
+//     public void OnUserLoggedIn()
+//     {
+//         hasRedirectedToLogin = false;
+//     }
+
 // }
 
 
-// OG CODE WAG BURAHIN WORKING
+
+
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -66,14 +79,17 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        ShowPanel(HomePanel);  
 
-
-        ShowPanel(HomePanel); 
+        // ✅ Fetch data if user is logged in
+        if (IsUserLoggedIn())
+        {
+            FetchUserData();
+        }
     }
 
     public void ShowPanel(GameObject panel)
     {
-
         if (panel != HomePanel && panel != LoginPanel && panel != RegisterPanel && !IsUserLoggedIn())
         {
             if (!hasRedirectedToLogin && currentPanel == HomePanel)
@@ -86,15 +102,11 @@ public class UIManager : MonoBehaviour
 
         if (currentPanel != null)
         {
-            // Debug.Log("Disabling panel: " + currentPanel.name);
-            currentPanel.SetActive(false); 
+            currentPanel.SetActive(false);
         }
 
-        // Debug.Log("Enabling panel: " + panel.name);
-        panel.SetActive(true); 
-        currentPanel = panel; 
-
-        // Debug.Log("Successfully switched to panel: " + panel.name);
+        panel.SetActive(true);
+        currentPanel = panel;
     }
 
     private bool IsUserLoggedIn()
@@ -102,10 +114,50 @@ public class UIManager : MonoBehaviour
         return PlayerPrefs.HasKey("jwtToken");
     }
 
-    
+    // ✅ New function to fetch all necessary data
+    private void FetchUserData()
+    {
+        Debug.Log("🔄 Fetching user-related data...");
+
+        BillManager billManager = FindObjectOfType<BillManager>();
+        if (billManager != null)
+        {
+            StartCoroutine(billManager.FetchBills());  
+        }
+
+        Analytics analytics = FindObjectOfType<Analytics>();
+        if (analytics != null)
+        {
+            StartCoroutine(analytics.FetchLatestBill()); 
+            StartCoroutine(analytics.FetchMonthlyConsumption());
+            StartCoroutine(analytics.FetchMonthlyCost());
+            StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
+            StartCoroutine(analytics.FetchPredictedMonthlyCost());
+        }
+
+        WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+        if (fetchTips != null)
+        {
+            StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+        }
+
+        Profile profile = FindObjectOfType<Profile>();
+        if (profile != null)
+        {
+            StartCoroutine(profile.FetchUserProfile()); 
+        }
+
+        SaveWaterBill saveWaterBill = FindObjectOfType<SaveWaterBill>();
+        if (saveWaterBill != null)
+        {
+            StartCoroutine(saveWaterBill.FetchMonthlySavedCost()); 
+        }
+    }
+
+    // ✅ Call this when the user logs in
     public void OnUserLoggedIn()
     {
         hasRedirectedToLogin = false;
+        FetchUserData(); // Fetch data immediately after login
     }
-
 }

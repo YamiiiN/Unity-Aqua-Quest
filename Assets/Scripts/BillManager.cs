@@ -10,8 +10,8 @@ using UnityEngine.UI;
 
 public class BillManager : MonoBehaviour
 {
-    // private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
-    private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
+    private string getAllBillsURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/bills";
+    // private string getAllBillsURL = "http://localhost:5000/api/waterBill/bills";
 
     public GameObject billPrefab; 
     public Transform billContainer;
@@ -60,6 +60,7 @@ public class BillManager : MonoBehaviour
         }
     }
 
+    // OG 
     void DisplayBills(JArray bills)
     {
         foreach (Transform child in billContainer)
@@ -86,6 +87,41 @@ public class BillManager : MonoBehaviour
             if (outcomeText != null) outcomeText.text = "PROCESSED";
         }
     }
+
+    // TRIAL PARA MAGKAROON NG FAILED SA STATUS
+    // void DisplayBills(JArray bills)
+    // {
+    //     foreach (Transform child in billContainer)
+    //     {
+    //         Destroy(child.gameObject); 
+    //     }
+
+    //     float yOffset = 100f; 
+
+    //     for (int i = 0; i < bills.Count; i++)
+    //     {
+    //         JObject bill = (JObject)bills[i];
+
+    //         GameObject billInstance = Instantiate(billPrefab, billContainer);
+    //         billInstance.transform.localPosition = new Vector3(0, -i * yOffset, 0); 
+
+    //         TMP_Text fileIdText = billInstance.transform.Find("FileIdText")?.GetComponent<TMP_Text>();
+    //         TMP_Text dateText = billInstance.transform.Find("DateText")?.GetComponent<TMP_Text>();
+    //         TMP_Text outcomeText = billInstance.transform.Find("OutcomeText")?.GetComponent<TMP_Text>();
+
+    //         if (fileIdText != null) fileIdText.text = bill["_id"].ToString();
+    //         if (dateText != null) dateText.text = bill["createdAt"].ToString();
+
+    //         bool hasValidData = bill["billDate"] != null && !string.IsNullOrEmpty(bill["billDate"].ToString()) &&
+    //                             bill["billAmount"] != null && bill["billAmount"].Type == JTokenType.Float &&
+    //                             bill["waterConsumption"] != null && bill["waterConsumption"].Type == JTokenType.Integer;
+
+    //         if (outcomeText != null) 
+    //         {
+    //             outcomeText.text = hasValidData ? "PROCESSED" : "FAILED";
+    //         }
+    //     }
+    // }
 
     public void ClearBills()
     {

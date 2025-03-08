@@ -178,8 +178,8 @@ using UnityEngine.UI;
 
 public class Profile : MonoBehaviour
 {
-    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
@@ -197,6 +197,7 @@ public class Profile : MonoBehaviour
 
     void Start()
     {
+        
         StartCoroutine(FetchUserProfile());
     }
 
@@ -292,7 +293,7 @@ public class Profile : MonoBehaviour
 
     public void OnSelectFileButtonClick()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
+        #if UNITY_EDITOR || UNITY_STANDALONE
                 var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
                 var paths = StandaloneFileBrowser.OpenFilePanel("Select Profile Image", "", extensions, false);
 
@@ -307,9 +308,9 @@ public class Profile : MonoBehaviour
                 {
                     Debug.LogWarning("No valid file selected.");
                 }
-#else
-        PickImageFromGallery();
-#endif
+        #else
+                PickImageFromGallery();
+        #endif
     }
 
     public void PickImageFromGallery()
@@ -424,4 +425,6 @@ public class Profile : MonoBehaviour
         EmailInput.text = "";
         PasswordInput.text = "";
     }
+
+
 }
