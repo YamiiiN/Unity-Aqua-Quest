@@ -30,4 +30,19 @@ public static class GenerateFileAfterLogin
             Debug.LogError("❌ Player Stats is null. Cannot save.");
         }
     }
+
+    public static void DestroyFiles()
+    {
+        if (File.Exists(inventoryPath))
+        {
+            File.Delete(inventoryPath);
+            Debug.Log("❌ Player Inventory file deleted.");
+        }
+
+        if (File.Exists(statsPath))
+        {
+            File.Delete(statsPath);
+            Debug.Log("❌ Player Stats file deleted.");
+        }
+    }
 }

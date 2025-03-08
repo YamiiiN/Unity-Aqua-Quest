@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 public class WaterSavingTipsManager : MonoBehaviour
 {
-    public GameObject tipPrefab;
+    public GameObject tipPrefab, LoadingScreen;
     public Transform contentPanel;
     // private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
     private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
@@ -34,11 +34,12 @@ public class WaterSavingTipsManager : MonoBehaviour
         {
             request.SetRequestHeader("Authorization", "Bearer " + authToken);
             request.SetRequestHeader("Content-Type", "application/json");
-
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                
                 string jsonResponse = request.downloadHandler.text;
                 Debug.Log("Raw JSON Response: " + jsonResponse);
 
@@ -71,12 +72,16 @@ public class WaterSavingTipsManager : MonoBehaviour
                 }
                 catch (System.Exception ex)
                 {
+                    LoadingScreen.SetActive(false);
                     Debug.LogError("Error parsing tips: " + ex.Message);
                     PopulateTips(new string[] { "Error occurred while fetching tips." });
                 }
+                LoadingScreen.SetActive(false);
+
             }
             else
             {
+                LoadingScreen.SetActive(false);
                 Debug.LogError($"API Error: {request.error} ({request.responseCode})");
                 PopulateTips(new string[] { "Failed to fetch tips." });
             }

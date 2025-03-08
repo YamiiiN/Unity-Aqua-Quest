@@ -66,22 +66,13 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        if (HomePanel == null || LoginPanel == null || RegisterPanel == null)
-        {
-            Debug.LogError("HomePanel, LoginPanel, or RegisterPanel is not assigned in the Inspector!");
-            return;
-        }
+
 
         ShowPanel(HomePanel); 
     }
 
     public void ShowPanel(GameObject panel)
     {
-        if (panel == null)
-        {
-            Debug.LogError("Panel is not assigned!");
-            return;
-        }
 
         if (panel != HomePanel && panel != LoginPanel && panel != RegisterPanel && !IsUserLoggedIn())
         {
@@ -95,15 +86,15 @@ public class UIManager : MonoBehaviour
 
         if (currentPanel != null)
         {
-            Debug.Log("Disabling panel: " + currentPanel.name);
+            // Debug.Log("Disabling panel: " + currentPanel.name);
             currentPanel.SetActive(false); 
         }
 
-        Debug.Log("Enabling panel: " + panel.name);
+        // Debug.Log("Enabling panel: " + panel.name);
         panel.SetActive(true); 
         currentPanel = panel; 
 
-        Debug.Log("Successfully switched to panel: " + panel.name);
+        // Debug.Log("Successfully switched to panel: " + panel.name);
     }
 
     private bool IsUserLoggedIn()

@@ -5,8 +5,9 @@ using System.IO;
 
 public class PDFDownloader : MonoBehaviour
 {
-    // private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; 
-    private string pdfUrl = "http://localhost:5000/api/pdf/download";
+    // private string pdfUrl = "http://localhost:5000/api/pdf/download"; // ✅ Use your backend API URL
+private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
+public GameObject LoadingScreen;
     public void OnDownloadPDFButtonClick()
     {
         StartCoroutine(DownloadPDF());
@@ -26,7 +27,7 @@ public class PDFDownloader : MonoBehaviour
         // ✅ Detect platform and set the correct Downloads folder
         if (Application.platform == RuntimePlatform.Android)
         {
-            filePath = Path.Combine("/storage/emulated/0/Download", "User_Report.pdf"); // Android Download folder
+            filePath = Path.Combine("/storage/emulated/0/Downloads", "User_Report.pdf"); // Android Download folder
         }
         else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {
@@ -40,16 +41,18 @@ public class PDFDownloader : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(pdfUrl);
         request.SetRequestHeader("Authorization", "Bearer " + token);
         request.downloadHandler = new DownloadHandlerFile(filePath);
-
+        LoadingScreen.SetActive(true);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
+            LoadingScreen.SetActive(false);
             Debug.Log("PDF downloaded successfully: " + filePath);
             Application.OpenURL(filePath); // Open the downloaded PDF
         }
         else
         {
+            LoadingScreen.SetActive(false);
             Debug.LogError($"Error downloading PDF: {request.error}");
         }
     }

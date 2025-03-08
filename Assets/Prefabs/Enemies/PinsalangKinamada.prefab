@@ -741,11 +741,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.29, y: 3.54}
+  m_Offset: {x: -0.29, y: 7.88}
   m_Size: {x: 3.34, y: 6.05}
   m_Direction: 0
 --- !u!50 &3461858163271271585
@@ -804,6 +804,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  enemyName: PinsalangKinamada
   healthBarFill: {fileID: 2274512690939184206}
-  AmIWorthy: 20
+  enemyDetail: {fileID: 11400000, guid: 5a4d9eb6942379f448db8622f73aee5d, type: 2}

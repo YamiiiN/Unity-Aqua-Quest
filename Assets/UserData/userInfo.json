@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
     "userId": "67c8be54cadea47e5a542a54",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YzhiZTU0Y2FkZWE0N2U1YTU0MmE1NCIsImlhdCI6MTc0MTMzMzM4NCwiZXhwIjoxNzQ2NTE3Mzg0fQ.IxCUSMW9l3_7dwl3l37ivTcRjZUwni0NJ19deiMxjeE"
+=======
+    "userId": "67c4bb6053820cef4e102ac6",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YzRiYjYwNTM4MjBjZWY0ZTEwMmFjNiIsImlhdCI6MTc0MTQwNzQzMSwiZXhwIjoxNzQ2NTkxNDMxfQ.X0cZv9br38flTeBdJAdsjxgEEJGznnQA5LDtQpHhtpI"
+>>>>>>> a4473f26bac8cf23de07801e1f4bb6eb25bb33ae
 }

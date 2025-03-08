@@ -311,7 +311,8 @@ public class Analytics : MonoBehaviour
 {
     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
     // private string baseUrl = "http://localhost:5000/api";
-
+    public BarChart predictedAllConsumptionChart;
+    public LineChart predictedAllCostChart;
     public TMP_Text DateText;
     public TMP_Text ConsumptionText;
     public TMP_Text CostText;
@@ -325,7 +326,6 @@ public class Analytics : MonoBehaviour
 
     private float predictedMonthlyCostKo;
     private float predictedMonthlyConsumptionKo;
-
     private string monthKo;
 
     void Start()
@@ -335,6 +335,8 @@ public class Analytics : MonoBehaviour
             StartCoroutine(FetchLatestBill());
             StartCoroutine(FetchMonthlyConsumption());
             StartCoroutine(FetchMonthlyCost());
+            StartCoroutine(FetchPredictedMonthlyConsumption());
+            StartCoroutine(FetchPredictedMonthlyCost());
             // StartCoroutine(SavePredictedData(PredictedData.month, PredictedData.consumption, PredictedData.cost));
         });
 
@@ -497,6 +499,115 @@ public class Analytics : MonoBehaviour
         }
     }
 
+      // TRIAL
+    public IEnumerator FetchPredictedMonthlyConsumption()
+    {
+        string jwtToken = GetJWTToken();
+        if (string.IsNullOrEmpty(jwtToken)) yield break;
+
+        using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/predicted-monthly-consumption"))
+        {
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string jsonResponse = request.downloadHandler.text;
+                Debug.Log("Predicted Monthly Consumption Data: " + jsonResponse);
+
+                JArray predictedConsumptionData = JArray.Parse(jsonResponse);
+                List<string> months = new List<string>();
+                List<float> predictedConsumptions = new List<float>();
+
+                foreach (JObject entry in predictedConsumptionData)
+                {
+                    months.Add(entry["_id"].ToString());
+                    predictedConsumptions.Add(float.Parse(entry["predictedConsumption"].ToString()));
+                }
+
+                UpdatePredictedConsumptionChart(months, predictedConsumptions);
+            }
+            else
+            {
+                Debug.LogError($"Failed to fetch predicted monthly consumption. Error: {request.error}");
+            }
+        }
+    }
+
+    public IEnumerator FetchPredictedMonthlyCost()
+    {
+        string jwtToken = GetJWTToken();
+        if (string.IsNullOrEmpty(jwtToken)) yield break;
+
+        using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/chart/predicted-monthly-cost"))
+        {
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string jsonResponse = request.downloadHandler.text;
+                Debug.Log("Predicted Monthly Cost Data: " + jsonResponse);
+
+                JArray predictedCostData = JArray.Parse(jsonResponse);
+                List<string> months = new List<string>();
+                List<float> predictedCosts = new List<float>();
+
+                foreach (JObject entry in predictedCostData)
+                {
+                    months.Add(entry["_id"].ToString());
+                    predictedCosts.Add(float.Parse(entry["predictedCost"].ToString()));
+                }
+
+                UpdatePredictedCostChart(months, predictedCosts);
+            }
+            else
+            {
+                Debug.LogError($"Failed to fetch predicted monthly cost. Error: {request.error}");
+            }
+        }
+    }
+
+    private void UpdatePredictedConsumptionChart(List<string> months, List<float> predictedConsumptions)
+    {
+        if (predictedAllConsumptionChart == null)
+        {
+            Debug.LogError("Predicted Consumption Chart is not assigned in the Inspector.");
+            return;
+        }
+
+        predictedAllConsumptionChart.ClearData();
+        predictedAllConsumptionChart.AddSerie<Bar>();
+
+        for (int i = 0; i < months.Count; i++)
+        {
+            predictedAllConsumptionChart.AddXAxisData(months[i]);
+            predictedAllConsumptionChart.AddData(0, predictedConsumptions[i]);
+        }
+    }
+
+    private void UpdatePredictedCostChart(List<string> months, List<float> predictedCosts)
+    {
+        if (predictedAllCostChart == null)
+        {
+            Debug.LogError("Predicted Cost Chart is not assigned in the Inspector.");
+            return;
+        }
+
+        predictedAllCostChart.ClearData();
+        predictedAllCostChart.AddSerie<Line>();
+
+        for (int i = 0; i < months.Count; i++)
+        {
+            predictedAllCostChart.AddXAxisData(months[i]);
+            predictedAllCostChart.AddData(0, predictedCosts[i]);
+        }
+    }
+
+
+
+
+
     public void PredictNextMonth(List<string> months, List<float> values, string type)
     {
         if (values.Count < 2) return;
@@ -616,30 +727,42 @@ public class Analytics : MonoBehaviour
         }
     }
 
+    
+
+
+    // OG FROM GITHUB
     // public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
     // {
-    //     Debug.Log($"🔍 Starting SavePredictedData - Month: {month}, Predicted Consumption: {predictedConsumption}, Predicted Amount: {predictedAmount}");
+    //     Debug.Log($"🔍 Checking existing predictions for {month}...");
 
-    //     string jwtToken = GetJWTToken();
-    //     if (string.IsNullOrEmpty(jwtToken))
-    //     {
-    //         Debug.LogError("❌ JWT Token is missing! Cannot send request.");
-    //         yield break;
-    //     }
+    //     // Step 1: Get existing predictions before saving
+    //     // string jwtToken = GetJWTToken();
+
+
+    //     string folderpath = Application.dataPath;
+    //     string savePath = Path.Combine(folderpath, "UserData");
+    //     string userDataPath = Path.Combine(savePath, "userInfo.json");
+    //     string jsonContent = File.ReadAllText(userDataPath);
+    //     JObject PlayerId = JObject.Parse(jsonContent);
+    //     string userid = PlayerId["userId"]?.ToString();
+    //     string jwtToken = PlayerId["token"]?.ToString();
+    //     Debug.Log($"📦 Saving new prediction for {month}...");
 
     //     JObject predictedData = new JObject
-    //     {
-    //         { "predictedMonth", month },
-    //         { "predictedConsumption", predictedConsumption },
-    //         { "predictedAmount", predictedAmount } // Updated key to align with backend
-    //     };
+    //         {
+    //             {"user", userid},
+    //             { "predictedAmount", predictedAmount },
+    //             { "predictedConsumption", predictedConsumption },
+    //             { "predictedMonth", month },
+
+
+
+    //         };
 
     //     string jsonPayload = predictedData.ToString();
     //     byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
 
-    //     Debug.Log($"📦 JSON Payload: {jsonPayload}");
-
-    //     using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/chart/save-prediction", "POST"))
+    //     using (UnityWebRequest request = new UnityWebRequest("https://aqua-quest-backend-deployment.onrender.com/api/chart/save-prediction", "POST"))
     //     {
     //         request.SetRequestHeader("Content-Type", "application/json");
     //         request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
@@ -652,8 +775,7 @@ public class Analytics : MonoBehaviour
 
     //         if (request.result == UnityWebRequest.Result.Success)
     //         {
-    //             string responseText = request.downloadHandler.text;
-    //             Debug.Log($"✅ Predicted data saved successfully! Response: {responseText}");
+    //             Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
     //         }
     //         else
     //         {
@@ -663,39 +785,65 @@ public class Analytics : MonoBehaviour
     //     }
     // }
 
-
+    // TRIAL
     public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
     {
         Debug.Log($"🔍 Checking existing predictions for {month}...");
 
-        // Step 1: Get existing predictions before saving
-        // string jwtToken = GetJWTToken();
-
-
-        string folderpath = Application.dataPath;
+        // Step 1: Read user credentials from file
+        string folderpath = UnityEngine.Application.dataPath;
         string savePath = Path.Combine(folderpath, "UserData");
         string userDataPath = Path.Combine(savePath, "userInfo.json");
         string jsonContent = File.ReadAllText(userDataPath);
         JObject PlayerId = JObject.Parse(jsonContent);
         string userid = PlayerId["userId"]?.ToString();
         string jwtToken = PlayerId["token"]?.ToString();
+
+        if (string.IsNullOrEmpty(userid) || string.IsNullOrEmpty(jwtToken))
+        {
+            Debug.LogError("❌ User ID or JWT token is missing.");
+            yield break;
+        }
+
+        // Step 2: Check if prediction for the same month already exists
+        using (UnityWebRequest checkRequest = UnityWebRequest.Get($"{baseUrl}/predicted-cost"))
+        {
+            checkRequest.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            yield return checkRequest.SendWebRequest();
+
+            if (checkRequest.result == UnityWebRequest.Result.Success)
+            {
+                JArray predictions = JArray.Parse(checkRequest.downloadHandler.text);
+                foreach (JObject prediction in predictions)
+                {
+                    if (prediction["predictedMonth"]?.ToString() == month)
+                    {
+                        Debug.Log($"⚠️ Prediction for {month} already exists. Skipping save.");
+                        yield break;
+                    }
+                }
+            }
+            // else
+            // {
+            //     Debug.LogError($"⚠️ Failed to fetch predictions. HTTP Code: {checkRequest.responseCode}, Error: {checkRequest.error}");
+            // }
+        }
+
+        // Step 3: Save new prediction if no existing entry for the month
         Debug.Log($"📦 Saving new prediction for {month}...");
 
         JObject predictedData = new JObject
-            {
-                {"user", userid},
-                { "predictedAmount", predictedAmount },
-                { "predictedConsumption", predictedConsumption },
-                { "predictedMonth", month },
-
-
-
-            };
+        {
+            { "user", userid },
+            { "predictedAmount", predictedAmount },
+            { "predictedConsumption", predictedConsumption },
+            { "predictedMonth", month }
+        };
 
         string jsonPayload = predictedData.ToString();
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonPayload);
 
-        using (UnityWebRequest request = new UnityWebRequest("https://aqua-quest-backend-deployment.onrender.com/api/chart/save-prediction", "POST"))
+        using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/chart/save-prediction", "POST"))
         {
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
@@ -710,15 +858,16 @@ public class Analytics : MonoBehaviour
             {
                 Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
             }
-            else
-            {
-                Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
-                Debug.LogError($"Server Response: {request.downloadHandler.text}");
-            }
+            // else
+            // {
+            //     Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+            //     Debug.LogError($"Server Response: {request.downloadHandler.text}");
+            // }
         }
     }
 
 
+  
 
 }
 

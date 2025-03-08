@@ -61,38 +61,47 @@ public class SendData
     /// <summary>
     /// Sends the JSON data (PlayerStats + PlayerInventory) to an API.
     /// </summary>
-    public static async void SendGameData()
+    public static async void SendGameData(GameObject LoadingScreen)
     {
-        JObject playerStats = GetPlayerStats();
-        JObject playerInventory = GetPlayerInventory();
-        JObject playerID = GetPlayer();
-
-        if (playerStats == null || playerInventory == null || playerID == null)
+        try
         {
+            JObject playerStats = GetPlayerStats();
+            JObject playerInventory = GetPlayerInventory();
+            JObject playerID = GetPlayer();
+
+            if (playerStats == null || playerInventory == null || playerID == null)
+            {
             Debug.LogError("Failed to retrieve game data.");
             return;
-        }
+            }
 
-        string userId = playerID["userId"]?.ToString();
-        string token = playerID["token"]?.ToString();
+            string userId = playerID["userId"]?.ToString();
+            string token = playerID["token"]?.ToString();
 
-        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
-        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
             Debug.LogError("User authentication details are missing.");
             return;
-        }
+            }
 
-        JObject payload = new JObject
-        {
+            JObject payload = new JObject
+            {
             { "PlayerStats", playerStats },
             { "PlayerInventory", playerInventory }
-        };
+            };
 
-        string jsonData = payload.ToString();
-        Debug.Log("Sending Game Data: " + jsonData);
+            string jsonData = payload.ToString();
+            Debug.Log("Sending Game Data: " + jsonData);
 
-        // Use async/await to send the API request
-        await SendToAPI(jsonData, token, userId);
+            // Use async/await to send the API request
+            LoadingScreen.SetActive(true);
+            await SendToAPI(jsonData, token, userId);
+            LoadingScreen.SetActive(false);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"An exception occurred while sending game data: {ex.Message}");
+        }
     }
 
     /// <summary>
@@ -125,7 +134,7 @@ public class SendData
     }
 
 
-    public static async void GetPlayerData()
+    public static async void GetPlayerData(GameObject LoadingScreen)
     {
         try
         {
@@ -151,6 +160,7 @@ public class SendData
                 // request.SetRequestHeader("Authorization", "Bearer " + token); // Send JWT token in headers
 
                 var operation = request.SendWebRequest();
+                LoadingScreen.SetActive(true);
                 while (!operation.isDone)
                 {
                     await Task.Yield();
@@ -158,6 +168,7 @@ public class SendData
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
+                    LoadingScreen.SetActive(false);
                     string jsonResponse = request.downloadHandler.text;
 
                     // Deserialize JSON correctly
@@ -165,7 +176,7 @@ public class SendData
 
                     // Assign data to static class
                     Static.FetchData.SetData(playerData.PlayerInventory, playerData.PlayerStats);
-
+                    Debug.Log(jsonResponse);
                     GenerateFileAfterLogin.SaveData();
                 }
                 else
