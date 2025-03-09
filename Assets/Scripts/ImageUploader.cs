@@ -126,171 +126,42 @@
 
 
 // UPLOAD SA WEB (LATEST CODE)
-using System.Collections;
-using System.IO;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Networking;
-using SFB;
-
-public class ImageUploader : MonoBehaviour
-{
-    public Button UploadButton;
-    // public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
-    public string uploadURL = "http://localhost:5000/api/waterBill/upload";
-
-    public GameObject UploadPanel;
-    public GameObject BillPanel;
-
-    public BillManager billManager;
-    public Analytics analytics;
-
-    void Start()
-    {
-        UploadButton.onClick.AddListener(OpenFileDialog);
-    }
-
-    void OpenFileDialog()
-    {
-        var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
-        string[] paths = StandaloneFileBrowser.OpenFilePanel("Select an Images", "", extensions, true);
-
-        if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]))
-        {
-            StartCoroutine(UploadImage(paths[0]));
-        }
-    }
-
-   IEnumerator UploadImage(string filePath)
-    {
-        string jwtToken = PlayerPrefs.GetString("jwtToken", "");
-        if (string.IsNullOrEmpty(jwtToken))
-        {
-            Debug.LogError("JWT token is missing. Please log in.");
-            yield break;
-        }
-
-        byte[] imageData = File.ReadAllBytes(filePath);
-        string fileName = Path.GetFileName(filePath);
-        WWWForm form = new WWWForm();
-        form.AddBinaryData("imageUrl", imageData, fileName, "image/png");
-
-        using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
-        {
-            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-
-            yield return request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                string responseText = request.downloadHandler.text;
-                Debug.Log("Upload successful: " + responseText);
-
-                UploadPanel.SetActive(false);
-                BillPanel.SetActive(true);
-
-                if (responseText.Contains("Duplicate bill detected"))
-                {
-                    Debug.LogWarning("Duplicate bill detected! " + responseText);
-                }
-                else
-                {
-                    StartCoroutine(billManager.FetchBills());
-                }
-
-                if (analytics != null)
-                {
-                    StartCoroutine(analytics.FetchLatestBill());
-                    StartCoroutine(analytics.FetchMonthlyConsumption());
-                    StartCoroutine(analytics.FetchMonthlyCost());
-                    StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
-                    StartCoroutine(analytics.FetchPredictedMonthlyCost());
-                    
-                }
-                else
-                {
-                    Debug.LogError("Analytics script reference is missing.");
-                }
-
-                WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
-                if (fetchTips != null)
-                {
-                    StartCoroutine(fetchTips.FetchWaterSavingTips()); 
-                }
-
-                SaveWaterBill saveWaterBiill = FindObjectOfType<SaveWaterBill>();
-                if (saveWaterBiill != null)
-                {
-                    StartCoroutine(saveWaterBiill.SavePredictedVsActual()); 
-                    StartCoroutine(saveWaterBiill.FetchMonthlySavedCost()); 
-                }
-            }
-            else
-            {
-                Debug.LogError("Upload failed: " + request.error);
-            }
-        }
-    }
-
-
-
-}
-
-
-
-// MAKE SURE TO ATTACH LOADING SCREEN IN THE INSPECTOR BEFORE UNCOMMENTING THIS ======================================
-// MOBILE UPLOAD (WORKING)
-
-
 // using System.Collections;
 // using System.IO;
 // using UnityEngine;
 // using UnityEngine.UI;
 // using UnityEngine.Networking;
+// using SFB;
 
 // public class ImageUploader : MonoBehaviour
 // {
 //     public Button UploadButton;
 //     public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
+//     // public string uploadURL = "http://localhost:5000/api/waterBill/upload";
 
 //     public GameObject UploadPanel;
-//     public GameObject AnalyticsPanel1;
+//     public GameObject BillPanel;
 
 //     public BillManager billManager;
 //     public Analytics analytics;
-//     public GameObject LoadingScreen;
 
 //     void Start()
 //     {
-//         UploadButton.onClick.AddListener(PickImageFromGallery);
+//         UploadButton.onClick.AddListener(OpenFileDialog);
 //     }
 
-//     void PickImageFromGallery()
+//     void OpenFileDialog()
 //     {
-//         NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-        
-//         if (permission == NativeGallery.Permission.ShouldAsk)
-//         {
-//             permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
-//         }
+//         var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg", "jpeg") };
+//         string[] paths = StandaloneFileBrowser.OpenFilePanel("Select an Images", "", extensions, true);
 
-//         if (permission == NativeGallery.Permission.Granted)
+//         if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]))
 //         {
-//             NativeGallery.GetImageFromGallery((path) =>
-//             {
-//                 if (!string.IsNullOrEmpty(path))
-//                 {
-//                     StartCoroutine(UploadImage(path));
-//                 }
-//             }, "Select an image");
-//         }
-//         else
-//         {
-//             Debug.LogError("Permission denied.");
+//             StartCoroutine(UploadImage(paths[0]));
 //         }
 //     }
 
-//     IEnumerator UploadImage(string filePath)
+//    IEnumerator UploadImage(string filePath)
 //     {
 //         string jwtToken = PlayerPrefs.GetString("jwtToken", "");
 //         if (string.IsNullOrEmpty(jwtToken))
@@ -307,16 +178,16 @@ public class ImageUploader : MonoBehaviour
 //         using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
 //         {
 //             request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
-            // LoadingScreen.SetActive(true);
+
 //             yield return request.SendWebRequest();
 
 //             if (request.result == UnityWebRequest.Result.Success)
 //             {
 //                 string responseText = request.downloadHandler.text;
 //                 Debug.Log("Upload successful: " + responseText);
-                // LoadingScreen.SetActive(false);
+
 //                 UploadPanel.SetActive(false);
-//                 AnalyticsPanel1.SetActive(true);
+//                 BillPanel.SetActive(true);
 
 //                 if (responseText.Contains("Duplicate bill detected"))
 //                 {
@@ -332,20 +203,150 @@ public class ImageUploader : MonoBehaviour
 //                     StartCoroutine(analytics.FetchLatestBill());
 //                     StartCoroutine(analytics.FetchMonthlyConsumption());
 //                     StartCoroutine(analytics.FetchMonthlyCost());
+//                     StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
+//                     StartCoroutine(analytics.FetchPredictedMonthlyCost());
+                    
 //                 }
 //                 else
 //                 {
 //                     Debug.LogError("Analytics script reference is missing.");
 //                 }
+
+//                 WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+//                 if (fetchTips != null)
+//                 {
+//                     StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+//                 }
+
+//                 SaveWaterBill saveWaterBiill = FindObjectOfType<SaveWaterBill>();
+//                 if (saveWaterBiill != null)
+//                 {
+//                     StartCoroutine(saveWaterBiill.SavePredictedVsActual()); 
+//                     StartCoroutine(saveWaterBiill.FetchMonthlySavedCost()); 
+//                 }
 //             }
 //             else
 //             {
 //                 Debug.LogError("Upload failed: " + request.error);
-                // LoadingScreen.SetActive(false);
 //             }
 //         }
 //     }
+
+
+
 // }
+
+
+
+// MAKE SURE TO ATTACH LOADING SCREEN IN THE INSPECTOR BEFORE UNCOMMENTING THIS ======================================
+// MOBILE UPLOAD (WORKING)
+
+
+using System.Collections;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+
+public class ImageUploader : MonoBehaviour
+{
+    public Button UploadButton;
+    public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
+
+    public GameObject UploadPanel;
+    public GameObject AnalyticsPanel1;
+
+    public BillManager billManager;
+    public Analytics analytics;
+    public GameObject LoadingScreen;
+
+    void Start()
+    {
+        UploadButton.onClick.AddListener(PickImageFromGallery);
+    }
+
+    void PickImageFromGallery()
+    {
+        NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
+        
+        if (permission == NativeGallery.Permission.ShouldAsk)
+        {
+            permission = NativeGallery.RequestPermission(NativeGallery.PermissionType.Read, NativeGallery.MediaType.Image);
+        }
+
+        if (permission == NativeGallery.Permission.Granted)
+        {
+            NativeGallery.GetImageFromGallery((path) =>
+            {
+                if (!string.IsNullOrEmpty(path))
+                {
+                    StartCoroutine(UploadImage(path));
+                }
+            }, "Select an image");
+        }
+        else
+        {
+            Debug.LogError("Permission denied.");
+        }
+    }
+
+    IEnumerator UploadImage(string filePath)
+    {
+        string jwtToken = PlayerPrefs.GetString("jwtToken", "");
+        if (string.IsNullOrEmpty(jwtToken))
+        {
+            Debug.LogError("JWT token is missing. Please log in.");
+            yield break;
+        }
+
+        byte[] imageData = File.ReadAllBytes(filePath);
+        string fileName = Path.GetFileName(filePath);
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("imageUrl", imageData, fileName, "image/png");
+
+        using (UnityWebRequest request = UnityWebRequest.Post(uploadURL, form))
+        {
+            request.SetRequestHeader("Authorization", "Bearer " + jwtToken);
+            LoadingScreen.SetActive(true);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                // 
+                string responseText = request.downloadHandler.text;
+                Debug.Log("Upload successful: " + responseText);
+                LoadingScreen.SetActive(false);
+                UploadPanel.SetActive(false);
+                AnalyticsPanel1.SetActive(true);
+
+                if (responseText.Contains("Duplicate bill detected"))
+                {
+                    Debug.LogWarning("Duplicate bill detected! " + responseText);
+                }
+                else
+                {
+                    StartCoroutine(billManager.FetchBills());
+                }
+
+                if (analytics != null)
+                {
+                    StartCoroutine(analytics.FetchLatestBill());
+                    StartCoroutine(analytics.FetchMonthlyConsumption());
+                    StartCoroutine(analytics.FetchMonthlyCost());
+                }
+                else
+                {
+                    Debug.LogError("Analytics script reference is missing.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Upload failed: " + request.error);
+                LoadingScreen.SetActive(false);
+            }
+        }
+    }
+}
 
 
 

@@ -20,5 +20,5 @@ MonoBehaviour:
   Effect: Speed
   Price: 0
   UnitEffectInt: 500
-  UnitEffectFloat: 1.5
+  UnitEffectFloat: 1.3
   Icon: {fileID: -6131116935533179465, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}

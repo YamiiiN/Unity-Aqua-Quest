@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0cf1a7f1ad0a4bb16a60794df7207, type: 3}
+  m_Name: Kabibe ng Apoy at Tubig
+  m_EditorClassIdentifier: 
+  ItemID: 
+  Type: Relic
+  Name: Kabibe ng Apoy at Tubig
+  Description: PukPok mo sa ulo ng kapit bahay mong nag sasayang tubig
+  Effect: Health
+  Price: 345
+  UnitEffectInt: 290
+  UnitEffectFloat: 0
+  Icon: {fileID: -912796535622668178, guid: 9dbd5c900edb32f459664333a9ecb78e, type: 3}

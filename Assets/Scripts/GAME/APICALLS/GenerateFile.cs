@@ -5,7 +5,7 @@ public static class GenerateFileAfterLogin
 {
     private static string inventoryPath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
     private static string statsPath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
-
+    private static string userInfoPath = Path.Combine(Application.persistentDataPath, "userInfo.json");
     public static void SaveData()
     {
         if (Static.FetchData.PlayerInventory != null)
@@ -43,6 +43,11 @@ public static class GenerateFileAfterLogin
         {
             File.Delete(statsPath);
             Debug.Log("❌ Player Stats file deleted.");
+        }
+        if (File.Exists(userInfoPath))
+        {
+            File.Delete(userInfoPath);
+            Debug.Log("❌ User Info file deleted.");
         }
     }
 }

@@ -2040,6 +2040,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dffbb72b9a895a342a511cb2f32038e6, type: 3}
+--- !u!114 &555042154 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6985644815426453677, guid: 3110c7e8aaa5bc44b8e179ac711db1a5, type: 3}
+  m_PrefabInstance: {fileID: 1422516069537246143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &561073238
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,6 +6230,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 699655510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.46}
+--- !u!1 &1950020837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7745639118761250865, guid: 3110c7e8aaa5bc44b8e179ac711db1a5, type: 3}
+  m_PrefabInstance: {fileID: 1422516069537246143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1960078582
 GameObject:
   m_ObjectHideFlags: 0
@@ -6988,6 +7004,18 @@ PrefabInstance:
       propertyPath: failedUI
       value: 
       objectReference: {fileID: 1450606725}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: PotionButton
+      value: 
+      objectReference: {fileID: 555042154}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: healthPotion
+      value: 
+      objectReference: {fileID: 11400000, guid: c5bab6c4b63fa1b43bb9a2f9af028576, type: 2}
+    - target: {fileID: 4641446324775625632, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
+      propertyPath: AnimHolderOfButton
+      value: 
+      objectReference: {fileID: 1950020837}
     - target: {fileID: 7859345637394716866, guid: a061acf4192b00241bc3a740127ed0dd, type: 3}
       propertyPath: shootButton
       value: 

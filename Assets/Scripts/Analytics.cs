@@ -322,6 +322,8 @@ public class Analytics : MonoBehaviour
     public BarChart predictedConsumptionChart;
     public LineChart predictedCostChart;
 
+    public GameObject LoadingScreen;
+
     public Button AnalyticsButton;
 
     private float predictedMonthlyCostKo;
@@ -791,9 +793,9 @@ public class Analytics : MonoBehaviour
         Debug.Log($"🔍 Checking existing predictions for {month}...");
 
         // Step 1: Read user credentials from file
-        string folderpath = UnityEngine.Application.dataPath;
-        string savePath = Path.Combine(folderpath, "UserData");
-        string userDataPath = Path.Combine(savePath, "userInfo.json");
+        string folderpath = UnityEngine.Application.persistentDataPath;
+        
+        string userDataPath = Path.Combine(folderpath, "userInfo.json");
         string jsonContent = File.ReadAllText(userDataPath);
         JObject PlayerId = JObject.Parse(jsonContent);
         string userid = PlayerId["userId"]?.ToString();
@@ -852,19 +854,22 @@ public class Analytics : MonoBehaviour
             request.method = UnityWebRequest.kHttpVerbPOST;
 
             Debug.Log("⏳ Sending HTTP request...");
+            LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
+                LoadingScreen.SetActive(false);
                 Debug.Log($"✅ Predicted data saved successfully! Response: {request.downloadHandler.text}");
                 StartCoroutine(FetchPredictedMonthlyConsumption());
                 StartCoroutine(FetchPredictedMonthlyCost());
             }
-            // else
-            // {
-            //     Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
-            //     Debug.LogError($"Server Response: {request.downloadHandler.text}");
-            // }
+            else
+            {
+                LoadingScreen.SetActive(false);
+                Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+                Debug.LogError($"Server Response: {request.downloadHandler.text}");
+            }
         }
     }
 

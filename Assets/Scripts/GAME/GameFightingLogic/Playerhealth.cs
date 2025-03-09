@@ -8,20 +8,31 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private int defense;
     public Image healthBar;
-    private string jsonFilePath;
+    private string jsonFilePath, inventoryfilepath;
     private Animator anim;
-    
-    public GameObject failedUI;
+    public Potion healthPotion;
+    public GameObject failedUI, AnimHolderOfButton;
+
+    public Button PotionButton;
 
     void Start()
     {
         jsonFilePath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
+        inventoryfilepath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
         LoadPlayerStats();  // Load from JSON
         anim = GetComponent<Animator>();
 
         currentHealth = maxHealth;
+        if(!CheckIfPotionIsInInventory())
+        {
+            AnimHolderOfButton.SetActive(false);
+        }
+        
         UpdateHealthBar();
+        PotionButton.GetComponent<Image>().sprite = healthPotion.Icon;
+
+        PotionButton.onClick.AddListener(OnPotionUseAddHealth);
     }
 
     public void TakeDamage(int damage)
@@ -79,30 +90,42 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void CheckIfPotionIsInInventory()
+    private bool CheckIfPotionIsInInventory()
     {
         // Check if a specific potion is in the player's inventory
-        string potionName = "Health Potion";
-        PlayerData playerData = SaveManager.LoadData();
-
-        if (playerData != null && playerData.Potions != null)
+        string potionName = healthPotion.Name;
+        if (File.Exists(inventoryfilepath))
         {
-           
-            foreach(string potion in playerData.Potions)
+            string json = File.ReadAllText(inventoryfilepath);
+            PlayerData inventory = JsonUtility.FromJson<PlayerData>(json);
+
+            foreach (var item in inventory.Potions)
             {
-                if (potion == potionName)
+                if (item == potionName)
                 {
-                    // Potion is in the inventory
-                    Debug.Log("Player has a Health Potion!");
-                    break;
+                    return true;
                 }
             }
         }
+        else
+        {
+            Debug.LogError("PlayerInventory.json not found!");
+        }
+        
+        return false;
+
     }
 
 
     void OnPotionUseAddHealth()
     {
         
+        if (CheckIfPotionIsInInventory())
+        {
+            AnimHolderOfButton.GetComponent<Animator>().SetTrigger("ImPressed");
+            currentHealth += healthPotion.HealthEffect;
+            currentHealth = Mathf.Min(currentHealth, maxHealth); // Cap at maxHealth
+            UpdateHealthBar();
+        }
     }
 }

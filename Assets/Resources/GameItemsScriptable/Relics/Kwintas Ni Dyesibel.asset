@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemID: 0
   Type: Relic
   Name: Kwintas Ni Dyesibel
-  Description: pangpakunat ng balat pangontra baha
+  Description: Di ko din alam ginagaw nito basta kay dyesibel daw
   Effect: Health
   Price: 150
   UnitEffectInt: 200
