@@ -18,11 +18,13 @@ public class FetchAllRewards : MonoBehaviour
     // private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
     void Start()
     {
+        string pathh = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        
         string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
-        LetsFetchEmAll(getRewardsLink);
+        LetsFetchEmAll(getRewardsLink, pathh);
     }
 
-    private async Task LetsFetchEmAll(string lenk)
+    private async Task LetsFetchEmAll(string lenk, string pathh)
     {
         try
         {
@@ -46,7 +48,7 @@ public class FetchAllRewards : MonoBehaviour
                     Debug.Log(request.downloadHandler.text);
                     var rewards = JObject.Parse(request.downloadHandler.text);
                     Debug.Log(rewards);
-                    TheExecutioner(rewards);
+                    TheExecutioner(rewards, pathh);
                     // ReusableVar.response = rewards;
 
                 }
@@ -58,10 +60,10 @@ public class FetchAllRewards : MonoBehaviour
         }
     }
 
-    private void TheExecutioner(JObject response)
+    private void TheExecutioner(JObject response, string pathh)
     {
         
-        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText);
+        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh);
     }
 }
 
