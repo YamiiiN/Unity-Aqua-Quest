@@ -49,8 +49,6 @@ public class FetchAllRewards : MonoBehaviour
                     var rewards = JObject.Parse(request.downloadHandler.text);
                     Debug.Log(rewards);
                     TheExecutioner(rewards, pathh);
-                    // ReusableVar.response = rewards;
-
                 }
             }
         }
@@ -62,7 +60,6 @@ public class FetchAllRewards : MonoBehaviour
 
     private void TheExecutioner(JObject response, string pathh)
     {
-        
         uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh);
     }
 }
@@ -70,5 +67,4 @@ public class FetchAllRewards : MonoBehaviour
 public class uselessclass
 {
     static public PopulateRewards populateRewards = new PopulateRewards();
-   
 }

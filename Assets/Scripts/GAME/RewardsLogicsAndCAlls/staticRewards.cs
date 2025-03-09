@@ -17,7 +17,7 @@ public class ReusableVar
 
         private static string savePath = Path.Combine(folderpath, "UserData");
         public static string userDataPath = Path.Combine(savePath, "userInfo.json");
-        static string jsonContent = File.ReadAllText(Static.Links.userDataPath);
+        static string jsonContent = File.ReadAllText(userDataPath);
         static JObject playerInfo = JObject.Parse(jsonContent);
         public static string userId = playerInfo["userId"]?.ToString();
 
