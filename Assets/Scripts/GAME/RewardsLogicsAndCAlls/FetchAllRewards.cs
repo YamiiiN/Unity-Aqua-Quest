@@ -15,7 +15,7 @@ public class FetchAllRewards : MonoBehaviour
     public TMP_Text rewText, msgText, QuantityText;
     public GameObject claimButton, loadingPanel;
     
-    // private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
+    private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
     void Start()
     {
         string pathh = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
