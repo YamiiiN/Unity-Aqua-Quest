@@ -3,12 +3,17 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using System.Text;
+using TMPro;
 using System;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class FetchAllRewards : MonoBehaviour
 {
+    public GameObject button, ClaimPanel;
+    public Transform parent;
+    public TMP_Text rewText, msgText, QuantityText;
+    public GameObject claimButton;
     
     // private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
     void Start()
@@ -41,6 +46,9 @@ public class FetchAllRewards : MonoBehaviour
                     Debug.Log(request.downloadHandler.text);
                     var rewards = JObject.Parse(request.downloadHandler.text);
                     Debug.Log(rewards);
+                    TheExecutioner(rewards);
+                    // ReusableVar.response = rewards;
+
                 }
             }
         }
@@ -49,4 +57,16 @@ public class FetchAllRewards : MonoBehaviour
             Debug.LogError($"An error occurred: {ex.Message}");
         }
     }
+
+    private void TheExecutioner(JObject response)
+    {
+        
+        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText);
+    }
+}
+
+public class uselessclass
+{
+    static public PopulateRewards populateRewards = new PopulateRewards();
+   
 }

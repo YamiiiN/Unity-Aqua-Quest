@@ -8,8 +8,8 @@ using System;
 using Newtonsoft.Json;
 public class ReusableVar
 {
-         public static string baseUrl = "http://localhost:5000/api/rewards/";
-        // public static string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/rewards/";
+        //  public static string baseUrl = "http://localhost:5000/api/rewards/";
+        public static string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/rewards/";
         public static string PlayerStatsPath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
         public static string PlayerInven = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
@@ -23,6 +23,7 @@ public class ReusableVar
 
         public static string InventoryKo= File.ReadAllText(PlayerInven);
         public static JObject InventoryNya = JObject.Parse(InventoryKo);
+        public static JObject response;
 
         
         // public static string userId = 
