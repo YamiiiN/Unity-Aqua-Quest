@@ -9,10 +9,8 @@ public class Static
         public static string PlayerStatsPath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
         public static string PlayerInventory = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
-        private static string folderpath = Application.dataPath;
+        public static string userDataPath = Path.Combine(Application.persistentDataPath, "userInfo.json");
 
-        private static string savePath = Path.Combine(folderpath, "UserData");
-        public static string userDataPath = Path.Combine(savePath, "userInfo.json");
 
 
 

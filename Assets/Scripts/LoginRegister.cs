@@ -37,16 +37,15 @@ public class LoginRegister : MonoBehaviour
     // BAGO
     void Start()
     {
-        string projectFolderPath = Application.dataPath; // Points to "Assets" folder in the project
-        string saveFolder = Path.Combine(projectFolderPath, "UserData"); // Create a subfolder
-
-        if (!Directory.Exists(saveFolder))
-        {
-            Directory.CreateDirectory(saveFolder); // Ensure the folder exists
-        }
-
-        userInfoFilePath = Path.Combine(saveFolder, "userInfo.json");
+        userInfoFilePath = Path.Combine(Application.persistentDataPath, "userInfo.json");
         Debug.Log("User info file path: " + userInfoFilePath);
+
+        // Ensure the file exists
+        if (!File.Exists(userInfoFilePath))
+        {
+            File.WriteAllText(userInfoFilePath, "{}"); // Creates an empty JSON object
+            // Debug.Log("Created new userInfo.json file");
+        }
 
         // Load user info when the game starts
         LoadUserInfo();

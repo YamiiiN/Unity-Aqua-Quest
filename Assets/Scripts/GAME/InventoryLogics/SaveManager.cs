@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using Unity.Android.Gradle.Manifest;
+// using Unity.Android.Gradle.Manifest;
 [System.Serializable]
 public class PlayerData
 {

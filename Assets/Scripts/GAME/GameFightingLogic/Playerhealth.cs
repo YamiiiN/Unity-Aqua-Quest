@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private int defense;
     public Image healthBar;
-    private string jsonFilePath;
+    private string jsonFilePath, inventoryfilepath;
     private Animator anim;
     public Potion healthPotion;
     public GameObject failedUI, AnimHolderOfButton;
@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         jsonFilePath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
+        inventoryfilepath = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
         LoadPlayerStats();  // Load from JSON
         anim = GetComponent<Animator>();
@@ -93,15 +94,24 @@ public class PlayerHealth : MonoBehaviour
     {
         // Check if a specific potion is in the player's inventory
         string potionName = healthPotion.Name;
-        PlayerData playerData = SaveManager.LoadData();
-
-        foreach(string pots in SaveManager.LoadData().Relics)
+        if (File.Exists(inventoryfilepath))
         {
-            if(pots == potionName)
+            string json = File.ReadAllText(inventoryfilepath);
+            PlayerData inventory = JsonUtility.FromJson<PlayerData>(json);
+
+            foreach (var item in inventory.Potions)
             {
-                return true;
+                if (item == potionName)
+                {
+                    return true;
+                }
             }
         }
+        else
+        {
+            Debug.LogError("PlayerInventory.json not found!");
+        }
+        
         return false;
 
     }

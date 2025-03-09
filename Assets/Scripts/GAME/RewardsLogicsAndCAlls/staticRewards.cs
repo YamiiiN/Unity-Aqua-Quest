@@ -13,10 +13,7 @@ public class ReusableVar
         public static string PlayerStatsPath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
         public static string PlayerInven = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
 
-        private static string folderpath = Application.dataPath;
-
-        private static string savePath = Path.Combine(folderpath, "UserData");
-        public static string userDataPath = Path.Combine(savePath, "userInfo.json");
+        public static string userDataPath = Path.Combine(Application.persistentDataPath, "userInfo.json");
         static string jsonContent = File.ReadAllText(userDataPath);
         static JObject playerInfo = JObject.Parse(jsonContent);
         public static string userId = playerInfo["userId"]?.ToString();

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6e0cf1a7f1ad0a4bb16a60794df7207, type: 3}
-  m_Name: Kwintas Ni Dyesibel
+  m_Name: Kalasag ng Alon
   m_EditorClassIdentifier: 
-  ItemID: 0
+  ItemID: 
   Type: Relic
-  Name: Kwintas Ni Dyesibel
-  Description: Di ko din alam ginagaw nito basta kay dyesibel daw
-  Effect: Health
-  Price: 150
-  UnitEffectInt: 200
+  Name: Kalasag ng Alon
+  Description: "Parang tubig\u2014sinasalo ang lahat ng damage pero hindi nadudurog."
+  Effect: Defense
+  Price: 220
+  UnitEffectInt: 160
   UnitEffectFloat: 0
-  Icon: {fileID: -5181676846401248682, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}
+  Icon: {fileID: -4955446055327747547, guid: da8399c389742764e96e40501f8eaa17, type: 3}

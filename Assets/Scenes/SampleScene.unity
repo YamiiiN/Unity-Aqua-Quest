@@ -8619,51 +8619,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301748654}
   m_CullTransparentMesh: 1
---- !u!1 &302430172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 302430174}
-  - component: {fileID: 302430173}
-  m_Layer: 0
-  m_Name: PdfObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &302430173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302430172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebbca12c2c06dea45990d392ed386fa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadingScreen: {fileID: 1334757052}
---- !u!4 &302430174
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302430172}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1206.5133, y: 409.87305, z: 0.40830678}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &304311404
 GameObject:
   m_ObjectHideFlags: 1
@@ -11361,9 +11316,10 @@ MonoBehaviour:
   UploadButton: {fileID: 1509943111}
   uploadURL: https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload
   UploadPanel: {fileID: 463825751}
-  BillPanel: {fileID: 8806630934044065832}
+  AnalyticsPanel1: {fileID: 8806630934044065832}
   billManager: {fileID: 906950321}
   analytics: {fileID: 2006221409}
+  LoadingScreen: {fileID: 1334757052}
 --- !u!4 &422599090
 Transform:
   m_ObjectHideFlags: 0
@@ -38020,9 +37976,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8683148e7538cf4408032354ffeac75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ME: {fileID: 1982502789}
   LOGIN: {fileID: 1229503700}
   HOME: {fileID: 1757771363}
-  ME: {fileID: 1982502789}
 --- !u!224 &1372060841 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7066922307933793046, guid: f0e5385b7d908514aa3362c120a35fce, type: 3}
@@ -57126,7 +57082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbca12c2c06dea45990d392ed386fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadingScreen: {fileID: 5941327977176688905, guid: 41586c864d8e19541b0865a77f6a16d3, type: 3}
+  LoadingScreen: {fileID: 1334757052}
 --- !u!1 &2000718171
 GameObject:
   m_ObjectHideFlags: 0
@@ -57367,6 +57323,7 @@ MonoBehaviour:
   costChart: {fileID: 234528430}
   predictedConsumptionChart: {fileID: 1003894945}
   predictedCostChart: {fileID: 563579739}
+  LoadingScreen: {fileID: 1334757052}
   AnalyticsButton: {fileID: 1639682499}
 --- !u!114 &2006221410
 MonoBehaviour:
@@ -57389,6 +57346,7 @@ MonoBehaviour:
   costChart: {fileID: 234528430}
   predictedConsumptionChart: {fileID: 1003894945}
   predictedCostChart: {fileID: 563579739}
+  LoadingScreen: {fileID: 1334757052}
   AnalyticsButton: {fileID: 1639682499}
 --- !u!1 &2023740251
 GameObject:
@@ -63502,11 +63460,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8434125572269458313, guid: e681c9e43b4e345479191d39c3a2215f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -331.81213
+      value: -331.812
       objectReference: {fileID: 0}
     - target: {fileID: 8434125572269458313, guid: e681c9e43b4e345479191d39c3a2215f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -47.817688
+      value: -47.817627
       objectReference: {fileID: 0}
     - target: {fileID: 8624999823707827502, guid: e681c9e43b4e345479191d39c3a2215f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -65550,7 +65508,6 @@ SceneRoots:
   - {fileID: 906950320}
   - {fileID: 2006221408}
   - {fileID: 310660574}
-  - {fileID: 302430174}
   - {fileID: 1094989057}
   - {fileID: 1748225679}
   - {fileID: 717643579}

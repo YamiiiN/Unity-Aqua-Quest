@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6e0cf1a7f1ad0a4bb16a60794df7207, type: 3}
-  m_Name: Kwintas Ni Dyesibel
+  m_Name: Bota ni Habagat
   m_EditorClassIdentifier: 
-  ItemID: 0
+  ItemID: 
   Type: Relic
-  Name: Kwintas Ni Dyesibel
-  Description: Di ko din alam ginagaw nito basta kay dyesibel daw
-  Effect: Health
-  Price: 150
-  UnitEffectInt: 200
-  UnitEffectFloat: 0
-  Icon: {fileID: -5181676846401248682, guid: 9c41b7c4b45977e4b8af8dd2bb0d1f13, type: 3}
+  Name: Bota ni Habagat
+  Description: Kahit anong baha, tuloy ang lakad. Parang commuter na may pasok kahit
+  Effect: Speed
+  Price: 300
+  UnitEffectInt: 0
+  UnitEffectFloat: 2
+  Icon: {fileID: -6075797210234314880, guid: c0d6c5f25fa0b1f489909fbb01cc4e40, type: 3}
