@@ -790,7 +790,7 @@ public class Analytics : MonoBehaviour
     // TRIAL
     public IEnumerator SavePredictedData(string month, float predictedConsumption, float predictedAmount)
     {
-        Debug.Log($"🔍 Checking existing predictions for {month}...");
+        // Debug.Log($"🔍 Checking existing predictions for {month}...");
 
         // Step 1: Read user credentials from file
         string folderpath = UnityEngine.Application.persistentDataPath;
@@ -832,7 +832,7 @@ public class Analytics : MonoBehaviour
         }
 
         // Step 3: Save new prediction if no existing entry for the month
-        Debug.Log($"📦 Saving new prediction for {month}...");
+        // Debug.Log($"📦 Saving new prediction for {month}...");
 
         JObject predictedData = new JObject
         {
@@ -853,7 +853,7 @@ public class Analytics : MonoBehaviour
             request.downloadHandler = new DownloadHandlerBuffer();
             request.method = UnityWebRequest.kHttpVerbPOST;
 
-            Debug.Log("⏳ Sending HTTP request...");
+            // Debug.Log("⏳ Sending HTTP request...");
             LoadingScreen.SetActive(true);
             yield return request.SendWebRequest();
 
@@ -867,8 +867,8 @@ public class Analytics : MonoBehaviour
             else
             {
                 LoadingScreen.SetActive(false);
-                Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
-                Debug.LogError($"Server Response: {request.downloadHandler.text}");
+                // Debug.LogError($"❌ Failed to save predicted data. HTTP Code: {request.responseCode}, Error: {request.error}");
+                Debug.LogWarning($"Server Response: {request.downloadHandler.text}");
             }
         }
     }

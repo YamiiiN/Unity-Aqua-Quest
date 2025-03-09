@@ -333,10 +333,25 @@ public class ImageUploader : MonoBehaviour
                     StartCoroutine(analytics.FetchLatestBill());
                     StartCoroutine(analytics.FetchMonthlyConsumption());
                     StartCoroutine(analytics.FetchMonthlyCost());
+                    StartCoroutine(analytics.FetchPredictedMonthlyConsumption());
+                    StartCoroutine(analytics.FetchPredictedMonthlyCost());
                 }
                 else
                 {
                     Debug.LogError("Analytics script reference is missing.");
+                }
+
+                WaterSavingTipsManager fetchTips = FindObjectOfType<WaterSavingTipsManager>();
+                if (fetchTips != null)
+                {
+                    StartCoroutine(fetchTips.FetchWaterSavingTips()); 
+                }
+
+                SaveWaterBill saveWaterBiill = FindObjectOfType<SaveWaterBill>();
+                if (saveWaterBiill != null)
+                {
+                    StartCoroutine(saveWaterBiill.SavePredictedVsActual()); 
+                    StartCoroutine(saveWaterBiill.FetchMonthlySavedCost()); 
                 }
             }
             else
