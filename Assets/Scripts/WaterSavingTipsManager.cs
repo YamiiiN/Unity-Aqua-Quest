@@ -11,8 +11,8 @@ public class WaterSavingTipsManager : MonoBehaviour
 {
     public GameObject tipPrefab, LoadingScreen;
     public Transform contentPanel;
-    // private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
-    private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
+    private string apiUrl = "http://localhost:5000/api/chart/water-saving-tips";
+    // private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/chart/water-saving-tips";
 
     void Start()
     {
@@ -88,6 +88,27 @@ public class WaterSavingTipsManager : MonoBehaviour
         }
     }
 
+    // private void PopulateTips(string[] tips)
+    // {
+    //     foreach (Transform child in contentPanel)
+    //     {
+    //         Destroy(child.gameObject);
+    //     }
+
+    //     foreach (string tip in tips)
+    //     {
+    //         GameObject newTip = Instantiate(tipPrefab, contentPanel);
+    //         TextMeshProUGUI textComponent = newTip.GetComponentInChildren<TextMeshProUGUI>();
+
+    //         if (textComponent)
+    //             textComponent.text = tip;
+    //         else
+    //             Debug.LogError("tipPrefab does not have a TextMeshProUGUI component!");
+    //     }
+
+    //     StartCoroutine(AdjustContentPanelHeight());
+    // }
+
     private void PopulateTips(string[] tips)
     {
         foreach (Transform child in contentPanel)
@@ -98,6 +119,8 @@ public class WaterSavingTipsManager : MonoBehaviour
         foreach (string tip in tips)
         {
             GameObject newTip = Instantiate(tipPrefab, contentPanel);
+
+            // Get the TextMeshProUGUI inside the TipPanel
             TextMeshProUGUI textComponent = newTip.GetComponentInChildren<TextMeshProUGUI>();
 
             if (textComponent)
@@ -108,7 +131,6 @@ public class WaterSavingTipsManager : MonoBehaviour
 
         StartCoroutine(AdjustContentPanelHeight());
     }
-
     private IEnumerator AdjustContentPanelHeight()
     {
         yield return new WaitForEndOfFrame();

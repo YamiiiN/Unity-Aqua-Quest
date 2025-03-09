@@ -136,8 +136,8 @@ using SFB;
 public class ImageUploader : MonoBehaviour
 {
     public Button UploadButton;
-    public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
-    // public string uploadURL = "http://localhost:5000/api/waterBill/upload";
+    // public string uploadURL = "https://aqua-quest-backend-deployment.onrender.com/api/waterBill/upload";
+    public string uploadURL = "http://localhost:5000/api/waterBill/upload";
 
     public GameObject UploadPanel;
     public GameObject BillPanel;

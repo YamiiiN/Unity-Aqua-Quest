@@ -10,11 +10,11 @@ using System.Text;
 
 public class SaveWaterBill : MonoBehaviour
 {
-    // private string saveUrl = "http://localhost:5000/api/save/save-waterbill";
-    // private string baseUrl = "http://localhost:5000/api/save";
+    private string saveUrl = "http://localhost:5000/api/save/save-waterbill";
+    private string baseUrl = "http://localhost:5000/api/save";
 
-    private string saveUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save/save-waterbill";
-    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save";
+    // private string saveUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save/save-waterbill";
+    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save";
 
     public BarChart savedChart; 
 

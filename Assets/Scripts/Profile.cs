@@ -178,8 +178,8 @@ using UnityEngine.UI;
 
 public class Profile : MonoBehaviour
 {
-    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
-    // private string baseUrl = "http://localhost:5000/api";
+    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    private string baseUrl = "http://localhost:5000/api";
 
     public TMP_InputField FirstNameInput;
     public TMP_InputField LastNameInput;
