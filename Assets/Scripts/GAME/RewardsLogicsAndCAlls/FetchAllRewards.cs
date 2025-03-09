@@ -13,7 +13,7 @@ public class FetchAllRewards : MonoBehaviour
     public GameObject button, ClaimPanel;
     public Transform parent;
     public TMP_Text rewText, msgText, QuantityText;
-    public GameObject claimButton;
+    public GameObject claimButton, loadingPanel;
     
     // private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
     void Start()
@@ -21,10 +21,10 @@ public class FetchAllRewards : MonoBehaviour
         string pathh = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
         
         string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
-        LetsFetchEmAll(getRewardsLink, pathh);
+        LetsFetchEmAll(getRewardsLink, pathh, loadingPanel);
     }
 
-    private async Task LetsFetchEmAll(string lenk, string pathh)
+    private async Task LetsFetchEmAll(string lenk, string pathh, GameObject LoadingPanel)
     {
         try
         {
@@ -36,19 +36,22 @@ public class FetchAllRewards : MonoBehaviour
 
                 while (!opp.isDone)
                 {
+                    LoadingPanel.SetActive(true);
                     await Task.Yield();
                 }
 
                 if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
                 {
                     Debug.LogError(request.error);
+                    LoadingPanel.SetActive(false);
                 }
                 else
                 {
                     Debug.Log(request.downloadHandler.text);
                     var rewards = JObject.Parse(request.downloadHandler.text);
                     Debug.Log(rewards);
-                    TheExecutioner(rewards, pathh);
+                    TheExecutioner(rewards, pathh, LoadingPanel);
+                    LoadingPanel.SetActive(false);
                 }
             }
         }
@@ -58,9 +61,9 @@ public class FetchAllRewards : MonoBehaviour
         }
     }
 
-    private void TheExecutioner(JObject response, string pathh)
+    private void TheExecutioner(JObject response, string pathh, GameObject LoadingPanel)
     {
-        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh);
+        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh, LoadingPanel);
     }
 }
 

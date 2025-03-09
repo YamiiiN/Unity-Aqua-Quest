@@ -4,12 +4,13 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Networking;
 using System.IO;
+using Unity.Loading;
 public class PopulateRewards : MonoBehaviour
 {
     
 
 
-    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity, string pathh)
+    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity, string pathh, GameObject LoadingPanel)
     {
         // Button claimButton = claim?.GetComponent<Button>();
 
@@ -50,7 +51,7 @@ public class PopulateRewards : MonoBehaviour
                                 quantity.text = Mathf.FloorToInt(savedCost).ToString();
                             }
                             
-                            ListenerRemover(claim, savedCost, save["_id"].ToString(), pathh);
+                            ListenerRemover(claim, savedCost, save["_id"].ToString(), pathh, LoadingPanel);
                         });
 
 
@@ -84,16 +85,16 @@ public class PopulateRewards : MonoBehaviour
         return "You didn't save any money this month. Please do your best to follow our provided tips next time ;)  But don't worry! We're here to help you save more money next month! ";
     }
 
-    private void ListenerRemover(GameObject claim, float torecieve, string saveID, string pathh)
+    private void ListenerRemover(GameObject claim, float torecieve, string saveID, string pathh, GameObject LoadingPanel)
     {
         Button claimButton = claim?.GetComponent<Button>();
         claimButton.onClick.RemoveAllListeners();
-        claimButton.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID, pathh));
+        claimButton.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID, pathh, LoadingPanel));
         // claim.onClick.RemoveAllListeners();
         // claim.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID));
     }
 
-    private void AddWoinsAndCallApi(float toRecieve, string RewardId, string pathh)
+    private void AddWoinsAndCallApi(float toRecieve, string RewardId, string pathh, GameObject LoadingPanel)
     {
         int wholeNumber = Mathf.FloorToInt(toRecieve);
         string claimRewardAPI = ReusableVar.baseUrl + "claimReward/" + RewardId;
@@ -106,11 +107,14 @@ public class PopulateRewards : MonoBehaviour
 
                 var operation = request.SendWebRequest();
 
-                while (!operation.isDone) { }
+                while (!operation.isDone) { 
+                    LoadingPanel.SetActive(true);
+                }
 
                 if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
                 {
                     Debug.LogError("Error: " + request.error);
+                    LoadingPanel.SetActive(false);
                 }
                 else
                 {
@@ -131,8 +135,12 @@ public class PopulateRewards : MonoBehaviour
                         }
 
                         Debug.Log("Successfully updated woins!");
+                        LoadingPanel.SetActive(false);
+                        SendData.SendGameData(LoadingPanel);
+                        
                     }
                 }
+
 
 
             }
