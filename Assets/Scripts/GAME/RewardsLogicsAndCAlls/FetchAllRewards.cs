@@ -70,4 +70,5 @@ public class FetchAllRewards : MonoBehaviour
 public class uselessclass
 {
     static public PopulateRewards populateRewards = new PopulateRewards();
+    
 }
