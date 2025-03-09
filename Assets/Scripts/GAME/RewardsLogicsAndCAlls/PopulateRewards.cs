@@ -9,7 +9,7 @@ public class PopulateRewards : MonoBehaviour
     
 
 
-    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity)
+    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity, string pathh)
     {
         // Button claimButton = claim?.GetComponent<Button>();
 
@@ -50,7 +50,7 @@ public class PopulateRewards : MonoBehaviour
                                 quantity.text = Mathf.FloorToInt(savedCost).ToString();
                             }
                             
-                            ListenerRemover(claim, savedCost, save["_id"].ToString());
+                            ListenerRemover(claim, savedCost, save["_id"].ToString(), pathh);
                         });
 
 
@@ -84,16 +84,16 @@ public class PopulateRewards : MonoBehaviour
         return "You didn't save any money this month. Please do your best to follow our provided tips next time ;)  But don't worry! We're here to help you save more money next month! ";
     }
 
-    private void ListenerRemover(GameObject claim, float torecieve, string saveID)
+    private void ListenerRemover(GameObject claim, float torecieve, string saveID, string pathh)
     {
         Button claimButton = claim?.GetComponent<Button>();
         claimButton.onClick.RemoveAllListeners();
-        claimButton.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID));
+        claimButton.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID, pathh));
         // claim.onClick.RemoveAllListeners();
         // claim.onClick.AddListener(() => AddWoinsAndCallApi(torecieve, saveID));
     }
 
-    private void AddWoinsAndCallApi(float toRecieve, string RewardId)
+    private void AddWoinsAndCallApi(float toRecieve, string RewardId, string pathh)
     {
         int wholeNumber = Mathf.FloorToInt(toRecieve);
         string claimRewardAPI = ReusableVar.baseUrl + "claimReward/" + RewardId;
@@ -116,6 +116,8 @@ public class PopulateRewards : MonoBehaviour
                 {
                     if(wholeNumber >= 0)
                     {
+                        
+                        
                         JObject inventory = ReusableVar.InventoryNya;
                         if (inventory.ContainsKey("Woins"))
                         {
