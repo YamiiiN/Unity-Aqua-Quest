@@ -7,7 +7,7 @@ public class Shooting : MonoBehaviour
     public Button shootButton;
 
     public Transform firePoint;
-    public float bulletSpeed;
+    private float bulletSpeed = 20f;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created

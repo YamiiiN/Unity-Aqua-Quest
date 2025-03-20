@@ -13,14 +13,29 @@ public class FetchAllRewards : MonoBehaviour
     public GameObject button, ClaimPanel;
     public Transform parent;
     public TMP_Text rewText, msgText, QuantityText;
-    public GameObject claimButton, loadingPanel;
-    
-    private string claimRewardLink = ReusableVar.baseUrl + "claimReward/" + ReusableVar.userId;
+    public GameObject claimButton, loadingPanel, buttonHolder;
+    private  string PlayerInven;
+
+    private  string userDataPath;
+    static string jsonContent;
+    private JObject playerInfo;
+    private string userId;
+
+    private string InventoryKo;
+    private JObject InventoryNya;
+    private string claimRewardLink;
     void Start()
     {
         string pathh = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
-        
-        string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + ReusableVar.userId;
+        PlayerInven = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");
+        userDataPath = Path.Combine(Application.persistentDataPath, "userInfo.json");
+        jsonContent = File.ReadAllText(userDataPath);
+        playerInfo = JObject.Parse(jsonContent);
+        InventoryKo= File.ReadAllText(PlayerInven);
+        InventoryNya = JObject.Parse(InventoryKo);
+        userId = playerInfo["userId"]?.ToString();
+        string getRewardsLink = ReusableVar.baseUrl + "getRewards/" + userId;
+        claimRewardLink = ReusableVar.baseUrl + "claimReward/" + userId;
         LetsFetchEmAll(getRewardsLink, pathh, loadingPanel);
     }
 
@@ -63,7 +78,7 @@ public class FetchAllRewards : MonoBehaviour
 
     private void TheExecutioner(JObject response, string pathh, GameObject LoadingPanel)
     {
-        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh, LoadingPanel);
+        uselessclass.populateRewards.ButtonSpawner(response, button, parent, msgText, ClaimPanel, claimButton, QuantityText, pathh, LoadingPanel, buttonHolder);
     }
 }
 

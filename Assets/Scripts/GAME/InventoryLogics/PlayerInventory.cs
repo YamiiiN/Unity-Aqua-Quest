@@ -225,7 +225,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         PlayerData data = SaveManager.LoadData();
-        if (data != null && data.Potions.Length > 0)
+        if (data != null && data.Relics.Length > 0)
         {
             PlayerInventoryPotion.Clear(); // Make sure list is cleared before adding new items
 

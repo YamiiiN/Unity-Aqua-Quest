@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Login : MonoBehaviour
 {
-    private string apiUrl = "http://localhost:5000/api/login";  // Change this to your API URL
+    private string apiUrl = "https://aqua-quest-backend-deployment.onrender.com/api/login";  // Change this to your API URL
 
     // Public method to call on button click
     public void OnLoginButtonClick()

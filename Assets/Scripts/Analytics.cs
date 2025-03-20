@@ -7,7 +7,7 @@
 
 // public class Analytics : MonoBehaviour
 // {
-//     private string baseUrl = "http://localhost:5000/api"; 
+//     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
 
 //     public TMP_Text DateText;
 //     public TMP_Text ConsumptionText;
@@ -118,7 +118,7 @@
 
 // public class Analytics : MonoBehaviour
 // {
-//     private string baseUrl = "http://localhost:5000/api"; 
+//     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
 //     public TMP_Text DateText;
 //     public TMP_Text ConsumptionText;
 //     public TMP_Text CostText;
@@ -309,8 +309,8 @@ using System.IO;
 
 public class Analytics : MonoBehaviour
 {
-    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
-    private string baseUrl = "http://localhost:5000/api";
+    private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api"; 
+    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
     public BarChart predictedAllConsumptionChart;
     public LineChart predictedAllCostChart;
     public TMP_Text DateText;

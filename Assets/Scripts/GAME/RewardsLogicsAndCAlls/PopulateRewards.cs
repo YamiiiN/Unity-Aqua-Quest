@@ -10,13 +10,21 @@ public class PopulateRewards : MonoBehaviour
     
 
 
-    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity, string pathh, GameObject LoadingPanel)
+    public void ButtonSpawner(JObject saves, GameObject button, Transform parent, TMP_Text msgholder, GameObject panel, GameObject claim, TMP_Text quantity, string pathh, GameObject LoadingPanel, GameObject ClaimButtonHolder)
     {
         // Button claimButton = claim?.GetComponent<Button>();
 
         
         if (saves.TryGetValue("saves", out JToken savesArray) && savesArray is JArray array)
         {
+            if(array.Count == 0)
+            {
+                // Debug.LogWarning("No saves found in the array.");
+                msgholder.text = "NOTHING TO CLAIM";
+                panel.SetActive(false);
+                ClaimButtonHolder.SetActive(false);
+                return;
+            }
             foreach (var save in array)
             {
                 var buttonClone = Instantiate(button, parent);
@@ -79,7 +87,7 @@ public class PopulateRewards : MonoBehaviour
         if (cost >= 0)
         {
             panel.SetActive(true);
-            return $" KUDOS!  Thank you for following our tips! You've saved an incredible ${cost:F2}—that's a huge win!  Keep up the amazing work, and let's continue making a difference together! ";
+            return $" KUDOS!  Thank you for following our tips! You've saved an incredible PHP{cost:F2}—that's a huge win!  Keep up the amazing work, and let's continue making a difference together! ";
         }
         panel.SetActive(false);
         return "You didn't save any money this month. Please do your best to follow our provided tips next time ;)  But don't worry! We're here to help you save more money next month! ";
@@ -137,8 +145,11 @@ public class PopulateRewards : MonoBehaviour
                         Debug.Log("Successfully updated woins!");
                         LoadingPanel.SetActive(false);
                         SendData.SendGameData(LoadingPanel);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
                         
                     }
+                    LoadingPanel.SetActive(false);
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
                 }
 
 

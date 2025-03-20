@@ -7,7 +7,7 @@ using System.Linq; // Required for array operations
 
 public class BuyLogic : MonoBehaviour
 {
-    public TMP_Text Price, Name, Woins;
+    public TMP_Text Price, Name, Woins, PotionIdentifier;
     private string filepath;
 
     void Start()
@@ -43,13 +43,20 @@ public class BuyLogic : MonoBehaviour
         string itemName = Name.text;
 
         // Check if the player can afford the item
+        
         if (balance >= price)
         {
             balance -= price;  // Deduct price
             data.Woins = balance; // Update balance in data object
+            Debug.Log(PotionIdentifier.text+"wewe");
+
+            if(PotionIdentifier.text == "Health Effect: " && !data.Potions.Contains(itemName))
+            {
+                data.Potions = data.Potions.Append(itemName).ToArray();
+            }
 
             // Add the item if not already owned
-            if (!data.Relics.Contains(itemName))  
+            if (!data.Relics.Contains(itemName) && PotionIdentifier.text != "Health Effect: ")  
             {
                 data.Relics = data.Relics.Append(itemName).ToArray(); // Append item to array
             }

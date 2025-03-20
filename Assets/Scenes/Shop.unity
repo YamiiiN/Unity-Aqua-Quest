@@ -481,6 +481,7 @@ MonoBehaviour:
   Price: {fileID: 1064402227}
   Name: {fileID: 1595257992}
   Woins: {fileID: 1074407239}
+  PotionIdentifier: {fileID: 872609221}
 --- !u!1 &117363299
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,3 +6905,4 @@ SceneRoots:
   - {fileID: 1215436589}
   - {fileID: 1190301338}
   - {fileID: 117363301}
+  - {fileID: 1158974952}

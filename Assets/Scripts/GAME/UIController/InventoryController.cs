@@ -8,6 +8,7 @@ public class InventoryController : MonoBehaviour
         OnRelic();
     }
     public GameObject AttributesButtons;
+    // public GameObject Potions;
     public void OnPotion()
     {
         // RelicInventory.SetActive(false);

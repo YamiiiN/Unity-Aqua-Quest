@@ -5,7 +5,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 public class PDFDownloader : MonoBehaviour
 {
-    // private string pdfUrl = "http://localhost:5000/api/pdf/download"; // ✅ Use your backend API URL
+    // private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
 private string pdfUrl = "https://aqua-quest-backend-deployment.onrender.com/api/pdf/download"; // ✅ Use your backend API URL
 public GameObject LoadingScreen;
 private string userDataPath;
@@ -34,21 +34,6 @@ private string userDataPath;
             yield break;
         }
 
-        // string filePath;
-
-        // ✅ Detect platform and set the correct Downloads folder
-        // if (Application.platform == RuntimePlatform.Android)
-        // {
-        //     filePath = Path.Combine("/storage/emulated/0/Downloads", "User_Report.pdf"); // Android Download folder
-        // }
-        // else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
-        // {
-        //     filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads", "User_Report.pdf"); // Windows Download folder
-        // }
-        // else
-        // {
-        //     filePath = Path.Combine(Application.persistentDataPath, "User_Report.pdf"); // Fallback
-        // }
 
         UnityWebRequest request = UnityWebRequest.Get(pdfUrl);
         request.SetRequestHeader("Authorization", "Bearer " + token);

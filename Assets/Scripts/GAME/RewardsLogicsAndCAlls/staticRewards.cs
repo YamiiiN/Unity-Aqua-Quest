@@ -8,7 +8,7 @@ using System;
 using Newtonsoft.Json;
 public class ReusableVar
 {
-        //  public static string baseUrl = "http://localhost:5000/api/rewards/";
+        //  public static string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/rewards/";
         public static string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/rewards/";
         public static string PlayerStatsPath = Path.Combine(Application.persistentDataPath, "PlayerStats.json");
         public static string PlayerInven = Path.Combine(Application.persistentDataPath, "PlayerInventory.json");

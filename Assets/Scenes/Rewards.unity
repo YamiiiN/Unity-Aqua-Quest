@@ -1136,6 +1136,7 @@ MonoBehaviour:
   QuantityText: {fileID: 2007614326}
   claimButton: {fileID: 1198388816}
   loadingPanel: {fileID: 1627475415}
+  buttonHolder: {fileID: 1505288770}
 --- !u!1001 &1294985016
 PrefabInstance:
   m_ObjectHideFlags: 0
