@@ -14,7 +14,7 @@ using System.IO;
 public class LoginRegister : MonoBehaviour
 {
     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
-    // private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api";
+    // private string baseUrl = "http://localhost:5000/api";
     private string PythonbaseUrl = "https://aquaquest-flask.onrender.com/api";
 
     public TMP_InputField FirstNameInput;
@@ -31,6 +31,8 @@ public class LoginRegister : MonoBehaviour
     public GameObject ProfilePanel;
     public GameObject BillPanel;
     public GameObject LoadingScreen;
+
+    public TMP_Dropdown GenderDropdown;
 
     private string userInfoFilePath;
 
@@ -78,14 +80,18 @@ public class LoginRegister : MonoBehaviour
             yield break;
         }
 
+        string selectedGender = GenderDropdown.options[GenderDropdown.value].text;
+
         string jsonData = JsonUtility.ToJson(new RegisterData()
         {
             first_name = FirstNameInput.text,
             last_name = LastNameInput.text,
             address = AddressInput.text,
             email = EmailInput.text,
-            password = PasswordInput.text
+            password = PasswordInput.text,
+            gender = selectedGender
         });
+
 
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
@@ -475,6 +481,8 @@ public class LoginRegister : MonoBehaviour
         PasswordInput.text = "";
     }
 
+    
+
     [System.Serializable]
     public class RegisterData
     {
@@ -483,6 +491,7 @@ public class LoginRegister : MonoBehaviour
         public string address;
         public string email;
         public string password;
+        public string gender;
     }
 
     [System.Serializable]
