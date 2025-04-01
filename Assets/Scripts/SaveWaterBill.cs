@@ -170,7 +170,10 @@ public class SaveWaterBill : MonoBehaviour
     private string saveUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save/save-waterbill";
     private string baseUrl = "https://aqua-quest-backend-deployment.onrender.com/api/save";
 
-    public BarChart savedChart; 
+
+    // private string saveUrl = "http://localhost:5000/api/save/save-waterbill";
+    // private string baseUrl = "http://localhost:5000/api/save";
+    public BarChart savedChart;
 
     private void Start()
     {
@@ -218,7 +221,7 @@ public class SaveWaterBill : MonoBehaviour
                 PlayerPrefs.SetFloat("lastSavedConsumption", savedRecord.savedConsumption);
                 PlayerPrefs.Save();
 
-                StartCoroutine(FetchMonthlySavedCost()); 
+                StartCoroutine(FetchMonthlySavedCost());
             }
             else
             {
@@ -273,7 +276,7 @@ public class SaveWaterBill : MonoBehaviour
                     }
                     else
                     {
-                        months.Add(rawMonth); 
+                        months.Add(rawMonth);
                     }
                     costs.Add(float.Parse(entry["totalCost"].ToString(), CultureInfo.InvariantCulture));
                 }
